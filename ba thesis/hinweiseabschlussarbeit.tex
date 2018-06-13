@@ -1,0 +1,226 @@
+%!TEX encoding = UTF-8 Unicode
+% ================================================================================
+\documentclass[
+    fontsize=12pt,
+    headings=small,
+    parskip=half,           % Ersetzt manuelles Setzen von parskip/parindent.
+    bibliography=totoc,
+    numbers=noenddot,       % Entfernt den letzten Punkt der Kapitelnummern.
+    open=any,               % Kapitel kann auf jeder Seite beginnen.
+%   final                   % Entfernt alle todonotes und den Entwurfstempel.
+    ]{scrreprt}
+% ===================================Praeambel==================================
+\include{stylesvs}
+% ===================================Dokument===================================
+
+\title{Entwicklung eines Visualisierungswerkzeuges zur Demons-
+tration datenschutzfreundlicher Dokumentspeicherdienste}
+\author{David Kirchhausen Monteiro}
+
+\begin{document}
+
+\begin{titlepage}% {{{
+\includegraphics[width=6.8cm]{../pic/up-uhh-logo-u-2010-u-farbe-u-rgb.pdf}
+\begin{center}\Large
+	% Universität Hamburg \par
+	% Fachbereich Informatik
+	\vfill
+	Bachelorarbeit
+	\vfill
+	\makeatletter
+	{\Large\textsf{\textbf{\@title}}\par}
+	\makeatother
+	\vfill
+	vorgelegt von
+	\par\bigskip
+	\makeatletter
+	{\@author} \par
+	\makeatother
+	geb. am 24. Januar 1994 in Hildesheim \par
+	Matrikelnummer 6530927 \par
+	Studiengang Software-System-Entwicklung
+	\vfill
+	\makeatletter
+	eingereicht am {\@date}
+	\makeatother
+	\vfill
+	Betreuer: Maximilian Blochberger, M. Sc. \par
+	Erstgutachter: Prof. Dr.-Ing. Hannes Federrath \par
+	Zweitgutachter: Tilmann Stehle, M. Sc.
+\end{center}
+\ifoptionfinal{}{}
+\end{titlepage}% }}}
+\chapter*{Aufgabenstellung}
+
+Im  Zuge  dieser  Bachelorarbeit  soll  ein  einfacher  Dokumentenspeicher  entwickelt  werden,
+welcher möglichst viele Nutzerdaten erfasst und speichert. Die erfassten Daten sollen anschaulich
+grafisch dargestellt werden können. Weiter sollen verschiedene Szenarien entwickelt werden,
+welche aufzeigen wie eine mögliche Benutzung des Services mit und ohne der Verwendung
+von datenschutzfreundlichen Methoden zum Anonymisieren von Daten aussieht. Anhand der
+Szenarien soll eine grafische Auswertung Unterschiede zwischen anonymisierten Daten und
+nicht anonymisierten Daten visuell sichtbar machen und die Unterschiede somit leicht zugänglich
+sein.
+
+\chapter*{Zusammenfassung}
+\begin{enumerate}
+\item Dokumentenspeicherdienste Vorteile (Problemstellung erläutern)
+\item Mögliche Datenschutz unfreundliche Aspekte von gängigen Anbietern (Problemstellung erläutern)
+\item Entwicklung des Dokumentenspeichers und der Visualisierung zur deutlich Veranschaulichung von Potentiellen Unterschieden zwischen der Verwendung von Datenschutz freundlichen Methoden zum Anonymisieren oder nicht. (Bearbeitung der Problemstellung)
+\begin{enumerate}
+\item Implementation des Dokumentenspeichers
+\item Implementation der API zur Datenübergabe 
+\item Implementation des Visualisierungswerkzeug
+\item Darstellung der Szenarien zur Benutzung des Visualisierungswerkzeug
+\end{enumerate}
+\end{enumerate}
+
+\tableofcontents
+
+\chapter{Einleitung}
+
+\section{Problemstellung}
+
+Dokumentenspeicherdienste sind nützliche Alltagsgegenstände, welche für private sowie kommerzielle Nutzer meist unverzichtbar sind. Sie bieten nicht nur den Speicherplatz für wichtige Dateien der Nutzer sondern stellen auch die Sicherheit der Dateien sicher und machen sie global jeder zeit verfügbar. Durch die große Datensammlung dieser Dienstleister machen sie sich nicht nur selbst zu lukrativen Zielen von gezielten Angriffen (Yahoo, UBER etc.), jedoch auch die Dienstleister selber können die Daten auswerten und meitere Meta-Daten über die Nutzer sammeln und weiter verwenden. Vor allem private Nutzer sind meist gar nicht über die Risiken und das Missbrauchspotenziale aufgeklärt, welche die Verwendung solcher Dienstleistungen mit sich bringen. Methoden zur Verschlüsselung oder des Anonymisieren von Daten sind Benutzern meist nicht bekannt, werden von den Dienstanbietern nicht angeboten oder sind schwer umzusetzen da es einen meist erheblichen Aufwand für die Benutzer bedeutet und Kompetenzen erfordert welche diese Benutzer nicht besitzen. Um genau die Risiken und Missbrauchspotenziale aufzuzeigen wird im Zuge dieser Arbeit ein Dokumentenspeicherdienst entwickelt, welcher prinzipiell alle Meta-Daten der Nutzer sammelt und diese in einer visuellen Darstellung zusammen fasst. Zur Implementation des Dokumentenspeichers wird dabei das Microsoft ASP.NET Core Framework verwendet. Das Framework wird benutzt um die Webbenutzeroberfläche sowie der Web-APIs des Dokumentenspeichers zu realisieren. Dazu wird das Javascript Framework Data-Driven Documents, i.d.R. d3.js genannt, zur Visualisierung der Daten verwendet. Der Dokumentenspeicher soll vor allem den Unterschied zwischen der Verwendung von Methoden zur Verschlüsselung oder des Anonymisieren von Daten visualisieren und verwaltet dazu zwei verschiedene Datensätze, wobei eine Datenmenge ohne, und eine Datenmenge mit der Verwendung von Methoden zur Verschlüsselung oder des Anonymisieren von Daten erzeugt wird. Der entstehende Unterschied der gesammelten Meta-Daten durch die verschiedenen Methoden führt dann zu einer Veränderung in der Visualisierung was dan den Effekt und Nutzen der Methoden deutlich sichtbar macht.  
+
+\begin{enumerate}
+\item Dokumentenspeicherdienste biten vorteile und Nachteile 
+\item möglichen Datenschutzmissbrauch durch Anbieter aufzeigen
+\item Mögliche Verfahren/Methoden zum Datenschutz des Klienten aufzeigen
+\item Implementation des Dokumentenspeicherdienstes als negativ Beispiel.
+\item Nutzung des Dokumentenspeichers zur Gegenüberstellung von Datenschutz freundlichen und Datenschutz unfreundlichen Methoden zum Anonymisieren von Daten
+\item Gewinn an Visuellen klar erkennbaren Unterschieden für z.B. nicht Informatiker zum besseren Verständnis des Problems
+\end{enumerate}
+
+\section{Problembearbeitung}
+\begin{enumerate}
+\item Implementation des Dokumentenspeichers 
+\begin{enumerate}
+\item Vorstellung des Dotnet Core Framework
+\item Implementierung der Api des Dokumentenspeichers
+\begin{enumerate}
+\item Api für die Verwendung des Dienstes
+\item Api für die Ausgabe der Relevanten Daten
+\end{enumerate}
+\item Vorstellung des D3.js Framework zur Visualisierung
+\item Vorstellung der verschiedenen Komponenten zur Visualisierung 
+\end{enumerate}
+\item Schematische Verwendung des Dokumentenspeichers für die Problembearbeitung
+\end{enumerate}
+
+\chapter{Grundlagen}
+
+\section{Terminologie}
+\begin{enumerate}
+\item Header
+\item Geolookup
+\item Headerfingerprint
+\end{enumerate}
+
+\section{Implementation des Dokumentenspeichers}
+
+Die Implementation des Dokumentenspeichers ist mit dem ASP.NET Core Framework von Microsoft umgesetzt worden. Das ASP.NET Core Framework basiert prinzipiell auf der Model-View-Controller Architektur und lässt sich auf den gängigsten Betriebssystemen mit Hilfe von Thirdparty Applikationen oder selbst in einem eigenen Prozess Hosten. 
+
+Der Dokumentenspeicher besteht aus einer Controller-Klasse welche die API's implementiert, einer Datenbankkontext Klasse welche den Datenbankzugriff steuert und den dazugehörigen Modell-Klassen welche das Datenbank-Scheme implementieren. 
+
+Für das erstellen der Datenbank und dem Datenbankschema wurde eine Code-First-approach gewählt, wobei das Entity Framework Core (EF Core) verwendet wird um die Datenbankmodelle zu verwalten. 
+Dabei wird eine Modell-Klasse erzeugt welche dem gewünschten Datenbankschema entspricht.
+
+\lstinputlisting[caption={Modell-Klasse}]{sourceCode/FileEntryItemA.cs}
+
+Die Propertys der FileEntryA-Klasse werden hier definiert und die entsprechenden Konstruktoren implementiert. 
+
+Dazu muss eine Kontext-Klasse erzeugt werden welche anhand dieses Modells eine DatenbankTabelle erzeugt. 
+
+\lstinputlisting[caption={Kontext-Klasse}]{sourceCode/FileEntryContext.cs}
+
+Hier erbt er FileEntryContext den DbContext des Entitiy Frameworks und erzeugt zwei DbSets jeweils von Typ FileEntryA und FileEntryB und implementiert die Getter und Setter dieser Datenbanken und setzt die ModelBuilder Entitiys zum erzeugen der Datenbanken.
+
+Es wurden zwei API-Schnittstellen für jede Datenbank implementiert. Zum einen eine Schnittstelle zum hochladen von Dateien und eine zum Abfragen der gesamten gespeicherten Datenmenge. Beim hochladen einer Datei werden die Header und Meta-Daten der Datei ausgewertet und in der Datenbank gespeichert. Die Auswertung beinhaltet das Erzeugen eines Headerfingerprint anhand der vorhandenen Header und eines Geolookup der IP-Adresse zur Ermittlung des Standortes von welchem die Datei hochgeladen wurde.
+
+\begin{lstlisting}[float,caption={Datenbank Schema für das Set A},label={lst:ggt}]
+[ID]                INT             IDENTITY (1, 1) NOT NULL,
+    [DateTime]          DATETIME2 (7)   NOT NULL,
+    [File]              VARBINARY (MAX) NULL,
+    [Filename]          NVARCHAR (MAX)  NULL,
+    [Headers]           NVARCHAR (MAX)  NULL,
+    [IPAddress]         NVARCHAR (MAX)  NULL,
+    [Size]              INT             NOT NULL,
+    [HeaderFingerprint] NVARCHAR (MAX)  NULL,
+    [City]              NVARCHAR (MAX)  NULL,
+    [Country]           NVARCHAR (MAX)  NULL,
+    [Isp]               NVARCHAR (MAX)  NULL,
+    [Lat]               REAL            NOT NULL,
+    [Lon]               REAL            NOT NULL,
+    [RegionName]        NVARCHAR (MAX)  NULL,
+    CONSTRAINT [PK_FileEntryA] PRIMARY KEY CLUSTERED ([ID] ASC)
+\end{lstlisting}
+
+In der Datenbank werden Informationen gespeichert. 
+\begin{enumerate}
+\item ID: Datenbank Index
+\item DateTime: Als Zeitstempel für das Hochladen der Datei
+\item File: die Datei selbst als Byte-Array
+\item Filename: Der Dateiname
+\item Headers: Ein String bestehend aus den Headern der Datei
+\item IPAddress: Die IP-Adresse von der die Datei hochgeladen wurde
+\item Size: Die Dateigröße in Byte
+\item HeaderFingerprint: Ein zusammenschluss aus ausgewähten Headern um eine möglichst eindeutige Signatur zu erzeugen
+\item City: Stadt aus welches die Datei hochgeladen wurde
+\item Country: Land aus welches die Datei hochgeladen wurde
+\item Isp: Internetanbierter des Benutzers der die Datei hochgeladen hat
+\item Lat: Breitengrad welcher mit den bekannten IP-Adresse assoziiert wird
+\item Lon: Längengrad welcher mit den bekannten IP-Adresse assoziiert wird
+\item RegionName: Region (Bundesland) aus welches die Datei hochgeladen wurde
+\end{enumerate}
+
+Die Schnittstelle zum abrufen der gesamten gespeicherten Daten erzeugt aus den vorhandenen Daten eine Json (Javascript Object Notation) Struktur und sendet diese als Antwort auf den HTTP-Request. 
+
+\section{Set A / Set B}
+
+Die angeführten DbSets FileEntryItemsA und FileEntryItemsB verfügen jeweils über Daten welche zu visualisieren sind. Dabei wird das DbSet FileEntryItemsA weiterhin als die ungeschützte Datenmenge beschrieben, da diese Datenbank nur mit Daten befüllt werden soll, bei welchen keine datenschutzfreundlichen Methoden zum anonymisieren verwendet wurden. Das DbSet FileEntryItemsB wird weiterhin als geschützte Datenmenge beschrieben, da ausschließlich Daten , welche mit Methoden zum anonymisieren hochgeladen wurden, verwendet werden sollen. Dabei sollte die geschützte und ungeschützte Datenmenge in den Zugrunde liegenden Datenmenge identisch sein und lediglich die Verwendung von Methoden zum anonymisieren die Datensätze unterscheiden, sodass die beiden Datenmenge miteinander in Hinblick auf den Effekt der Verwendung von Methoden zum anonymisieren untersucht werden können. 
+So wird im jedem beschriebenen Szenario zur Benutzung des Dokumentenspeichers angenommen das ein Benutzer eine Datei einmal ohne die Verwendung von Methoden zum anonymisieren in die ungeschützte Datenmenge via HTTP hochlädt und einmal mit der Verwendung von Methoden zum anonymisieren in die geschützte Datenmenge via HTTP hochlädt.
+
+Das führt dazu das bei der Auswertung der Datei durch die Verwendung oder nicht Verwendung von Methoden zum anonymisieren, die erfassten Meta-Daten sich nur durch die jeweilige Art der Methoden zum anonymisieren unterscheiden und die anschließenden Visualisierung nur diesen Unterschied darstellt und keine anderen Faktoren. 
+
+---
+
+Das Visualisierungswerkzeug besitzt zwei verschiedene Datenbanken welche Set A und Set B genannt werden. 
+Jedes Datenbank Set verfügt über eine eigene API und funktioniert identisch. Die angestrebte Benutzung sieht den Vergleich von Set A und Set B mit den gleichen Datensatz vor wobei die nicht Anwendung von Datenschutz freundlichen Methoden zum Anonymisieren bei Set A und die Anwendung von Datenschutz freundlichen Methoden zum Anonymisieren bei Set B. Set A ist somit die Basis und zeigt auf was ein Dokumentenspeicherdienst an Nutzerdaten sammeln kann und Set B kann im direkten Vergleich zeigen wie Datenschutz freundlichen Methoden zum Anonymisieren diese Daten verfälschen.
+
+\chapter{Hauptteil}
+
+\section{Darstellung: IP Tree Map und IP Google Map}
+
+Die Darstellung der gesammelten Daten über IP-Adressen Gruppierte Mengen.
+
+Erzeugen des Gruppierungen aus der gegebenen Datenmenge. Nutzung des d3.js zur Darstellung der Tree Map. Dabei wird jeder IP-Gruppierung eine andere Farbe zugeordnet. Die Farbliche Visuelle Darstellung macht zusammengehörige Dateien nach IP-Adresse direkt sichtbar. Mit Hilfe der IP-Adressen und eines Geolookup kann ein ungefährer Standpunkt (Lat/Lon) der IP-Adresse gewonnen werden. Anhand dieses Standpunkts kann auf der Google Map der Standpunkt von wo eine Datei hochgeladen wurde aufgezeigt werden. 
+
+Bei Verwendung von Methoden zur Anonymisieren der IP-Adresse wie z.B. das verwenden eines Proxys oder der Verwendung des TOR-Netzwerks, werden die IP-Adressen-Gruppierungen verzerrt, durch verzerrte Gruppen können Dateien eines Benutzer nicht mehr zu 100\% auf diesem Benutzer gemappt werden.
+
+\begin{enumerate}
+\item Proxy -> IP-Adresse wird maskiert
+\begin{enumerate}
+\item Falls der Proxy wird nur durch einen Benutzer benutzt -> keine Gruppenverzerrung 
+\item Proxy wird von mehreren Benutzern benutzt -> Gruppenverzerrung 
+\item Benutzer wechselt Proxy mehrfach -> Gruppierungen werden in der Gesamtheit verzerrt -> pro Benutzer mehre Gruppierungen 
+\end{enumerate}
+\item IP-Gruppierung über die Endknoten des Tor-Netzwerks 
+\begin{enumerate}
+\item Benutzer die den gleichen Endknoten benutzen werden gruppiert -> Gruppenverzerrung 
+\item Durch automatischen wechsle der Endknoten -> Pro Benutzer zwangsläufig mehrere Gruppen -> Gruppenverzerrung 
+\end{enumerate}
+\end{enumerate}
+
+\section{Darstellung: Headerfingerprinting}
+
+Der Headerfingerprint welcher beim hochladen der Datei erzeugt wird, wird nun verwendet um die Dateien jeweils  
+
+\section{Darstelung: Time Line}
+
+\chapter{Schluss}
+
+\section{Zusammenfassung der Ergebnisse}
+\section{kritische Bewertung des Ergebnisse}
+\section{neue Problemstellungen, Möglichkeiten zur Weiterführung der Arbeit}
+
+\end{document}
