@@ -78,103 +78,32 @@ sein.
 
 \chapter{Einleitung}
 
-\section{Problemstellung}
-
 Dokumentenspeicherdienste sind nützliche Alltagsgegenstände, welche für private sowie kommerzielle Nutzer meist unverzichtbar sind. Sie bieten nicht nur den Speicherplatz für wichtige Dateien der Nutzer sondern stellen auch die Sicherheit der Dateien sicher und machen sie global jeder zeit verfügbar. Durch die große Datensammlung dieser Dienstleister machen sie sich nicht nur selbst zu lukrativen Zielen von gezielten Angriffen (Yahoo, UBER etc.), jedoch auch die Dienstleister selber können die Daten auswerten und meitere Meta-Daten über die Nutzer sammeln und weiter verwenden. Vor allem private Nutzer sind meist gar nicht über die Risiken und das Missbrauchspotenziale aufgeklärt, welche die Verwendung solcher Dienstleistungen mit sich bringen. Methoden zur Verschlüsselung oder des Anonymisieren von Daten sind Benutzern meist nicht bekannt, werden von den Dienstanbietern nicht angeboten oder sind schwer umzusetzen da es einen meist erheblichen Aufwand für die Benutzer bedeutet und Kompetenzen erfordert welche diese Benutzer nicht besitzen. Um genau die Risiken und Missbrauchspotenziale aufzuzeigen wird im Zuge dieser Arbeit ein Dokumentenspeicherdienst entwickelt, welcher prinzipiell alle Meta-Daten der Nutzer sammelt und diese in einer visuellen Darstellung zusammen fasst. Zur Implementation des Dokumentenspeichers wird dabei das Microsoft ASP.NET Core Framework verwendet. Das Framework wird benutzt um die Webbenutzeroberfläche sowie der Web-APIs des Dokumentenspeichers zu realisieren. Dazu wird das Javascript Framework Data-Driven Documents, i.d.R. d3.js genannt, zur Visualisierung der Daten verwendet. Der Dokumentenspeicher soll vor allem den Unterschied zwischen der Verwendung von Methoden zur Verschlüsselung oder des Anonymisieren von Daten visualisieren und verwaltet dazu zwei verschiedene Datensätze, wobei eine Datenmenge ohne, und eine Datenmenge mit der Verwendung von Methoden zur Verschlüsselung oder des Anonymisieren von Daten erzeugt wird. Der entstehende Unterschied der gesammelten Meta-Daten durch die verschiedenen Methoden führt dann zu einer Veränderung in der Visualisierung was dan den Effekt und Nutzen der Methoden deutlich sichtbar macht.  
-
-\begin{enumerate}
-\item Dokumentenspeicherdienste biten vorteile und Nachteile 
-\item möglichen Datenschutzmissbrauch durch Anbieter aufzeigen
-\item Mögliche Verfahren/Methoden zum Datenschutz des Klienten aufzeigen
-\item Implementation des Dokumentenspeicherdienstes als negativ Beispiel.
-\item Nutzung des Dokumentenspeichers zur Gegenüberstellung von Datenschutz freundlichen und Datenschutz unfreundlichen Methoden zum Anonymisieren von Daten
-\item Gewinn an Visuellen klar erkennbaren Unterschieden für z.B. nicht Informatiker zum besseren Verständnis des Problems
-\end{enumerate}
-
-\section{Problembearbeitung}
-\begin{enumerate}
-\item Implementation des Dokumentenspeichers 
-\begin{enumerate}
-\item Vorstellung des Dotnet Core Framework
-\item Implementierung der Api des Dokumentenspeichers
-\begin{enumerate}
-\item Api für die Verwendung des Dienstes
-\item Api für die Ausgabe der Relevanten Daten
-\end{enumerate}
-\item Vorstellung des D3.js Framework zur Visualisierung
-\item Vorstellung der verschiedenen Komponenten zur Visualisierung 
-\end{enumerate}
-\item Schematische Verwendung des Dokumentenspeichers für die Problembearbeitung
-\end{enumerate}
 
 \chapter{Grundlagen}
 
 \section{Terminologie}
 \begin{enumerate}
-\item Header
-\item Geolookup
-\item Headerfingerprint
-\end{enumerate}
-
-\section{Implementation des Dokumentenspeichers}
-
-Die Implementation des Dokumentenspeichers ist mit dem ASP.NET Core Framework von Microsoft umgesetzt worden. Das ASP.NET Core Framework basiert prinzipiell auf der Model-View-Controller Architektur und lässt sich auf den gängigsten Betriebssystemen mit Hilfe von Thirdparty Applikationen oder selbst in einem eigenen Prozess Hosten. 
-
-Der Dokumentenspeicher besteht aus einer Controller-Klasse welche die API's implementiert, einer Datenbankkontext Klasse welche den Datenbankzugriff steuert und den dazugehörigen Modell-Klassen welche das Datenbank-Scheme implementieren. 
-
-Für das erstellen der Datenbank und dem Datenbankschema wurde eine Code-First-approach gewählt, wobei das Entity Framework Core (EF Core) verwendet wird um die Datenbankmodelle zu verwalten. 
-Dabei wird eine Modell-Klasse erzeugt welche dem gewünschten Datenbankschema entspricht.
-
-\lstinputlisting[caption={Modell-Klasse}]{sourceCode/FileEntryItemA.cs}
-
-Die Propertys der FileEntryA-Klasse werden hier definiert und die entsprechenden Konstruktoren implementiert. 
-
-Dazu muss eine Kontext-Klasse erzeugt werden welche anhand dieses Modells eine DatenbankTabelle erzeugt. 
-
-\lstinputlisting[caption={Kontext-Klasse}]{sourceCode/FileEntryContext.cs}
-
-Hier erbt er FileEntryContext den DbContext des Entitiy Frameworks und erzeugt zwei DbSets jeweils von Typ FileEntryA und FileEntryB und implementiert die Getter und Setter dieser Datenbanken und setzt die ModelBuilder Entitiys zum erzeugen der Datenbanken.
-
-Es wurden zwei API-Schnittstellen für jede Datenbank implementiert. Zum einen eine Schnittstelle zum hochladen von Dateien und eine zum Abfragen der gesamten gespeicherten Datenmenge. Beim hochladen einer Datei werden die Header und Meta-Daten der Datei ausgewertet und in der Datenbank gespeichert. Die Auswertung beinhaltet das Erzeugen eines Headerfingerprint anhand der vorhandenen Header und eines Geolookup der IP-Adresse zur Ermittlung des Standortes von welchem die Datei hochgeladen wurde.
-
-\begin{lstlisting}[float,caption={Datenbank Schema für das Set A},label={lst:ggt}]
-[ID]                INT             IDENTITY (1, 1) NOT NULL,
-    [DateTime]          DATETIME2 (7)   NOT NULL,
-    [File]              VARBINARY (MAX) NULL,
-    [Filename]          NVARCHAR (MAX)  NULL,
-    [Headers]           NVARCHAR (MAX)  NULL,
-    [IPAddress]         NVARCHAR (MAX)  NULL,
-    [Size]              INT             NOT NULL,
-    [HeaderFingerprint] NVARCHAR (MAX)  NULL,
-    [City]              NVARCHAR (MAX)  NULL,
-    [Country]           NVARCHAR (MAX)  NULL,
-    [Isp]               NVARCHAR (MAX)  NULL,
-    [Lat]               REAL            NOT NULL,
-    [Lon]               REAL            NOT NULL,
-    [RegionName]        NVARCHAR (MAX)  NULL,
-    CONSTRAINT [PK_FileEntryA] PRIMARY KEY CLUSTERED ([ID] ASC)
-\end{lstlisting}
-
-In der Datenbank werden Informationen gespeichert. 
+\item HTTP-Header
 \begin{enumerate}
-\item ID: Datenbank Index
-\item DateTime: Als Zeitstempel für das Hochladen der Datei
-\item File: die Datei selbst als Byte-Array
-\item Filename: Der Dateiname
-\item Headers: Ein String bestehend aus den Headern der Datei
-\item IPAddress: Die IP-Adresse von der die Datei hochgeladen wurde
-\item Size: Die Dateigröße in Byte
-\item HeaderFingerprint: Ein zusammenschluss aus ausgewähten Headern um eine möglichst eindeutige Signatur zu erzeugen
-\item City: Stadt aus welches die Datei hochgeladen wurde
-\item Country: Land aus welches die Datei hochgeladen wurde
-\item Isp: Internetanbierter des Benutzers der die Datei hochgeladen hat
-\item Lat: Breitengrad welcher mit den bekannten IP-Adresse assoziiert wird
-\item Lon: Längengrad welcher mit den bekannten IP-Adresse assoziiert wird
-\item RegionName: Region (Bundesland) aus welches die Datei hochgeladen wurde
+\item Teil des Hypertext Transfer Protocol (HTTP)
+\item Headerblock und Headerfeld nach RFC 2616(https://tools.ietf.org/html/rfc2616)
 \end{enumerate}
-
-Die Schnittstelle zum abrufen der gesamten gespeicherten Daten erzeugt aus den vorhandenen Daten eine Json (Javascript Object Notation) Struktur und sendet diese als Antwort auf den HTTP-Request. 
-
+\item Geo lookup
+\begin{enumerate}
+\item eine Methodik zur Bestimmung des geografischen Standort einer IP-Adresse
+\item keine eigenen Implementation der Standortbestimmung, sondern Verwendung eines öffentlich zugänglichen Service, aus Zeit und komplexitätsgründen
+\item Patent US7752210B2
+\end{enumerate}
+\item Header Fingerprint
+\begin{enumerate}
+\item eine Methodik zur Identifikation eines Benutzers anhand der von ihm Verwendeten HTTP Header
+\item Aggregation über allen Http-Header oder einem ausgewählten Set an Headerfeldern 
+\item erzeugt Fingerprint wird gehasht und gespeichert
+\item bei übereinstimmenden Fingerprints wird angenommen das diese vom gleichen Benutzer erzeugt wurden 
+\end{enumerate}
+\end{enumerate}
+\newpage
 \section{Set A / Set B}
 
 Die angeführten DbSets FileEntryItemsA und FileEntryItemsB verfügen jeweils über Daten welche zu visualisieren sind. Dabei wird das DbSet FileEntryItemsA weiterhin als die ungeschützte Datenmenge beschrieben, da diese Datenbank nur mit Daten befüllt werden soll, bei welchen keine datenschutzfreundlichen Methoden zum anonymisieren verwendet wurden. Das DbSet FileEntryItemsB wird weiterhin als geschützte Datenmenge beschrieben, da ausschließlich Daten , welche mit Methoden zum anonymisieren hochgeladen wurden, verwendet werden sollen. Dabei sollte die geschützte und ungeschützte Datenmenge in den Zugrunde liegenden Datenmenge identisch sein und lediglich die Verwendung von Methoden zum anonymisieren die Datensätze unterscheiden, sodass die beiden Datenmenge miteinander in Hinblick auf den Effekt der Verwendung von Methoden zum anonymisieren untersucht werden können. 
@@ -188,6 +117,63 @@ Das Visualisierungswerkzeug besitzt zwei verschiedene Datenbanken welche Set A u
 Jedes Datenbank Set verfügt über eine eigene API und funktioniert identisch. Die angestrebte Benutzung sieht den Vergleich von Set A und Set B mit den gleichen Datensatz vor wobei die nicht Anwendung von Datenschutz freundlichen Methoden zum Anonymisieren bei Set A und die Anwendung von Datenschutz freundlichen Methoden zum Anonymisieren bei Set B. Set A ist somit die Basis und zeigt auf was ein Dokumentenspeicherdienst an Nutzerdaten sammeln kann und Set B kann im direkten Vergleich zeigen wie Datenschutz freundlichen Methoden zum Anonymisieren diese Daten verfälschen.
 
 \chapter{Hauptteil}
+
+\section{Implementation des Dokumentenspeichers}
+
+Die Implementation des Dokumentenspeichers ist mit dem ASP.NET Core Framework von Microsoft umgesetzt worden. \\
+\glqq ASP.NET Core ist ein plattformübergreifendes, leistungsstarkes Open-Source-Framework zum Erstellen moderner, cloudbasierter mit dem Internet verbundener Anwendungen.\grqq \\
+Der Dokumentenspeicher ist mittels einer Model-View-Controller Architektur realisiert worden. Die Model-View-Controller Architektur definiert, Modelle als Klassen welche die zugrundeliegende Problemstruktur wiedergeben. Sie modellieren die Objekte welche keine Informationen über ihre Verwendung besitzen. 
+Views sind die Klassen welche die Darstellung der Modelle implementieren und den Output einer Systems darstellen. Controller sind die Kontroll-Klassen welche Views steuern und Input in das System verarbeiten. 
+
+Die Modelle welche im Dokumentenspeicher verwendet werden sind 
+\begin{enumerate}
+\item FileEntryItem
+\item FileEntryItemA
+\item FileEntryItemB
+\end{enumerate}
+
+Wobei FileEntryItemA und FileEntryItemB von FileEntryItem erben und alle relevanten properties in FileEntryItem definiert sind. Mit Hilfe des Entity Framework Core von Microsoft werden aus diesen Modell-Klassen ein Datenbankschema erzeugt welches dem Dokumentenspeicher zugrunde liegt. Das Datenbankschema ist somit an die Modell-Klassen gekoppelt und führt dazu das Änderungen an den Modell-Klassen auch direkt Änderungen des Datenbankschemas erfordern, welche vom Entity Framework Core einfach erzeugt werden können. Das erzeugte Datenbankschema für FileEntryItemA ist in Abbildung 2.1 zu erkennen, das Datenbankschema für FileEntryItemB ist analog.
+
+\begin{lstlisting}[caption={Datenbank Schema für FileEntryItemA},label={lst:ggt}]
+[ID]                INT            IDENTITY (1, 1) NOT NULL,
+    [City]              NVARCHAR (MAX) NULL,
+    [Country]           NVARCHAR (MAX) NULL,
+    [DateTime]          DATETIME2 (7)  NOT NULL,
+    [Filename]          NVARCHAR (MAX) NULL,
+    [HeaderFingerprint] NVARCHAR (MAX) NULL,
+    [Headers]           NVARCHAR (MAX) NULL,
+    [IPAddress]         NVARCHAR (MAX) NULL,
+    [Isp]               NVARCHAR (MAX) NULL,
+    [Lat]               REAL           NOT NULL,
+    [Lon]               REAL           NOT NULL,
+    [RegionName]        NVARCHAR (MAX) NULL,
+    [Size]              BIGINT         NOT NULL,
+    [Filepath]          NVARCHAR (MAX) NULL,
+    CONSTRAINT [PK_FileEntryA] PRIMARY KEY CLUSTERED ([ID] ASC)
+\end{lstlisting}
+
+Die einzelnen Properties werden für bestimme Informationen verwendet.
+
+\begin{enumerate}
+\item ID: Datenbank Index
+\item City: Stadt aus welches die Datei hochgeladen wurde
+\item Country: Land aus welches die Datei hochgeladen wurde
+\item DateTime: Als Zeitstempel für das Hochladen der Datei
+\item Filename: Der Dateiname
+\item Headers: Ein String bestehend aus den Headern der Datei
+\item HeaderFingerprint: Ein zusammenschluss aus ausgewähten Headern um eine möglichst eindeutige Signatur zu erzeugen
+\item IPAddress: Die IP-Adresse von der die Datei hochgeladen wurde
+\item Isp: Internetanbierter des Benutzers der die Datei hochgeladen hat
+\item Lat: Breitengrad welcher mit den bekannten IP-Adresse assoziiert wird
+\item Lon: Längengrad welcher mit den bekannten IP-Adresse assoziiert wird
+\item RegionName: Region (Bundesland) aus welches die Datei hochgeladen wurde
+\item Size: Die Dateigröße in Byte
+\item Filepath: Der Pfad zur gespeicherten temporären Datei
+\end{enumerate}
+
+Für eine hoch geladene Datei werden diese 14 Informationen gespeichert und verwaltet.
+
+Der UploadController, welche die API's implementiert besitzt eine Reihe von 
 
 \section{Darstellung: IP Tree Map und IP Google Map}
 
