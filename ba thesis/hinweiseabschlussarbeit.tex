@@ -111,10 +111,6 @@ So wird im jedem beschriebenen Szenario zur Benutzung des Dokumentenspeichers an
 
 Das führt dazu das bei der Auswertung der Datei durch die Verwendung oder nicht Verwendung von Methoden zum anonymisieren, die erfassten Meta-Daten sich nur durch die jeweilige Art der Methoden zum anonymisieren unterscheiden und die anschließenden Visualisierung nur diesen Unterschied darstellt und keine anderen Faktoren. 
 
----
-
-Das Visualisierungswerkzeug besitzt zwei verschiedene Datenbanken welche Set A und Set B genannt werden. 
-Jedes Datenbank Set verfügt über eine eigene API und funktioniert identisch. Die angestrebte Benutzung sieht den Vergleich von Set A und Set B mit den gleichen Datensatz vor wobei die nicht Anwendung von Datenschutz freundlichen Methoden zum Anonymisieren bei Set A und die Anwendung von Datenschutz freundlichen Methoden zum Anonymisieren bei Set B. Set A ist somit die Basis und zeigt auf was ein Dokumentenspeicherdienst an Nutzerdaten sammeln kann und Set B kann im direkten Vergleich zeigen wie Datenschutz freundlichen Methoden zum Anonymisieren diese Daten verfälschen.
 
 \chapter{Hauptteil}
 
@@ -125,55 +121,48 @@ Die Implementation des Dokumentenspeichers ist mit dem ASP.NET Core Framework vo
 Der Dokumentenspeicher ist mittels einer Model-View-Controller Architektur realisiert worden. Die Model-View-Controller Architektur definiert, Modelle als Klassen welche die zugrundeliegende Problemstruktur wiedergeben. Sie modellieren die Objekte welche keine Informationen über ihre Verwendung besitzen. 
 Views sind die Klassen welche die Darstellung der Modelle implementieren und den Output einer Systems darstellen. Controller sind die Kontroll-Klassen welche Views steuern und Input in das System verarbeiten. 
 
-Die Modelle welche im Dokumentenspeicher verwendet werden sind 
-\begin{enumerate}
-\item FileEntryItem
-\item FileEntryItemA
-\item FileEntryItemB
-\end{enumerate}
+Das ausschlaggebende Modell im Dokumentenspeicher ist die FileEntryItem Klasse. Die Klasse definiert alle Porperties, welche die Meta-Data wieder spiegeln, welche vom Dokumentenspeicherdienst gesammelt werden. Mit Hilfe des Entity Framework Core von Microsoft werden aus dieser Modell-Klasse ein Datenbankschema erzeugt. Das Datenbankschema ist somit an die Modell-Klassen gekoppelt und führt dazu das Änderungen an den Modell-Klassen auch direkt Änderungen des Datenbankschemas erfordern, welche vom Entity Framework Core einfach erzeugt werden können. Das erzeugte Datenbankschema für FileEntryItem ist.
 
-Wobei FileEntryItemA und FileEntryItemB von FileEntryItem erben und alle relevanten properties in FileEntryItem definiert sind. Mit Hilfe des Entity Framework Core von Microsoft werden aus diesen Modell-Klassen ein Datenbankschema erzeugt welches dem Dokumentenspeicher zugrunde liegt. Das Datenbankschema ist somit an die Modell-Klassen gekoppelt und führt dazu das Änderungen an den Modell-Klassen auch direkt Änderungen des Datenbankschemas erfordern, welche vom Entity Framework Core einfach erzeugt werden können. Das erzeugte Datenbankschema für FileEntryItemA ist in Abbildung 2.1 zu erkennen, das Datenbankschema für FileEntryItemB ist analog.
+\lstinputlisting[language=csh, firstline=41, lastline=55]{sourceCode/FileEntryItem.cs}
 
-\begin{lstlisting}[caption={Datenbank Schema für FileEntryItemA},label={lst:ggt}]
-[ID]                INT            IDENTITY (1, 1) NOT NULL,
-    [City]              NVARCHAR (MAX) NULL,
-    [Country]           NVARCHAR (MAX) NULL,
-    [DateTime]          DATETIME2 (7)  NOT NULL,
-    [Filename]          NVARCHAR (MAX) NULL,
-    [HeaderFingerprint] NVARCHAR (MAX) NULL,
-    [Headers]           NVARCHAR (MAX) NULL,
-    [IPAddress]         NVARCHAR (MAX) NULL,
-    [Isp]               NVARCHAR (MAX) NULL,
-    [Lat]               REAL           NOT NULL,
-    [Lon]               REAL           NOT NULL,
-    [RegionName]        NVARCHAR (MAX) NULL,
-    [Size]              BIGINT         NOT NULL,
-    [Filepath]          NVARCHAR (MAX) NULL,
-    CONSTRAINT [PK_FileEntryA] PRIMARY KEY CLUSTERED ([ID] ASC)
-\end{lstlisting}
 
 Die einzelnen Properties werden für bestimme Informationen verwendet.
 
 \begin{enumerate}
 \item ID: Datenbank Index
-\item City: Stadt aus welches die Datei hochgeladen wurde
-\item Country: Land aus welches die Datei hochgeladen wurde
-\item DateTime: Als Zeitstempel für das Hochladen der Datei
+\item Set: Das Set bezeichnet die Gruppe welcher die Datei zugeordnet wurde
 \item Filename: Der Dateiname
+\item Filepath: Der Pfad zur gespeicherten temporären Datei
+\item Size: Die Dateigröße in Byte
+\item IPAddress: Die IP-Adresse von der die Datei hochgeladen wurde
 \item Headers: Ein String bestehend aus den Headern der Datei
 \item HeaderFingerprint: Ein zusammenschluss aus ausgewähten Headern um eine möglichst eindeutige Signatur zu erzeugen
-\item IPAddress: Die IP-Adresse von der die Datei hochgeladen wurde
-\item Isp: Internetanbierter des Benutzers der die Datei hochgeladen hat
-\item Lat: Breitengrad welcher mit den bekannten IP-Adresse assoziiert wird
-\item Lon: Längengrad welcher mit den bekannten IP-Adresse assoziiert wird
+\item DateTime: Als Zeitstempel für das Hochladen der Datei
+\item Country: Land aus welches die Datei hochgeladen wurde
 \item RegionName: Region (Bundesland) aus welches die Datei hochgeladen wurde
-\item Size: Die Dateigröße in Byte
-\item Filepath: Der Pfad zur gespeicherten temporären Datei
+\item City: Stadt aus welches die Datei hochgeladen wurde
+\item Lat: Breitengrad welcher mit den bekannten IP-Adresse assoziiert wird
+\item Isp: Internetanbierter des Benutzers der die Datei hochgeladen hat
+\item Lon: Längengrad welcher mit den bekannten IP-Adresse assoziiert wird
+\item Isp: Der Internetanbieter welcher der IP zugeordnet ist
 \end{enumerate}
 
-Für eine hoch geladene Datei werden diese 14 Informationen gespeichert und verwaltet.
+Für eine hoch geladene Datei werden diese 16 Informationen gespeichert und verwaltet.
 
-Der UploadController, welche die API's implementiert besitzt eine Reihe von 
+Der UploadController, welche die API's implementiert besitzt eine Reihe von Methoden welche die API's die einem Benutzer zur Verfügung stehen implementieren. 
+
+Für das Set A, die ungeschützte Datenmenge sowie für das Set B, die ungeschützte Datenmenge gibt es API Punkt welcher das Hochladen in die entsprechende Datenmenge ermöglicht. 
+
+\lstinputlisting[language=c, firstline=40, lastline=56]{sourceCode/UploadController.cs}
+
+In Line zwei bis Line acht wird eine API Punkt implementiert. 
+\lstinputlisting[language=c, firstline=41, lastline=41]{sourceCode/UploadController.cs}
+Ist das Keyword um eine Methode als einen API Punkt zu bereit zu stellen. Das HTTPPost Keyword definiert dabei einen Post API Punkt welcher Daten, im zuge eines Request entgegen nimmt und diese in der Regal verarbeitet. 
+
+\lstinputlisting[language=c, firstline=43, lastline=47]{sourceCode/UploadController.cs}
+Die Methode definiert als Rückgabewert ein RedirectToPageResult, welcher den Benutzer der diese API-benutzt als Antwort wieder zurück auf eine vordefinierte Page leitet. 
+Da die Methode mit den HttpPost-Attribut getagt ist, ist im Methoden-Rumpf ein Request-Object verfügbar welches den HTTP-Request welcher gegen den API-Punkt gestellt wurde darstellt. Das Request-Object hält alle Informationen wie die Header, die hochgeladene Datei und die IP-Adresse des Benutzers und dient dazu die Meta-Daten des Uploads zu erfassen. Das Request-Object wird zusammen mit einen String Identifier für das Set, welches dem API-Punkt zugeordert wird, an eine Methode "ProcessPost" übergeben, welche den Request verarbeitet, indem die Meta-Daten gesammelt, die Datei, welche hochgeladen wurde, abspeichert und die Meta-Daten sowie den Pfad zu der hochgeladenen Datei in einer Datenbank abspeichert.
+
 
 \section{Darstellung: IP Tree Map und IP Google Map}
 
