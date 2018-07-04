@@ -186,6 +186,83 @@ Bei Verwendung von Methoden zur Anonymisieren der IP-Adresse wie z.B. das verwen
 \end{enumerate}
 \end{enumerate}
 
+
+Die Darstellung von IP bezogenen Meta-Daten wird an einem einfachen Beispiel vorgeführt.
+Gegeben sind Benutzer Alice und Bob.
+Alice und Bob befinden sich beide in Hamburg.
+Sie laden jeweils drei Dateien hoch, einmal mit und einmal ohne die Verwendung eines Proxys zum Maskieren ihrer IP-Adresse.
+Der verwendete Proxy ist bei Alice und Bob der selbe.
+Alice lädt die Dateien test0 bis test2 und Bob die Dateien test3-test5 hoch.
+Alice lädt ihre drei Dateien in einem Post hoch und Bob lädt die drei Dateien jeweils einzeln mit einem Abstand von ein paar Sekunden hoch.
+
+\begin{center}
+\includegraphics[width=\textwidth]{../pic/IP-Proxy-SetA-tree.png}
+\captionof{figure}{Visualisierung von Dateien mittels einer TreeMap , welche nach der IP-Adresse gruppiert sind}
+\end{center}
+
+In Abbildung 3.1 werden die Daten von Alice und Bob dargestellt welche ohne die Verwendung eines proxys hochgeladen worden sind. 
+Die Darstellung erfolgt durch eine sog. TreeMap, welche eine Gegebene Datenstruktur, welche als Baum dargestellt werden kann, visualisiert.
+Die Baum Struktur besteht aus einer Wurzel-Knoten, sog. Root-Node und den davon abgehenden Child-Nodes, Nodes in der Baumstruktur welche keine weiteren Child-Nodes bestitzen werden Leaf-Nodes genannt. 
+Die Root-Node wird künstliche erzeugt und als Überschrift für die Visualisierung verwendet und Zeigt den Key über dem die Baumstruktur erzeugt wurde, in diesem Fall die "IpAddress".
+Die restlichen Nodes sind aus dem gegebenen Daten erzeugt worden, wobei der Key: ipAddress, die Ausschlag gebende Property ist über welcher die Baumstruktur erzeugt wird. 
+Die Erzeugte Baumstrukur hat somit 3 Ebenen. 
+Auf der 1. Ebene die Root-Node, welche zum Viusaliseren der Key Property benutzt wird. 
+Auf der 2. Ebene die Nodes, welche die IP-Adressen darstellen welche im Datensatz vorhanden sind.
+Und auf der 3. Ebene die Leaf-Nodes, welche die Dateien selbst darstellen.
+In Abbildung 3.1 sind die IP-Adressen 95.91.226.214 von Alice und 95.91.225.215 Bob erkennbar. 
+Zu jeder IP-Adresse können jeweils die drei Dateien der Benutzer zugeordnet werden. 
+Die Dateien test0 bis test2 sind der IP-Adresse 95.91.226.214 zugeordnet und test3 bis test5 sind der IP-Adresse 95.91.225.215 zugeordnet.
+Damit ist das gegebene Beispiel richtig abgebildet und die echten Relationen zwischen Dateien und IP-Adressen sind richtig modelliert und nachvollziehbar. 
+
+\begin{center}
+\includegraphics[width=0.5\textwidth]{../pic/IP-Proxy-SetA.png}
+\captionof{figure}{Visualisierung von Dateien mittels einer Karte, welche die Geo-Position einer IP-Adresse anzeigt}
+\end{center}
+
+Die Abbildung 3.2 zeigt uns die Geo-Location der IP-Adressen von Alice und Bob und zeigt deren ungefähre Position in Hamburg, 
+wobei die Position nur einen ungefähren Standpunkt darstellt und die eigentliche Position bis zu einem Kilometer abweichen kann.
+
+\begin{center}
+\includegraphics[width=\textwidth]{../pic/IP-Proxy-SetB-tree.png}\\
+\captionof{figure}{Visualisierung von Dateien mittels einer TreeMap , welche nach der IP-Adresse gruppiert sind}
+\end{center}
+
+In Abbildung 3.3 sind die Daten Visualisiert, welche mittels eines Proxy hochgeladen wurden. 
+Alle Dateien wurden über die IP-Adresse des Proxys 85.214.132.117 gruppiert und somit eine Anonymitätsmenge erzeugt.
+Die Daten von Alice und Bob sind nun in einer Anonymitätsmenge zusammengefasst und lassen sich anhand der IP-Adresse nicht mehr eindeutig den beiden Benutzern zuordnen.
+
+\begin{center}
+\includegraphics[width=\textwidth]{../pic/IP-Proxy-SetB.png}\\
+\captionof{figure}{Visualisierung von Dateien mittels einer Karte, welche die Geo-Position einer IP-Adresse anzeigt}
+\end{center}
+
+Abbildung 3.4 zeigt und nun die Geo-Location des Proxys welches in Berlin steht.
+Damit sind auch die eigentlichen Geo-Locations von Alice und Bob durch die Verwendung des Proxys maskiert worden. 
+
+Anstelle eines Proxys könnten Alice und Bob das Tor-Netzwerk benutzen um ihre IP-Adressen zu maskieren. Alice und Bob laden drei Dateien, einmal ungeschützt und einmal geschütztm durch das Tor-Netzwerk hoch.
+Dabei nehmen wir an das alle Datei-Uploads einzeln passieren und jedem Dabei-Upload eine andere Route durch das Tor-Netzwerk zugewiesen wird, sodass jeder Upload einen anderen Exit-Server des Tor-Netzwerkes durchläuft. 
+
+\begin{center}
+\includegraphics[width=\textwidth]{../pic/IP-Tor-SetB-tree.png}\\
+\captionof{figure}{Visualisierung von Dateien mittels einer TreeMap , welche nach der IP-Adresse gruppiert sind}
+\end{center}
+
+In Abbildung 3.5 sehen wir nun die IP-Adressen der verschiedenen Exit-Server des Tor-Netzwerks.
+Da jedem Datei-Upload ein neues Exit-Server zugewiesen wurde, können wir über die IP-Adresse die Dateien nicht mehr zuordnen.
+
+\begin{center}
+\includegraphics[width=0.7\textwidth]{../pic/IP-Tor-SetB.png}\\
+\captionof{figure}{Visualisierung von Dateien mittels einer Karte, welche die Geo-Position einer IP-Adresse anzeigt}
+\end{center}
+
+Bei Betrachtung der Abbildung 3.6 ist auch erkennbar, das die verschiedenen Positionen der Exit-Server des Tor-Netzwerks variieren und es keinen Anhaltspunkt auf die eigentliche Postion von Alice und Bob gibt. 
+
+ 
+
+
+
+
+
 \section{Darstellung: Headerfingerprinting}
 
 Der Headerfingerprint welcher beim hochladen der Datei erzeugt wird, wird nun verwendet um die Dateien jeweils  
