@@ -116,6 +116,74 @@ Das führt dazu das bei der Auswertung der Datei durch die Verwendung oder nicht
 
 \section{Implementation des Dokumentenspeichers}
 
+Der Dokumentenspeicher wurde mit Hilfe des ASP .Net Core Framework erstellt. 
+Das Framework ist Microsofts aktuellste corss-platform Framework zur Realisierung von Web-Anwendungen.
+Das Framework unterstützt alle gängigen Betriebssysteme wie Windows, Mac OS und Linux durch die Verwendung des "Roslyn" Compilers.
+Mit dem ASP .Net Core entwickelte Web-Anwendungen lassen sich in gängige Hostingplatformen wie, z.B. das IIS von Microsoft, integrieren oder auch in einem eigenen Prozess selbst gehostet werden. 
+Das ASP .Net Framework sieht dabei eine MVC-Architektur, der Projekte vor und verwenden diese Architektur intern zum Realisieren der Anwendungen. 
+Modelle werden in diesem Kontext als Objekte zur Daten Repräsentation verstanden. 
+Views sind die HTML Pages welche die Klienten ausgegeben werden.
+Controller sind Zentrale Elemente. 
+Sie stellen die Funktionalität von Views auf der Server Seite dar.
+Sie sind zur Steuerung verschiedener Routen und die Implementation von API-Punkten vorgesehen.
+Dabei Verwalten die Controller ebenfalls die zu Grunde liegenden Datenbanken.
+
+Der Entwickelte Dokumentenspeicher besteht aus einer Controller-Klasse, welche verschiedene API-Punkte implementiert. 
+Die API-Punkte werden durch Routen angesprochen, welche vorher definiert worden. Die Implementierten Routen sind: 
+
+\begin{description}
+\item[/api/GetA] HTTP Get Methode welche die Daten des Set A, dem ungeschützten Datensatz zurückgibt 
+\item[/api/GetB] HTTP Get Methode welche die Daten des Set B, dem geschützten Datensatz zurückgibt
+\item[/api/uploadA] HTTP Post Methode zum hochladen von ungeschützten Dateien ins Set A
+\item[/api/uploadB] HTTP Post Methode zum hochladen von geschützten Dateien ins Set B
+\item[api/uploadEmu] HTTP Post Methode zum erzeugen von Dummy Daten
+\end{description}
+
+In der Controller Klasse ist auch für das Sammeln der Meta-Daten für die hochgeladenen Dateien zuständig und speichert diese mit Hilfe der Modell Klasse in einem Datenbankschema ab. Die Modell Klasse besitzt verschiedene Propertys welche die gesammlten Meta-Daten widerspiegeln. 
+Die Propertys sind : 
+
+\begin{description}
+\item[ID] Datenbank Index
+\item[Set] Das Set bezeichnet die Gruppe welcher die Datei zugeordnet wurde
+\item[Filename] Der Dateiname
+\item[Filepath] Der Pfad zur gespeicherten temporären Datei
+\item[Size] Die Dateigröße in Byte
+\item[IPAddress] Die IP-Adresse von der die Datei hochgeladen wurde
+\item[Headers] Ein String bestehend aus den Headern der Datei
+\item[HeaderFingerprint] Ein zusammenschluss aus ausgewähten Headern um eine möglichst eindeutige Signatur zu erzeugen
+\item[DateTime] Als Zeitstempel für das Hochladen der Datei
+\item[Country] Land aus welches die Datei hochgeladen wurde
+\item[RegionName] Region (Bundesland) aus welches die Datei hochgeladen wurde
+\item[City] Stadt aus welches die Datei hochgeladen wurde
+\item[Lat] Breitengrad welcher mit den bekannten IP-Adresse assoziiert wird
+\item[Lon] Längengrad welcher mit den bekannten IP-Adresse assoziiert wird
+\item[Isp] Der Internetanbieter welcher der IP zugeordnet ist
+\end{description}
+
+Diese Propertys enthalten alle gesammelten Meta-Daten und können zur Visualisierung verwendet werden. 
+Mit Hilfe des Entity Framework Core von Microsoft wird ein Datenbankschema erzeugt was dieser Modell Klasse entspricht. 
+Dabei wird eine SQLite Datenbank Datei erzeugt die dem Datenbankschema entspricht und im Verzeichnis der Anwendung liegt.
+Im Gegensatz zur Verwendung eines festen SQL-Server der die Datenbank verwaltet, bietet die Anwendung so mehr Flexibilität und erlaubt es mehrere Datenbank Dateien mit der Anwendung bereit zu stellen, um so verschiedene Szenarien in verschiedenen Dateien bereitzustellen.
+
+Der Dokumentenspeicher besitzt 3 Views, welche HTML Pages darstellen welche ein Benutzer über bestimme Routen aufrufen kann. 
+
+\begin{description}
+\item[/FileEntry] Anzeige der Datenbank in Tabellarischer Form
+\item[/FileEntryCreate] Bietet Möglichkeiten zum hochladen von Dateien oder dem erzeugen von Dummy Daten
+\item[/FileEntryVisual] Visualisierung der gesammelten Daten
+\end{description}
+
+Die FileEntry-Page ist ist die StartPage der Web-Anwendung und verweist zu der FileEntryCreate und FileEntryVisual Page.
+Die Page zeigt lediglich die Datenbank in tabellarischer Form und ist hauptsächlich für die Entwicklung gebraucht worden. 
+Dies gilt auch für die FileEntryCreate-Page. 
+Die FileEntryVisual-Page ist der Hauptbestandteil dieser Arbeit und stellt die verschiedenen Visualisierungsmöglichkeiten dar. 
+
+
+
+
+
+
+
 Die Implementation des Dokumentenspeichers ist mit dem ASP.NET Core Framework von Microsoft umgesetzt worden. \\
 \glqq ASP.NET Core ist ein plattformübergreifendes, leistungsstarkes Open-Source-Framework zum Erstellen moderner, cloudbasierter mit dem Internet verbundener Anwendungen.\grqq \\
 Der Dokumentenspeicher ist mittels einer Model-View-Controller Architektur realisiert worden. Die Model-View-Controller Architektur definiert, Modelle als Klassen welche die zugrundeliegende Problemstruktur wiedergeben. Sie modellieren die Objekte welche keine Informationen über ihre Verwendung besitzen. 
