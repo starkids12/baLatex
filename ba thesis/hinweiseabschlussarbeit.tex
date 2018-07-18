@@ -78,10 +78,34 @@ sein.
 
 \chapter{Einleitung}
 
-Dokumentenspeicherdienste sind nützliche Alltagsgegenstände, welche für private sowie kommerzielle Nutzer meist unverzichtbar sind. Sie bieten nicht nur den Speicherplatz für wichtige Dateien der Nutzer sondern stellen auch die Sicherheit der Dateien sicher und machen sie global jeder zeit verfügbar. Durch die große Datensammlung dieser Dienstleister machen sie sich nicht nur selbst zu lukrativen Zielen von gezielten Angriffen (Yahoo, UBER etc.), jedoch auch die Dienstleister selber können die Daten auswerten und meitere Meta-Daten über die Nutzer sammeln und weiter verwenden. Vor allem private Nutzer sind meist gar nicht über die Risiken und das Missbrauchspotenziale aufgeklärt, welche die Verwendung solcher Dienstleistungen mit sich bringen. Methoden zur Verschlüsselung oder des Anonymisieren von Daten sind Benutzern meist nicht bekannt, werden von den Dienstanbietern nicht angeboten oder sind schwer umzusetzen da es einen meist erheblichen Aufwand für die Benutzer bedeutet und Kompetenzen erfordert welche diese Benutzer nicht besitzen. Um genau die Risiken und Missbrauchspotenziale aufzuzeigen wird im Zuge dieser Arbeit ein Dokumentenspeicherdienst entwickelt, welcher prinzipiell alle Meta-Daten der Nutzer sammelt und diese in einer visuellen Darstellung zusammen fasst. Zur Implementation des Dokumentenspeichers wird dabei das Microsoft ASP.NET Core Framework verwendet. Das Framework wird benutzt um die Webbenutzeroberfläche sowie der Web-APIs des Dokumentenspeichers zu realisieren. Dazu wird das Javascript Framework Data-Driven Documents, i.d.R. d3.js genannt, zur Visualisierung der Daten verwendet. Der Dokumentenspeicher soll vor allem den Unterschied zwischen der Verwendung von Methoden zur Verschlüsselung oder des Anonymisieren von Daten visualisieren und verwaltet dazu zwei verschiedene Datensätze, wobei eine Datenmenge ohne, und eine Datenmenge mit der Verwendung von Methoden zur Verschlüsselung oder des Anonymisieren von Daten erzeugt wird. Der entstehende Unterschied der gesammelten Meta-Daten durch die verschiedenen Methoden führt dann zu einer Veränderung in der Visualisierung was dan den Effekt und Nutzen der Methoden deutlich sichtbar macht.  
+Dokumentenspeicherdienste sind nützliche Alltagsgegenstände, welche für private sowie kommerzielle Nutzer meist unverzichtbar sind. 
+Sie bieten nicht nur den Speicherplatz für wichtige Dateien der Nutzer sondern stellen auch die Sicherheit der Dateien sicher und machen sie global jederzeit verfügbar. 
+Durch die große Datensammlung dieser Dienstleister machen sie sich nicht nur selbst zu lukrativen Zielen von gezielten Angriffen (Yahoo, UBER etc.), jedoch auch die Dienstleister selber können die Daten auswerten und weitere Metadaten wie z.B. die Dateigröße oder den Autor der Datei sowie Verkehrsdaten wie z.B. die IP-Adresse oder die HTTP Header Felder über die Nutzer sammeln und weiterverwenden. 
+Vor allem private Nutzer sind meist gar nicht über die Risiken und das Missbrauchspotenzial aufgeklärt, welche die Verwendung solcher Dienstleistungen mit sich bringen. 
+Methoden zur Verschlüsselung oder das anonymisieren von Daten sind Benutzern meist nicht bekannt, werden von den Dienstanbietern nicht angeboten oder sind schwer umzusetzen, da es einen meist erheblichen Aufwand für die Benutzer bedeutet und Kompetenzen erfordert welche diese Benutzer nicht besitzen. 
+Um genau die Risiken und Missbrauchspotenziale aufzuzeigen wird im Zuge dieser Arbeit ein Dokumentenspeicherdienst entwickelt, welcher Meta- und Verkehrsdaten der Nutzer sammelt und diese in einer visuellen Darstellung zusammenfasst. 
+Zur Implementation des Dokumentenspeichers wird dabei das Microsoft ASP.NET Core Framework verwendet. 
+Das Framework wird benutzt um die Webbenutzeroberfläche sowie die Web API des Dokumentenspeichers zu realisieren. 
+Dazu wird das Javascript Framework Data-Driven Documents, i.d.R. d3.js genannt, zur Visualisierung der Daten verwendet. 
+Der Dokumentenspeicher soll vor allem den Unterschied zwischen der Verwendung von Methoden zur Verschlüsselung oder das anonymisieren von Daten visualisieren und verwaltet dazu zwei verschiedene Datensätze, wobei eine Datenmenge ohne, und eine Datenmenge mit der Verwendung von Methoden zur Verschlüsselung oder das anonymisieren von Daten erzeugt wird. Der entstehende Unterschied der gesammelten Metadaten durch die verschiedenen Methoden führt dann zu einer Veränderung in der Visualisierung, was dann den Effekt und Nutzen der Methoden deutlich sichtbar macht.  
 
 \chapter{Grundlagen}
 
+\section{Verwendungszweck des Dokumentenspeichers}
+Der Dokumentenspeicher dient vor allem dazu den Vergleich zwischen den unterschiedlichen gesammelten Metadaten mit und ohne die Verwendung von datenschutzfreundlichen Methoden zum Anonymisieren von Daten. 
+Diese entstehenden Unterschiede werden in der Visualisierung der Daten deutlich und veranschaulichen so den Effekt der Verwendung von datenschutzfreundlichen Methoden zum Anonymisieren von Daten.
+Die durch datenschutzfreundlichen Methoden zum Anonymisieren von Daten erzeugte Datenmenge wird folgend als geschützte Datenmenge beschrieben und nimmt an, dass mindestens eine Methoden zum Anonymisieren von Daten benutzt wurde, um diese Datenmenge zu generieren. 
+Die erzeugte Datenmenge ohne die Verwendung von datenschutzfreundlichen Methoden zum Anonymisieren wird folglich als ungeschützte Datenmenge beschreiben und nimmt an das keine Methoden zum Anonymisieren von Daten benutzt wurde oder der zumindest keine Methoden zum Anonymisieren von Daten verwendet wurde im Aspekt auf die Eigenschaften, die in einem gegebenen Szenario untersucht wurden.
+Der Dokumentenspeicher ist somit so konzipiert, dass ein geschützter und ein ungeschützter Datensatz angelegt werden kann. 
+Dafür wurden verschiedene API-Endpunkt implementiert, welche die Trennung der beiden Datensätze ermöglicht. 
+Es können jedoch auch geschützte und ungeschützte Daten in die gleiche Datenmenge eingespeist werden, falls dies für das zu betrachtende Szenario sinnvoll ist. 
+Die folgenden vorgestellten Szenarien trennen jedoch die geschützte Datenmenge und die ungeschützte Datenmenge und verwenden die dafür vorgesehenen API-Punkte.
+Da die geschützte und ungeschützte Datenmenge verglichen werden soll, um den Effekt der zu untersuchenden Methode zum Anonymisieren von Daten sichtbar zu machen, ist es von Vorteil wenn die verwendeten Daten zum Erzeugen der geschützten und ungeschützten Datenmenge dieselben sind und sich lediglich durch die Anonymisierung der Daten und deren Effekt unterscheiden.
+Dies stellt sicher, dass lediglich der Effekt der Methode zum Anonymisieren einen Unterschied in der Visualisierung erzeugt und keine anderen Faktoren die Visualisierung beeinflussen.
+Im ideal Fall können so, durch die Betrachtung der Visualisierung der ungeschützten Datenmenge, Relationen zwischen Dateien deutlich werden, welche darauf schließen lassen, dass diese Dateien z.B. von dem gleichen Benutzer stammen.
+Die Betrachtung der geschützten Datenmenge sollte dann im ideal Fall zeigen, dass durch die Verwendung von einer oder mehreren Methoden zum Anonymisieren von Daten diese Relation nicht mehr sichtbar ist und die Methode somit einen sichtbaren Effekt hat.
+
+\newpage
 \section{Terminologie}
 \begin{enumerate}
 \item HTTP-Header
@@ -103,33 +127,33 @@ Dokumentenspeicherdienste sind nützliche Alltagsgegenstände, welche für priva
 \item bei übereinstimmenden Fingerprints wird angenommen das diese vom gleichen Benutzer erzeugt wurden 
 \end{enumerate}
 \end{enumerate}
-\newpage
-\section{Set A / Set B}
 
-Die angeführten DbSets FileEntryItemsA und FileEntryItemsB verfügen jeweils über Daten welche zu visualisieren sind. Dabei wird das DbSet FileEntryItemsA weiterhin als die ungeschützte Datenmenge beschrieben, da diese Datenbank nur mit Daten befüllt werden soll, bei welchen keine datenschutzfreundlichen Methoden zum anonymisieren verwendet wurden. Das DbSet FileEntryItemsB wird weiterhin als geschützte Datenmenge beschrieben, da ausschließlich Daten , welche mit Methoden zum anonymisieren hochgeladen wurden, verwendet werden sollen. Dabei sollte die geschützte und ungeschützte Datenmenge in den Zugrunde liegenden Datenmenge identisch sein und lediglich die Verwendung von Methoden zum anonymisieren die Datensätze unterscheiden, sodass die beiden Datenmenge miteinander in Hinblick auf den Effekt der Verwendung von Methoden zum anonymisieren untersucht werden können. 
-So wird im jedem beschriebenen Szenario zur Benutzung des Dokumentenspeichers angenommen das ein Benutzer eine Datei einmal ohne die Verwendung von Methoden zum anonymisieren in die ungeschützte Datenmenge via HTTP hochlädt und einmal mit der Verwendung von Methoden zum anonymisieren in die geschützte Datenmenge via HTTP hochlädt.
+%\newpage
+%\section{Set A / Set B}
+%
+%Die angeführten DbSets FileEntryItemsA und FileEntryItemsB verfügen jeweils über Daten welche zu visualisieren sind. Dabei wird das DbSet FileEntryItemsA weiterhin als die ungeschützte Datenmenge beschrieben, da diese Datenbank nur mit Daten befüllt werden soll, bei welchen keine datenschutzfreundlichen Methoden zum anonymisieren verwendet wurden. Das DbSet FileEntryItemsB wird weiterhin als geschützte Datenmenge beschrieben, da ausschließlich Daten , welche mit Methoden zum anonymisieren hochgeladen wurden, verwendet werden sollen. Dabei sollte die geschützte und ungeschützte Datenmenge in den Zugrunde liegenden Datenmenge identisch sein und lediglich die Verwendung von Methoden zum anonymisieren die Datensätze unterscheiden, sodass die beiden Datenmenge miteinander in Hinblick auf den Effekt der Verwendung von Methoden zum anonymisieren untersucht werden können. 
+%So wird im jedem beschriebenen Szenario zur Benutzung des Dokumentenspeichers angenommen das ein Benutzer eine Datei einmal ohne die Verwendung von Methoden zum anonymisieren in die ungeschützte Datenmenge via HTTP hochlädt und einmal mit der Verwendung von Methoden zum anonymisieren in die geschützte Datenmenge via HTTP hochlädt.
 
-Das führt dazu das bei der Auswertung der Datei durch die Verwendung oder nicht Verwendung von Methoden zum anonymisieren, die erfassten Meta-Daten sich nur durch die jeweilige Art der Methoden zum anonymisieren unterscheiden und die anschließenden Visualisierung nur diesen Unterschied darstellt und keine anderen Faktoren. 
-
+%Das führt dazu das bei der Auswertung der Datei durch die Verwendung oder nicht Verwendung von Methoden zum anonymisieren, die erfassten Meta-Daten sich nur durch die jeweilige Art der Methoden zum anonymisieren unterscheiden und die anschließenden Visualisierung nur diesen Unterschied darstellt und keine anderen Faktoren. 
 
 \chapter{Hauptteil}
 
 \section{Implementation des Dokumentenspeichers}
-
-Der Dokumentenspeicher wurde mit Hilfe des ASP .Net Core Framework erstellt. 
-Das Framework ist Microsofts aktuellste corss-platform Framework zur Realisierung von Web-Anwendungen.
-Das Framework unterstützt alle gängigen Betriebssysteme wie Windows, Mac OS und Linux durch die Verwendung des "Roslyn" Compilers.
-Mit dem ASP .Net Core entwickelte Web-Anwendungen lassen sich in gängige Hostingplatformen wie, z.B. das IIS von Microsoft, integrieren oder auch in einem eigenen Prozess selbst gehostet werden. 
-Das ASP .Net Framework sieht dabei eine MVC-Architektur, der Projekte vor und verwenden diese Architektur intern zum Realisieren der Anwendungen. 
-Modelle werden in diesem Kontext als Objekte zur Daten Repräsentation verstanden. 
-Views sind die HTML Pages welche die Klienten ausgegeben werden.
-Controller sind Zentrale Elemente. 
-Sie stellen die Funktionalität von Views auf der Server Seite dar.
+Der Dokumentenspeicher wurde mit Hilfe des ASP.NET Core Framework erstellt. 
+Das Framework ist Microsofts aktuellste plattformübergreifendes Framework zur Realisierung von Webanwendungen.
+Das Framework unterstützt alle gängigen Betriebssysteme wie Windows, Mac OS und Linux.
+Mit dem ASP.NET Core entwickelte Webanwendungen lassen sich in gängige Hostingplatformen wie, z.B. das IIS von Microsoft, integrieren oder auch in einem eigenen Prozess selbst gehostet werden. 
+Das ASP.NET Framework sieht dabei eine MVC-Architektur der Projekte vor und verwenden diese Architektur intern zum Realisieren der Anwendungen. 
+Modelle werden in diesem Kontext als Objekte zur Datenrepräsentation verstanden. 
+Views sind die HTML-Seiten welche die Klienten ausgegeben werden.
+Controller sind zentrale Elemente. 
+Sie stellen die Funktionalität von Views auf der Serverseite dar.
 Sie sind zur Steuerung verschiedener Routen und die Implementation von API-Punkten vorgesehen.
-Dabei Verwalten die Controller ebenfalls die zu Grunde liegenden Datenbanken.
+Dabei verwalten die Controller ebenfalls die zu Grunde liegenden Datenbanken.
 
-Der Entwickelte Dokumentenspeicher besteht aus einer Controller-Klasse, welche verschiedene API-Punkte implementiert. 
-Die API-Punkte werden durch Routen angesprochen, welche vorher definiert worden. Die Implementierten Routen sind: 
+Der entwickelte Dokumentenspeicher besteht aus einer Controller-Klasse, welche verschiedene API-Punkte implementiert. 
+Die API-Punkte werden durch Routen angesprochen, welche vorher definiert worden. 
+Die implementierten Routen sind: 
 
 \begin{description}
 \item[/api/GetA] HTTP Get Methode welche die Daten des Set A, dem ungeschützten Datensatz zurückgibt 
@@ -139,8 +163,9 @@ Die API-Punkte werden durch Routen angesprochen, welche vorher definiert worden.
 \item[api/uploadEmu] HTTP Post Methode zum erzeugen von Dummy Daten
 \end{description}
 
-In der Controller Klasse ist auch für das Sammeln der Meta-Daten für die hochgeladenen Dateien zuständig und speichert diese mit Hilfe der Modell Klasse in einem Datenbankschema ab. Die Modell Klasse besitzt verschiedene Propertys welche die gesammlten Meta-Daten widerspiegeln. 
-Die Propertys sind : 
+In der Controllerklasse ist auch für das Sammeln der Meta-Daten für die hochgeladenen Dateien zuständig und speichert diese mit Hilfe der Modellklasse in einem Datenbankschema ab. 
+Die Modellklasse besitzt verschiedene Eigenschaften, welche die gesammelten Metadaten widerspiegeln. 
+Die Eigenschaften sind : 
 
 \begin{description}
 \item[ID] Datenbank Index
@@ -150,197 +175,166 @@ Die Propertys sind :
 \item[Size] Die Dateigröße in Byte
 \item[IPAddress] Die IP-Adresse von der die Datei hochgeladen wurde
 \item[Headers] Ein String bestehend aus den Headern der Datei
-\item[HeaderFingerprint] Ein zusammenschluss aus ausgewähten Headern um eine möglichst eindeutige Signatur zu erzeugen
+\item[HeaderFingerprint] Ein Zusammenschluss aus ausgewählten Headern um eine möglichst eindeutige Signatur zu erzeugen
 \item[DateTime] Als Zeitstempel für das Hochladen der Datei
-\item[Country] Land aus welches die Datei hochgeladen wurde
-\item[RegionName] Region (Bundesland) aus welches die Datei hochgeladen wurde
-\item[City] Stadt aus welches die Datei hochgeladen wurde
-\item[Lat] Breitengrad welcher mit den bekannten IP-Adresse assoziiert wird
-\item[Lon] Längengrad welcher mit den bekannten IP-Adresse assoziiert wird
+\item[Country] Land aus welchem die Datei hochgeladen wurde
+\item[RegionName] Region (Bundesland) aus welchem die Datei hochgeladen wurde
+\item[City] Stadt aus welchem die Datei hochgeladen wurde
+\item[Lat] Breitengrad welcher mit der bekannten IP-Adresse assoziiert wird
+\item[Lon] Längengrad welcher mit der bekannten IP-Adresse assoziiert wird
 \item[Isp] Der Internetanbieter welcher der IP zugeordnet ist
 \end{description}
 
-Diese Propertys enthalten alle gesammelten Meta-Daten und können zur Visualisierung verwendet werden. 
-Mit Hilfe des Entity Framework Core von Microsoft wird ein Datenbankschema erzeugt was dieser Modell Klasse entspricht. 
-Dabei wird eine SQLite Datenbank Datei erzeugt die dem Datenbankschema entspricht und im Verzeichnis der Anwendung liegt.
-Im Gegensatz zur Verwendung eines festen SQL-Server der die Datenbank verwaltet, bietet die Anwendung so mehr Flexibilität und erlaubt es mehrere Datenbank Dateien mit der Anwendung bereit zu stellen, um so verschiedene Szenarien in verschiedenen Dateien bereitzustellen.
+Diese Eigenschaften enthalten alle gesammelten Metadaten und können zur Visualisierung verwendet werden. 
+Mit Hilfe des Entity Framework Core von Microsoft wird ein Datenbankschema erzeugt, was dieser Modellklasse entspricht. 
+Dabei wird eine SQLite Datenbankdatei erzeugt, die dem Datenbankschema entspricht und im Verzeichnis der Anwendung liegt.
+Im Gegensatz zur Verwendung eines festen SQL Server, der die Datenbank verwaltet, bietet die Anwendung so mehr Flexibilität und erlaubt es mehrere Datenbankdateien mit der Anwendung bereit zu stellen, um so verschiedene Szenarien in verschiedenen Dateien bereitzustellen.
 
-Der Dokumentenspeicher besitzt 3 Views, welche HTML Pages darstellen welche ein Benutzer über bestimme Routen aufrufen kann. 
+Der Dokumentenspeicher besitzt 3 Views, welche HTML-Seiten darstellen welche ein Benutzer über bestimme Routen aufrufen kann. 
 
 \begin{description}
-\item[/FileEntry] Anzeige der Datenbank in Tabellarischer Form
-\item[/FileEntryCreate] Bietet Möglichkeiten zum hochladen von Dateien oder dem erzeugen von Dummy Daten
+\item[/FileEntry] Anzeige der Datenbank in tabellarischer Form
+\item[/FileEntryCreate] Bietet Möglichkeiten zum Hochladen von Dateien oder dem Erzeugen von Pseudodaten
 \item[/FileEntryVisual] Visualisierung der gesammelten Daten
 \end{description}
 
-Die FileEntry-Page ist ist die StartPage der Web-Anwendung und verweist zu der FileEntryCreate und FileEntryVisual Page.
-Die Page zeigt lediglich die Datenbank in tabellarischer Form und ist hauptsächlich für die Entwicklung gebraucht worden. 
-Dies gilt auch für die FileEntryCreate-Page. 
+Die FileEntry HTML-Seite ist ist die Startseite der Webanwendung und verweist zu der FileEntryCreate und FileEntryVisual HTML-Seite.
+Die FileEntry HTML-Seite zeigt lediglich die Datenbank in tabellarischer Form und ist hauptsächlich für die Entwicklung gebraucht worden. 
+Dies gilt auch für die FileEntryCreate HTML-Seite. 
 Die FileEntryVisual-Page ist der Hauptbestandteil dieser Arbeit und stellt die verschiedenen Visualisierungsmöglichkeiten dar. 
 
-
-
-
-
-
-
-Die Implementation des Dokumentenspeichers ist mit dem ASP.NET Core Framework von Microsoft umgesetzt worden. \\
-\glqq ASP.NET Core ist ein plattformübergreifendes, leistungsstarkes Open-Source-Framework zum Erstellen moderner, cloudbasierter mit dem Internet verbundener Anwendungen.\grqq \\
-Der Dokumentenspeicher ist mittels einer Model-View-Controller Architektur realisiert worden. Die Model-View-Controller Architektur definiert, Modelle als Klassen welche die zugrundeliegende Problemstruktur wiedergeben. Sie modellieren die Objekte welche keine Informationen über ihre Verwendung besitzen. 
-Views sind die Klassen welche die Darstellung der Modelle implementieren und den Output einer Systems darstellen. Controller sind die Kontroll-Klassen welche Views steuern und Input in das System verarbeiten. 
-
-Das ausschlaggebende Modell im Dokumentenspeicher ist die FileEntryItem Klasse. Die Klasse definiert alle Porperties, welche die Meta-Data wieder spiegeln, welche vom Dokumentenspeicherdienst gesammelt werden. Mit Hilfe des Entity Framework Core von Microsoft werden aus dieser Modell-Klasse ein Datenbankschema erzeugt. Das Datenbankschema ist somit an die Modell-Klassen gekoppelt und führt dazu das Änderungen an den Modell-Klassen auch direkt Änderungen des Datenbankschemas erfordern, welche vom Entity Framework Core einfach erzeugt werden können. Das erzeugte Datenbankschema für FileEntryItem ist.
-
-\lstinputlisting[language=csh, firstline=41, lastline=55]{sourceCode/FileEntryItem.cs}
-
-
-Die einzelnen Properties werden für bestimme Informationen verwendet.
-
-\begin{enumerate}
-\item ID: Datenbank Index
-\item Set: Das Set bezeichnet die Gruppe welcher die Datei zugeordnet wurde
-\item Filename: Der Dateiname
-\item Filepath: Der Pfad zur gespeicherten temporären Datei
-\item Size: Die Dateigröße in Byte
-\item IPAddress: Die IP-Adresse von der die Datei hochgeladen wurde
-\item Headers: Ein String bestehend aus den Headern der Datei
-\item HeaderFingerprint: Ein zusammenschluss aus ausgewähten Headern um eine möglichst eindeutige Signatur zu erzeugen
-\item DateTime: Als Zeitstempel für das Hochladen der Datei
-\item Country: Land aus welches die Datei hochgeladen wurde
-\item RegionName: Region (Bundesland) aus welches die Datei hochgeladen wurde
-\item City: Stadt aus welches die Datei hochgeladen wurde
-\item Lat: Breitengrad welcher mit den bekannten IP-Adresse assoziiert wird
-\item Isp: Internetanbierter des Benutzers der die Datei hochgeladen hat
-\item Lon: Längengrad welcher mit den bekannten IP-Adresse assoziiert wird
-\item Isp: Der Internetanbieter welcher der IP zugeordnet ist
-\end{enumerate}
-
-Für eine hoch geladene Datei werden diese 16 Informationen gespeichert und verwaltet.
-
-Der UploadController, welche die API's implementiert besitzt eine Reihe von Methoden welche die API's die einem Benutzer zur Verfügung stehen implementieren. 
-
-Für das Set A, die ungeschützte Datenmenge sowie für das Set B, die ungeschützte Datenmenge gibt es API Punkt welcher das Hochladen in die entsprechende Datenmenge ermöglicht. 
-
-\lstinputlisting[language=c, firstline=40, lastline=56]{sourceCode/UploadController.cs}
-
-In Line zwei bis Line acht wird eine API Punkt implementiert. 
-\lstinputlisting[language=c, firstline=41, lastline=41]{sourceCode/UploadController.cs}
-Ist das Keyword um eine Methode als einen API Punkt zu bereit zu stellen. Das HTTPPost Keyword definiert dabei einen Post API Punkt welcher Daten, im zuge eines Request entgegen nimmt und diese in der Regal verarbeitet. 
-
-\lstinputlisting[language=c, firstline=43, lastline=47]{sourceCode/UploadController.cs}
-Die Methode definiert als Rückgabewert ein RedirectToPageResult, welcher den Benutzer der diese API-benutzt als Antwort wieder zurück auf eine vordefinierte Page leitet. 
-Da die Methode mit den HttpPost-Attribut getagt ist, ist im Methoden-Rumpf ein Request-Object verfügbar welches den HTTP-Request welcher gegen den API-Punkt gestellt wurde darstellt. Das Request-Object hält alle Informationen wie die Header, die hochgeladene Datei und die IP-Adresse des Benutzers und dient dazu die Meta-Daten des Uploads zu erfassen. Das Request-Object wird zusammen mit einen String Identifier für das Set, welches dem API-Punkt zugeordert wird, an eine Methode "ProcessPost" übergeben, welche den Request verarbeitet, indem die Meta-Daten gesammelt, die Datei, welche hochgeladen wurde, abspeichert und die Meta-Daten sowie den Pfad zu der hochgeladenen Datei in einer Datenbank geschrieben wird.
-
-
+\newpage
 \section{Darstellung: IP Tree Map und IP Google Map}
-
-Die Darstellung der gesammelten Daten über IP-Adressen Gruppierte Mengen.
-
-Erzeugen des Gruppierungen aus der gegebenen Datenmenge. Nutzung des d3.js zur Darstellung der Tree Map. Dabei wird jeder IP-Gruppierung eine andere Farbe zugeordnet. Die Farbliche Visuelle Darstellung macht zusammengehörige Dateien nach IP-Adresse direkt sichtbar. Mit Hilfe der IP-Adressen und eines Geolookup kann ein ungefährer Standpunkt (Lat/Lon) der IP-Adresse gewonnen werden. Anhand dieses Standpunkts kann auf der Google Map der Standpunkt von wo eine Datei hochgeladen wurde aufgezeigt werden. 
-
-Bei Verwendung von Methoden zur Anonymisieren der IP-Adresse wie z.B. das verwenden eines Proxys oder der Verwendung des TOR-Netzwerks, werden die IP-Adressen-Gruppierungen verzerrt, durch verzerrte Gruppen können Dateien eines Benutzer nicht mehr zu 100\% auf diesem Benutzer gemappt werden.
-
-\begin{enumerate}
-\item Proxy -> IP-Adresse wird maskiert
-\begin{enumerate}
-\item Falls der Proxy wird nur durch einen Benutzer benutzt -> keine Gruppenverzerrung 
-\item Proxy wird von mehreren Benutzern benutzt -> Gruppenverzerrung 
-\item Benutzer wechselt Proxy mehrfach -> Gruppierungen werden in der Gesamtheit verzerrt -> pro Benutzer mehre Gruppierungen 
-\end{enumerate}
-\item IP-Gruppierung über die Endknoten des Tor-Netzwerks 
-\begin{enumerate}
-\item Benutzer die den gleichen Endknoten benutzen werden gruppiert -> Gruppenverzerrung 
-\item Durch automatischen wechsle der Endknoten -> Pro Benutzer zwangsläufig mehrere Gruppen -> Gruppenverzerrung 
-\end{enumerate}
-\end{enumerate}
-
-
-Die Darstellung von IP bezogenen Meta-Daten wird an einem einfachen Beispiel vorgeführt.
+Die Darstellung von IP bezogenen Metadaten wird an einem einfachen Beispiel vorgeführt.
 Gegeben sind Benutzer Alice und Bob.
 Alice und Bob befinden sich beide in Hamburg.
 Sie laden jeweils drei Dateien hoch, einmal mit und einmal ohne die Verwendung eines Proxys zum Maskieren ihrer IP-Adresse.
 Der verwendete Proxy ist bei Alice und Bob der selbe.
-Alice lädt die Dateien test0 bis test2 und Bob die Dateien test3-test5 hoch.
-Alice lädt ihre drei Dateien in einem Post hoch und Bob lädt die drei Dateien jeweils einzeln mit einem Abstand von ein paar Sekunden hoch.
+Alice lädt die Dateien test0 bis test2 und Bob die Dateien test3 bis test5 hoch.
+Alice und Bob laden ihre Dateien jeweils einzeln mit einer Verzögerung von ein paar Sekunden einzeln hoch.
+
+Die Darstellung erfolgt durch eine sog. TreeMap, welche eine gegebene Datenstruktur, welche als Baum dargestellt werden kann, visualisiert.
+Die Baumstruktur besteht aus einem Wurzelknoten, den davon abgehenden Kindknoten und den Blattknoten, welche dadurch ausgezeichnet sind das sie keine Kindknoten besitzen. 
+Der Wurzelknoten wird künstliche erzeugt und als Überschrift für die Visualisierung verwendet und Zeigt die Schlüsseleigenschaft über dem die Baumstruktur erzeugt wurde, in diesem Fall die \enquote{IpAddress}.
+Die restlichen Knoten sind aus den gegebenen Daten erzeugt worden, wobei der Schlüssel: \enquote{IpAddress}, die Ausschlag gebende Eigenschaft ist, über welcher die Baumstruktur erzeugt wird. 
+Die erzeugte Baumstruktur hat somit 3 Ebenen. 
+Auf der 1. Ebene den Wurzelknoten, welche zum Visualisieren der Schlüsseleigenschaft benutzt wird. 
+Auf der 2. Ebene die Kindknoten, welche die IP-Adressen darstellen, welche im Datensatz vorhanden sind und auf der 3. Ebene die Blattknoten, welche die Dateien selbst darstellen.
+Für das Beispiel von Alice und Bob sieht die Baumstruktur also wie folgt aus: 
+
+\begin{forest}
+  for tree={%
+    folder,
+    grow'=0,
+    fit=band,
+  }
+  [Schlüsseleigenschaft: IP-Adresse
+  	[Alice (95.91.226.214)
+		[test0]
+		[test1]
+		[test2]  		
+  	]
+  	[Bob (95.91.225.215)
+		[test3]  	
+  		[test4]
+  		[test5]
+  	]
+  ]
+\end{forest}
+
+\todo{schreiben das dies die zu erwartenden Daten sind}
+
+\begin{tikzpicture}
+\node (rect) [rectangle, draw, minimum width=160mm, minimum height=100mm, anchor= north west] at (0,0) {};
+\node [below right] at (rect.north west) {Schlüsseleigenschaft: IP-Adresse};
+
+\node (rectA) [rectangle, draw, minimum width=80mm, minimum height=80mm, anchor= north west] at (0,-2) {};
+\node [below right] at (rectA.north west) {Alice (95.91.226.214};
+
+\node (rectA0) [rectangle, draw, minimum width=22mm, minimum height=60mm, anchor= north west] at (0.35,-3.5) {};
+\node [] at (rectA0.center) {test0};
+\node (rectA1) [rectangle, draw, minimum width=22mm, minimum height=60mm, anchor= north west] at (2.9,-3.5) {};
+\node [] at (rectA1.center) {test1};
+\node (rectA2) [rectangle, draw, minimum width=22mm, minimum height=60mm, anchor= north west] at (5.45,-3.5) {};
+\node [] at (rectA2.center) {test2};
+
+\node (rectB) [rectangle, draw, minimum width=80mm, minimum height=80mm, anchor= north west] at (8,-2) {};
+\node [below right] at (rectB.north west) {Bob (95.91.225.215)};
+
+\node (rectB0) [rectangle, draw, minimum width=23mm, minimum height=60mm, anchor= north west] at (8.35,-3.5) {};
+\node [] at (rectB0.center) {test3};
+\node (rectB1) [rectangle, draw, minimum width=23mm, minimum height=60mm, anchor= north west] at (10.9,-3.5) {};
+\node [] at (rectB1.center) {test4};
+\node (rectB2) [rectangle, draw, minimum width=23mm, minimum height=60mm, anchor= north west] at (13.45,-3.5) {};
+\node [] at (rectB2.center) {test5};
+\end{tikzpicture}
 
 \begin{center}
-\includegraphics[width=\textwidth]{../pic/IP-Proxy-SetA-tree.png}
-\captionof{figure}{Visualisierung von Dateien mittels einer TreeMap , welche nach der IP-Adresse gruppiert sind}
+\includegraphics[width=\textwidth]{../pic/IP-Proxy-SetA-tree2.png}
+\captionof{figure}{Darstellung der Daten von Alice und Bob}
 \end{center}
 
-In Abbildung 3.1 werden die Daten von Alice und Bob dargestellt welche ohne die Verwendung eines proxys hochgeladen worden sind. 
-Die Darstellung erfolgt durch eine sog. TreeMap, welche eine Gegebene Datenstruktur, welche als Baum dargestellt werden kann, visualisiert.
-Die Baum Struktur besteht aus einer Wurzel-Knoten, sog. Root-Node und den davon abgehenden Child-Nodes, Nodes in der Baumstruktur welche keine weiteren Child-Nodes bestitzen werden Leaf-Nodes genannt. 
-Die Root-Node wird künstliche erzeugt und als Überschrift für die Visualisierung verwendet und Zeigt den Key über dem die Baumstruktur erzeugt wurde, in diesem Fall die "IpAddress".
-Die restlichen Nodes sind aus dem gegebenen Daten erzeugt worden, wobei der Key: ipAddress, die Ausschlag gebende Property ist über welcher die Baumstruktur erzeugt wird. 
-Die Erzeugte Baumstrukur hat somit 3 Ebenen. 
-Auf der 1. Ebene die Root-Node, welche zum Viusaliseren der Key Property benutzt wird. 
-Auf der 2. Ebene die Nodes, welche die IP-Adressen darstellen welche im Datensatz vorhanden sind.
-Und auf der 3. Ebene die Leaf-Nodes, welche die Dateien selbst darstellen.
-In Abbildung 3.1 sind die IP-Adressen 95.91.226.214 von Alice und 95.91.225.215 Bob erkennbar. 
+In Abbildung 3.1 werden die Daten von Alice und Bob dargestellt, welche ohne die Verwendung eines Proxys hochgeladen worden sind. 
+\todo{Move this to the end of the text block}
+
+In Abbildung 3.1 sind die IP-Adressen von Alice(95.91.226.214) und Bob(95.91.225.215) erkennbar. 
 Zu jeder IP-Adresse können jeweils die drei Dateien der Benutzer zugeordnet werden. 
 Die Dateien test0 bis test2 sind der IP-Adresse 95.91.226.214 zugeordnet und test3 bis test5 sind der IP-Adresse 95.91.225.215 zugeordnet.
 Damit ist das gegebene Beispiel richtig abgebildet und die echten Relationen zwischen Dateien und IP-Adressen sind richtig modelliert und nachvollziehbar. 
 
 \begin{center}
 \includegraphics[width=0.5\textwidth]{../pic/IP-Proxy-SetA.png}
-\captionof{figure}{Visualisierung von Dateien mittels einer Karte, welche die Geo-Position einer IP-Adresse anzeigt}
+\captionof{figure}{Visualisierung von Dateien mittels einer Karte, welche die Geoposition einer IP-Adresse anzeigt}
 \end{center}
 
-Die Abbildung 3.2 zeigt uns die Geo-Location der IP-Adressen von Alice und Bob und zeigt deren ungefähre Position in Hamburg, 
+Die Abbildung 3.2 zeigt uns die Geoposition der IP-Adressen von Alice und Bob und zeigt deren Position in Hamburg, 
 wobei die Position nur einen ungefähren Standpunkt darstellt und die eigentliche Position bis zu einem Kilometer abweichen kann.
 
 \begin{center}
-\includegraphics[width=\textwidth]{../pic/IP-Proxy-SetB-tree.png}\\
-\captionof{figure}{Visualisierung von Dateien mittels einer TreeMap , welche nach der IP-Adresse gruppiert sind}
+\includegraphics[width=\textwidth]{../pic/IP-Proxy-SetB-tree2.png}\\
+\captionof{figure}{Visualisierung von Dateien mittels einer TreeMap, welche nach der IP-Adresse gruppiert sind}
 \end{center}
 
-In Abbildung 3.3 sind die Daten Visualisiert, welche mittels eines Proxy hochgeladen wurden. 
-Alle Dateien wurden über die IP-Adresse des Proxys 85.214.132.117 gruppiert und somit eine Anonymitätsmenge erzeugt.
+In Abbildung 3.3 sind die Daten visualisiert, welche mittels eines proxy hochgeladen wurden. 
+Alle Dateien wurden über die IP-Adresse des proxys 85.214.132.117 gruppiert und somit eine Anonymitätsmenge erzeugt.
 Die Daten von Alice und Bob sind nun in einer Anonymitätsmenge zusammengefasst und lassen sich anhand der IP-Adresse nicht mehr eindeutig den beiden Benutzern zuordnen.
 
 \begin{center}
 \includegraphics[width=\textwidth]{../pic/IP-Proxy-SetB.png}\\
-\captionof{figure}{Visualisierung von Dateien mittels einer Karte, welche die Geo-Position einer IP-Adresse anzeigt}
+\captionof{figure}{Visualisierung von Dateien mittels einer Karte, welche die Geoposition einer IP-Adresse anzeigt}
 \end{center}
 
-Abbildung 3.4 zeigt und nun die Geo-Location des Proxys welches in Berlin steht.
-Damit sind auch die eigentlichen Geo-Locations von Alice und Bob durch die Verwendung des Proxys maskiert worden. 
+Abbildung 3.4 zeigt und nun die Geoposition des proxys welches in Berlin steht.
+Damit sind auch die eigentlichen Geoposition von Alice und Bob durch die Verwendung des Proxys maskiert worden. 
 
-Anstelle eines Proxys könnten Alice und Bob das Tor-Netzwerk benutzen um ihre IP-Adressen zu maskieren. Alice und Bob laden drei Dateien, einmal ungeschützt und einmal geschütztm durch das Tor-Netzwerk hoch.
-Dabei nehmen wir an das alle Datei-Uploads einzeln passieren und jedem Dabei-Upload eine andere Route durch das Tor-Netzwerk zugewiesen wird, sodass jeder Upload einen anderen Exit-Server des Tor-Netzwerkes durchläuft. 
+Anstelle eines proxys könnten Alice und Bob das Tor-Netzwerk benutzen um ihre IP-Adressen zu maskieren. Alice und Bob laden drei Dateien, einmal ungeschützt und einmal geschützt durch das Tor-Netzwerk hoch.
+Dabei nehmen wir an das alle Dateien einzeln hochgeladen wurden und jeder hochgeladenen Datei eine andere Route durch das Tor-Netzwerk zugewiesen wurde, sodass jede hochgeladene Dateie einen anderen Exit-Server des Tor-Netzwerkes durchläuft. 
 
 \begin{center}
-\includegraphics[width=\textwidth]{../pic/IP-Tor-SetB-tree.png}\\
-\captionof{figure}{Visualisierung von Dateien mittels einer TreeMap , welche nach der IP-Adresse gruppiert sind}
+\includegraphics[width=\textwidth]{../pic/IP-Tor-SetB-tree2.png}\\
+\captionof{figure}{Visualisierung von Dateien mittels einer TreeMap, welche nach der IP-Adresse gruppiert sind}
 \end{center}
 
 In Abbildung 3.5 sehen wir nun die IP-Adressen der verschiedenen Exit-Server des Tor-Netzwerks.
-Da jedem Datei-Upload ein neues Exit-Server zugewiesen wurde, können wir über die IP-Adresse die Dateien nicht mehr zuordnen.
+Da jeder hochgeladener Datei ein neuer Exit-Server zugewiesen wurde, können wir über die IP-Adresse die Dateien nicht mehr entsprechend der Benutzer gruppieren.
 
 \begin{center}
 \includegraphics[width=0.7\textwidth]{../pic/IP-Tor-SetB.png}\\
-\captionof{figure}{Visualisierung von Dateien mittels einer Karte, welche die Geo-Position einer IP-Adresse anzeigt}
+\captionof{figure}{Visualisierung von Dateien mittels einer Karte, welche die Geoposition einer IP-Adresse anzeigt}
 \end{center}
 
 Bei Betrachtung der Abbildung 3.6 ist auch erkennbar, das die verschiedenen Positionen der Exit-Server des Tor-Netzwerks variieren und es keinen Anhaltspunkt auf die eigentliche Postion von Alice und Bob gibt. 
 
- 
 
-
-
-
-
+\newpage
 \section{Darstellung: Headerfingerprinting}
 
-Der Headerfingerprint welcher beim hochladen der Datei erzeugt wird, wird nun verwendet um die Dateien jeweils  
+Der Headerfingerprint welcher beim Hochladen der Datei erzeugt wird, wird nun verwendet um die Dateien jeweils  
 
+\newpage
 \section{Darstelung: Time Line}
-
 \chapter{Schluss}
-
 \section{Zusammenfassung der Ergebnisse}
 \section{kritische Bewertung des Ergebnisse}
 \section{neue Problemstellungen, Möglichkeiten zur Weiterführung der Arbeit}
-
 \end{document}
