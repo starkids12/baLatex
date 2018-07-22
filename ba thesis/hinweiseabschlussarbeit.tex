@@ -89,7 +89,40 @@ Das Framework wird benutzt um die Webbenutzeroberfläche sowie die Web API des D
 Dazu wird das Javascript Framework Data-Driven Documents, i.d.R. d3.js genannt, zur Visualisierung der Daten verwendet. 
 Der Dokumentenspeicher soll vor allem den Unterschied zwischen der Verwendung von Methoden zur Verschlüsselung oder das anonymisieren von Daten visualisieren und verwaltet dazu zwei verschiedene Datensätze, wobei eine Datenmenge ohne, und eine Datenmenge mit der Verwendung von Methoden zur Verschlüsselung oder das anonymisieren von Daten erzeugt wird. Der entstehende Unterschied der gesammelten Metadaten durch die verschiedenen Methoden führt dann zu einer Veränderung in der Visualisierung, was dann den Effekt und Nutzen der Methoden deutlich sichtbar macht.  
 
-\chapter{Grundlagen}
+%\chapter{Grundlagen}
+
+%\newpage
+%\section{Terminologie}
+%\begin{enumerate}
+%\item HTTP-Header
+%\begin{enumerate}
+%\item Teil des Hypertext Transfer Protocol (HTTP)
+%\item Headerblock und Headerfeld nach RFC 2616(https://tools.ietf.org/html/rfc2616)
+%\end{enumerate}
+%\item Geo lookup
+%\begin{enumerate}
+%\item eine Methodik zur Bestimmung des geografischen Standort einer IP-Adresse
+%\item keine eigenen Implementation der Standortbestimmung, sondern Verwendung eines öffentlich zugänglichen Service, aus Zeit und komplexitätsgründen
+%\item Patent US7752210B2
+%\end{enumerate}
+%\item Header Fingerprint
+%\begin{enumerate}
+%\item eine Methodik zur Identifikation eines Benutzers anhand der von ihm Verwendeten HTTP Header
+%\item Aggregation über allen Http-Header oder einem ausgewählten Set an Headerfeldern 
+%\item erzeugt Fingerprint wird gehasht und gespeichert
+%\item bei übereinstimmenden Fingerprints wird angenommen das diese vom gleichen Benutzer erzeugt wurden 
+%\end{enumerate}
+%\end{enumerate}
+
+%\newpage
+%\section{Set A / Set B}
+%
+%Die angeführten DbSets FileEntryItemsA und FileEntryItemsB verfügen jeweils über Daten welche zu visualisieren sind. Dabei wird das DbSet FileEntryItemsA weiterhin als die ungeschützte Datenmenge beschrieben, da diese Datenbank nur mit Daten befüllt werden soll, bei welchen keine datenschutzfreundlichen Methoden zum anonymisieren verwendet wurden. Das DbSet FileEntryItemsB wird weiterhin als geschützte Datenmenge beschrieben, da ausschließlich Daten , welche mit Methoden zum anonymisieren hochgeladen wurden, verwendet werden sollen. Dabei sollte die geschützte und ungeschützte Datenmenge in den Zugrunde liegenden Datenmenge identisch sein und lediglich die Verwendung von Methoden zum anonymisieren die Datensätze unterscheiden, sodass die beiden Datenmenge miteinander in Hinblick auf den Effekt der Verwendung von Methoden zum anonymisieren untersucht werden können. 
+%So wird im jedem beschriebenen Szenario zur Benutzung des Dokumentenspeichers angenommen das ein Benutzer eine Datei einmal ohne die Verwendung von Methoden zum anonymisieren in die ungeschützte Datenmenge via HTTP hochlädt und einmal mit der Verwendung von Methoden zum anonymisieren in die geschützte Datenmenge via HTTP hochlädt.
+
+%Das führt dazu das bei der Auswertung der Datei durch die Verwendung oder nicht Verwendung von Methoden zum anonymisieren, die erfassten Meta-Daten sich nur durch die jeweilige Art der Methoden zum anonymisieren unterscheiden und die anschließenden Visualisierung nur diesen Unterschied darstellt und keine anderen Faktoren. 
+
+\chapter{Hauptteil}
 
 \section{Verwendungszweck des Dokumentenspeichers}
 Der Dokumentenspeicher dient vor allem dazu den Vergleich zwischen den unterschiedlichen gesammelten Metadaten mit und ohne die Verwendung von datenschutzfreundlichen Methoden zum Anonymisieren von Daten. 
@@ -106,38 +139,6 @@ Im ideal Fall können so, durch die Betrachtung der Visualisierung der ungeschü
 Die Betrachtung der geschützten Datenmenge sollte dann im ideal Fall zeigen, dass durch die Verwendung von einer oder mehreren Methoden zum Anonymisieren von Daten diese Relation nicht mehr sichtbar ist und die Methode somit einen sichtbaren Effekt hat.
 
 \newpage
-\section{Terminologie}
-\begin{enumerate}
-\item HTTP-Header
-\begin{enumerate}
-\item Teil des Hypertext Transfer Protocol (HTTP)
-\item Headerblock und Headerfeld nach RFC 2616(https://tools.ietf.org/html/rfc2616)
-\end{enumerate}
-\item Geo lookup
-\begin{enumerate}
-\item eine Methodik zur Bestimmung des geografischen Standort einer IP-Adresse
-\item keine eigenen Implementation der Standortbestimmung, sondern Verwendung eines öffentlich zugänglichen Service, aus Zeit und komplexitätsgründen
-\item Patent US7752210B2
-\end{enumerate}
-\item Header Fingerprint
-\begin{enumerate}
-\item eine Methodik zur Identifikation eines Benutzers anhand der von ihm Verwendeten HTTP Header
-\item Aggregation über allen Http-Header oder einem ausgewählten Set an Headerfeldern 
-\item erzeugt Fingerprint wird gehasht und gespeichert
-\item bei übereinstimmenden Fingerprints wird angenommen das diese vom gleichen Benutzer erzeugt wurden 
-\end{enumerate}
-\end{enumerate}
-
-%\newpage
-%\section{Set A / Set B}
-%
-%Die angeführten DbSets FileEntryItemsA und FileEntryItemsB verfügen jeweils über Daten welche zu visualisieren sind. Dabei wird das DbSet FileEntryItemsA weiterhin als die ungeschützte Datenmenge beschrieben, da diese Datenbank nur mit Daten befüllt werden soll, bei welchen keine datenschutzfreundlichen Methoden zum anonymisieren verwendet wurden. Das DbSet FileEntryItemsB wird weiterhin als geschützte Datenmenge beschrieben, da ausschließlich Daten , welche mit Methoden zum anonymisieren hochgeladen wurden, verwendet werden sollen. Dabei sollte die geschützte und ungeschützte Datenmenge in den Zugrunde liegenden Datenmenge identisch sein und lediglich die Verwendung von Methoden zum anonymisieren die Datensätze unterscheiden, sodass die beiden Datenmenge miteinander in Hinblick auf den Effekt der Verwendung von Methoden zum anonymisieren untersucht werden können. 
-%So wird im jedem beschriebenen Szenario zur Benutzung des Dokumentenspeichers angenommen das ein Benutzer eine Datei einmal ohne die Verwendung von Methoden zum anonymisieren in die ungeschützte Datenmenge via HTTP hochlädt und einmal mit der Verwendung von Methoden zum anonymisieren in die geschützte Datenmenge via HTTP hochlädt.
-
-%Das führt dazu das bei der Auswertung der Datei durch die Verwendung oder nicht Verwendung von Methoden zum anonymisieren, die erfassten Meta-Daten sich nur durch die jeweilige Art der Methoden zum anonymisieren unterscheiden und die anschließenden Visualisierung nur diesen Unterschied darstellt und keine anderen Faktoren. 
-
-\chapter{Hauptteil}
-
 \section{Implementation des Dokumentenspeichers}
 Der Dokumentenspeicher wurde mit Hilfe des ASP.NET Core Framework erstellt. 
 Das Framework ist Microsofts aktuellste plattformübergreifendes Framework zur Realisierung von Webanwendungen.
@@ -215,59 +216,70 @@ Alice und Bob laden ihre Dateien jeweils einzeln mit einer Verzögerung von ein 
 
 Die Darstellung erfolgt durch eine sog. TreeMap, welche eine gegebene Datenstruktur, welche als Baum dargestellt werden kann, visualisiert.
 Die Baumstruktur besteht aus einem Wurzelknoten, den davon abgehenden Kindknoten und den Blattknoten, welche dadurch ausgezeichnet sind das sie keine Kindknoten besitzen. 
-Der Wurzelknoten wird künstliche erzeugt und als Überschrift für die Visualisierung verwendet und Zeigt die Schlüsseleigenschaft über dem die Baumstruktur erzeugt wurde, in diesem Fall die \enquote{IpAddress}.
-Die restlichen Knoten sind aus den gegebenen Daten erzeugt worden, wobei der Schlüssel: \enquote{IpAddress}, die Ausschlag gebende Eigenschaft ist, über welcher die Baumstruktur erzeugt wird. 
+Der Wurzelknoten wird künstliche erzeugt und als Überschrift für die Visualisierung verwendet und Zeigt die Schlüsseleigenschaft über dem die Baumstruktur erzeugt wurde, in diesem Fall die IP-Adresse.
+Die restlichen Knoten sind aus den gegebenen Daten erzeugt worden, wobei der Schlüssel: die IP-Adresse, die Ausschlag gebende Eigenschaft ist, über welcher die Baumstruktur erzeugt wird. 
 Die erzeugte Baumstruktur hat somit 3 Ebenen. 
 Auf der 1. Ebene den Wurzelknoten, welche zum Visualisieren der Schlüsseleigenschaft benutzt wird. 
 Auf der 2. Ebene die Kindknoten, welche die IP-Adressen darstellen, welche im Datensatz vorhanden sind und auf der 3. Ebene die Blattknoten, welche die Dateien selbst darstellen.
 Für das Beispiel von Alice und Bob sieht die Baumstruktur also wie folgt aus: 
 
-\begin{forest}
-  for tree={%
-    folder,
-    grow'=0,
-    fit=band,
-  }
-  [Schlüsseleigenschaft: IP-Adresse
-  	[Alice (95.91.226.214)
-		[test0]
-		[test1]
-		[test2]  		
+\begin{figure}[H]
+\centering
+	\begin{forest}
+  	for tree={%
+    	folder,
+    	grow'=0,
+    	fit=band,
+  	}
+  	[Schlüsseleigenschaft: IP-Adresse
+  		[Alice (95.91.226.214)
+			[test0]
+			[test1]
+			[test2]  		
+  		]
+  		[Bob (95.91.225.215)
+			[test3]  	
+  			[test4]
+  			[test5]
+  		]
   	]
-  	[Bob (95.91.225.215)
-		[test3]  	
-  		[test4]
-  		[test5]
-  	]
-  ]
-\end{forest}
+	\end{forest}
+\caption{Baumstruktur erzeugt als dem Beispiel von Alice und Bob}
+\end{figure}
 
-\todo{schreiben das dies die zu erwartenden Daten sind}
+Aus dieser Struktur wird nun die TreeMap erzeugt. 
+Für jeden Knoten im Baum wird ein Rechteck/Box erzeugt, dabei wird jeder Kindknoten in das Rechteck/Box des Elternknoten eingebettet. 
+Durch farbliche Unterschiede sollen dann die verschiedenen Ebenen und Relationen deutlich werden. 
+Eine Schematische Darstellung des Beispiels ist in~\ref{fig:schem} zu sehen. 
 
+\begin{figure}
+\centering
 \begin{tikzpicture}
-\node (rect) [rectangle, draw, minimum width=160mm, minimum height=100mm, anchor= north west] at (0,0) {};
+\node (rect) [rectangle, draw, minimum width=160mm, minimum height=90mm, anchor= north west] at (0,0) {};
 \node [below right] at (rect.north west) {Schlüsseleigenschaft: IP-Adresse};
 
-\node (rectA) [rectangle, draw, minimum width=80mm, minimum height=80mm, anchor= north west] at (0,-2) {};
+\node (rectA) [rectangle, draw, minimum width=80mm, minimum height=80mm, anchor= north west] at (0,-1) {};
 \node [below right] at (rectA.north west) {Alice (95.91.226.214};
 
-\node (rectA0) [rectangle, draw, minimum width=22mm, minimum height=60mm, anchor= north west] at (0.35,-3.5) {};
+\node (rectA0) [rectangle, draw, minimum width=22mm, minimum height=60mm, anchor= north west] at (0.35,-2) {};
 \node [] at (rectA0.center) {test0};
-\node (rectA1) [rectangle, draw, minimum width=22mm, minimum height=60mm, anchor= north west] at (2.9,-3.5) {};
+\node (rectA1) [rectangle, draw, minimum width=22mm, minimum height=60mm, anchor= north west] at (2.9,-2) {};
 \node [] at (rectA1.center) {test1};
-\node (rectA2) [rectangle, draw, minimum width=22mm, minimum height=60mm, anchor= north west] at (5.45,-3.5) {};
+\node (rectA2) [rectangle, draw, minimum width=22mm, minimum height=60mm, anchor= north west] at (5.45,-2) {};
 \node [] at (rectA2.center) {test2};
 
-\node (rectB) [rectangle, draw, minimum width=80mm, minimum height=80mm, anchor= north west] at (8,-2) {};
+\node (rectB) [rectangle, draw, minimum width=80mm, minimum height=80mm, anchor= north west] at (8,-1) {};
 \node [below right] at (rectB.north west) {Bob (95.91.225.215)};
 
-\node (rectB0) [rectangle, draw, minimum width=23mm, minimum height=60mm, anchor= north west] at (8.35,-3.5) {};
+\node (rectB0) [rectangle, draw, minimum width=23mm, minimum height=60mm, anchor= north west] at (8.35,-2) {};
 \node [] at (rectB0.center) {test3};
-\node (rectB1) [rectangle, draw, minimum width=23mm, minimum height=60mm, anchor= north west] at (10.9,-3.5) {};
+\node (rectB1) [rectangle, draw, minimum width=23mm, minimum height=60mm, anchor= north west] at (10.9,-2) {};
 \node [] at (rectB1.center) {test4};
-\node (rectB2) [rectangle, draw, minimum width=23mm, minimum height=60mm, anchor= north west] at (13.45,-3.5) {};
+\node (rectB2) [rectangle, draw, minimum width=23mm, minimum height=60mm, anchor= north west] at (13.45,-2) {};
 \node [] at (rectB2.center) {test5};
 \end{tikzpicture}
+\caption{Schematische Darstellung einer Visualitionmöglichkeit der Baumstruktur}\label{fig:schem}
+\end{figure}
 
 \begin{center}
 \includegraphics[width=\textwidth]{../pic/IP-Proxy-SetA-tree2.png}
@@ -329,7 +341,6 @@ Bei Betrachtung der Abbildung 3.6 ist auch erkennbar, das die verschiedenen Posi
 \newpage
 \section{Darstellung: Headerfingerprinting}
 
-Der Headerfingerprint welcher beim Hochladen der Datei erzeugt wird, wird nun verwendet um die Dateien jeweils  
 
 \newpage
 \section{Darstelung: Time Line}
