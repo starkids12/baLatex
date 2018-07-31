@@ -373,13 +373,30 @@ Eine Schematische Darstellung des Beispiels ist in~\ref{fig:schem} zu sehen.
 \caption{Schematische Darstellung einer Visualitionmöglichkeit der Baumstruktur}
 \label{fig:schem}
 \end{figure}
-
+\todo{Die Quotes sind fucked up}
 In Abbildung~\ref{fig:ungIpTM} und der Abbildung~\ref{fig:ungIpM} werden die Beispieldaten von Alice und Bob mit dem Visualisierungstool des Dokumentenspeichers dargestellt.
+Die Abbildung~\ref{fig:ungIpTM} zeigt die Visualisierung der TreeMap nach dem schematischem Beispiel aus Abbildung~\ref{fig:schem}. 
+In Abbildung~\ref{fig:ungIpTM} ist ein blauer Kasten zu erkennen welche den Titel: \glqq Key: ipAddress\grqq trägt und damit die Angezeigt Eigenschaft die IP-Adresse beschreibt.
+In diesen Kasten sind zwei orange Kästen eingebettet.
+Beide Kästen tragen einen Titel, der obere \glqq Key: 95.91.226.214\grqq, die Ip-Adresse von Alice, und der untere \glqq Key: 95.91.225.215\grqq, die IP-Adresse von Bob.
+In den oberen Kasten, welcher mit Alice's IP-Adresse betitelt ist, sind 3 weitere grüne Kästen eingebettet, welche für die Dateien test0, test1 und test2 stehen.
+Im unteren Kasten, welcher mit Bob's IP-Adresse betitelt ist, sind 3 rote Kästen eingebettet, welche die Dateien test3, test4 und test5 darstellen.
+Die Farbe der einzelnen Kästen ist ausschlaggebend für die Ebene des Eintrags in der Baumstruktur.
+Der blaue Kasten stellt den Wurzelknoten dar.
+Die orangen Kästen sind die Kästen die eine verwendete IP-Adresse darstellen.
+Die darunter angeordneten Kästen haben eine Farbe abhängig von der IP-Adresse welcher sie zugeordnet sind, sodass alle unter einer IP-Adresse angeordnete Dateien die selber Farbe haben, sodass ihre Zusammengehörigkeit sofort sichtbar ist.In Abbildung~\ref{fig:ungIpM} ist eine Karte von Hambrugs Zentrum zu erkenne.
+Auf dieser Karte sind 2 Standpunkte markiert.
+Ein Punkt bei Lat: 53.5770988464355, Lon: 10.0190000534058, welcher mit dem Vorgegebenen Standpunkt von Alice übereinstimmt.
+Der zweite Punkt liegt bei Lat: 53.5830001831055 Lon: 9.98130035400391, welcher dem Vorgegebenen Standpunkt von Bob entspricht.
+Beim überfligen eines Punktes mit der Maus wird für jeden Punkt die zugehörige IP-Adreese angezeigt und die Anzahl von Dateien, welche von diser Ip-Adresse hochgeladen wurden.
+
+\begin{comment}
 In Abbildung~\ref{fig:ungIpTM} sind die zwei IP-Adressen von Alice(95.91.226.214) und Bob(95.91.225.215) dargestellt.
 Alice sind die Dateien testo, test1 und test2 zugeordnet.
 Bob sind die Dateien test3, test4 und test5 zugeordnet. 
 In Abbildung~\ref{fig:ungIpM} sind zwei Standpunkte im Hamburg zu erkennen.
 Den Standpunkt von Alice (Lat: Lon:) und dem Standpunkt von Bob (Lat: Lon:)
+\end{comment}
 
 \begin{figure}[H]
 %\includegraphics[width=\textwidth]{../pic/IP-Proxy-SetA-tree2.png}
@@ -639,11 +656,33 @@ Nicht jedoch im Hinblick auf den Headerfingerprint.
 Die Verwendung des Tor-Netzwerks schützt sowohl vor der Erkennnung der Relationen von Benutzern und Dateien im Bezug auf die IP-Adresse sowohl auch der des Headerfingerprint.
 
 
-
-
 % Schluss
 \chapter{Schluss}
 \section{Zusammenfassung der Ergebnisse}
+\begin{itemize}
+\item Funktionalität des Dokumentenspeichers
+\item Verwendungszweck des Dokumentenspeichers erfüllt?
+\item Auswertung der Szenarien
+\item Konklusion
+\end{itemize}
+
 \section{Limitierungen}
+\begin{itemize}
+\item Dokumentenspeicher sehr simple, nicht vollständig implementiert
+\item Dokumentenspeicher reicht für Darstellung von einfachen Szenarien, Verwendung von echt Daten möglich, jedoch Visualisierungen passend ? Aussagekräftig ?
+\item Einfache Verwendung von Headern und verschlüssleung, verbesserungsmöglichkeiten an vielen stellen.
+\item Viele Annahmen sind für die Verwendung des Dokumentenspeichers getroffe
+\end{itemize}
+
 \section{Ausblick}
+\begin{itemize}
+\item Verbesserung der Implementierung des Dokumentenspeichers: 
+    \begin{itemize}
+    \item Einfachere Benutzung
+    \item Ausbau der UI(HTML-Seiten) für bessere intuitive Verwendung
+    \item Verwendung eines Aussagekräftigeren Verfahrung zur bestimmung des Headerfingerprint
+    \item Bereitstellung von mehr Möglichkeiten zur Visualisierung, z. B. die Verwendung der TreeMap über alle Eigenschaften 
+    \end{itemize}
+\item Evulation der Visualisierungen im bezug auf die Angemssenheit und Aussagekräftigkeit der Visualisierung.
+\end{itemize}
 \end{document}
