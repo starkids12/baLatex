@@ -255,14 +255,18 @@ Die FileEntryVisual-Page ist der Hauptbestandteil dieser Arbeit und stellt die v
 
     \section{Beipiel: Alice und Bob}
 Um die Visualisierungen an einem Beispiel zu erläutern wird ein Szenario definiert welches die Benutzung des Dokumentenspeichers und die verwendeten Daten definiert.
-Dazu werden zwei Benutzer Alice und Bob definiert, welche sich beide in Hambrug befinden und sich in den Verkehrs- und Metadaten unterscheiden, sodass wir sie anhand dieser klar unterscheiden können.
+Dazu werden zwei Benutzer Alice und Bob definiert, welche sich beide in Hamburg befinden und sich in den Verkehrs- und Metadaten unterscheiden, sodass wir sie anhand dieser klar unterscheiden können.
 Alice und Bob laden jeweils drei hypothetische Dateien mit und ohne die Verwendung einer Methode zum Anonymisieren ihrer Daten hoch.
-Alice Dateien sind test0 bis test2 und Bobs Dateien sind test3 bis test5 und haben alle unterschiedliche Dateigrößen.
+Alice Dateien sind test0, test1 und test2 und Bobs Dateien sind test3, test4 und test5 und haben alle unterschiedliche Dateigrößen.
 Die Verkehrs- und Metadaten für diese Dateien sind so gewählt das sie nicht realitätsfern sind und sich eignen die verschiedenen Visualisierungen daran aufzuzeigen. 
-Es wird angenommen das die Dateien einzeln in einem Abstand von ein paar Sekunden hochgeladen werden.
-Für die Verwendung einer Methode zum Anonymisieren ihrer Daten betrachten wir im 1. Fall die Verwendung eines Proxy welcher von Alice und Bob benutzt wird und im 2. Fall die Verwendung der Tor-Netzwerks. Bei der Verwendung des Tor-Netzwerks nehmen wir das für jede hochgeladene Datei eine andere Route durch das Tor-Netzwerk gewählt wird, sodass sich die Exit-Server für jede hochgeladenen Datei ändern.
+Es wird angenommen das die Dateien von Alice und Bob einzeln in einem Abstand von mehreren Minuten hochgeladen werden.
+Für die Verwendung einer Methode zum Anonymisieren ihrer Daten betrachten zwei Fälle:
+\begin{enumerate}
+\item Die Verwendung eines Proxys, welcher von Alice und Bob verwendet wird.
+\item Die Verwendung des Tor-Netzwerks von Alice und Bob
+\end{enumerate}
 
-Für die Benutzer nehmen wir folgende Verkehrsdaten an: 
+Für die Benutzer nehmen wir folgende Verkehrs- und Metadaten an: 
 \paragraph{Alice}
 \begin{itemize}
   \item IP: 
@@ -295,8 +299,6 @@ Für die Benutzer nehmen wir folgende Verkehrsdaten an:
   \end{itemize}
 \end{itemize}
 
-
-\newpage
     \subsection{IP-Adressen bezogene Visualisierung} \label{ipVis}
 Die IP-Adressen können mit Hilfe des Dokumentenspeichers auf zwei unterschiedliche weisen Visualisiert werden. 
 Einmal die Darstellung durch eine sog. TreeMap, welche eine gegebene Baumstruktur visualisieren kann. 
@@ -384,11 +386,11 @@ Im unteren Kasten, welcher mit Bob's IP-Adresse betitelt ist, sind 3 rote Käste
 Die Farbe der einzelnen Kästen ist ausschlaggebend für die Ebene des Eintrags in der Baumstruktur.
 Der blaue Kasten stellt den Wurzelknoten dar.
 Die orangen Kästen sind die Kästen die eine verwendete IP-Adresse darstellen.
-Die darunter angeordneten Kästen haben eine Farbe abhängig von der IP-Adresse welcher sie zugeordnet sind, sodass alle unter einer IP-Adresse angeordnete Dateien die selber Farbe haben, sodass ihre Zusammengehörigkeit sofort sichtbar ist.In Abbildung~\ref{fig:ungIpM} ist eine Karte von Hambrugs Zentrum zu erkenne.
+Die darunter angeordneten Kästen haben eine Farbe abhängig von der IP-Adresse welcher sie zugeordnet sind, sodass alle unter einer IP-Adresse angeordnete Dateien die selber Farbe haben, sodass ihre Zusammengehörigkeit sofort sichtbar ist.In Abbildung~\ref{fig:ungIpM} ist eine Karte von Hamburg Zentrum zu erkennen.
 Auf dieser Karte sind 2 Standpunkte markiert.
 Ein Punkt bei Lat: 53.5770988464355, Lon: 10.0190000534058, welcher mit dem Vorgegebenen Standpunkt von Alice übereinstimmt.
 Der zweite Punkt liegt bei Lat: 53.5830001831055 Lon: 9.98130035400391, welcher dem Vorgegebenen Standpunkt von Bob entspricht.
-Beim überfligen eines Punktes mit der Maus wird für jeden Punkt die zugehörige IP-Adreese angezeigt und die Anzahl von Dateien, welche von diser Ip-Adresse hochgeladen wurden.
+Beim überfliegen eines Punktes mit der Maus wird für jeden Punkt die zugehörige IP-Adresse angezeigt und die Anzahl von Dateien, welche von dieser IP-Adresse hochgeladen wurden.
 
 \begin{comment}
 In Abbildung~\ref{fig:ungIpTM} sind die zwei IP-Adressen von Alice(95.91.226.214) und Bob(95.91.225.215) dargestellt.
@@ -412,13 +414,13 @@ Den Standpunkt von Alice (Lat: Lon:) und dem Standpunkt von Bob (Lat: Lon:)
 \label{fig:ungIpM}
 \end{figure}
 
-Die Darstellung der Daten spiegelt somit die definierten Beispieldaten korrekt wieder und erlaubt es die jeweiligen Daten den richtigen Benutzer zu zuordnen.
-
+Die Darstellung der Daten spiegelt somit die definierten Beispieldaten korrekt wieder und erlaubt es die jeweiligen Daten den richtigen Benutzer zu zuordnen. Der Servicebetreiber sieht kennt somit die Position von Alice und Bob und kann die von ihnen Hochgeladenen Dateien an der IP-Adresse identifizieren.
 
 Beim Betrachten des ersten Falls, der Verwendung eines Proxys erhalten wir die Visualisierung wie in Abbildung~\ref{fig:PIpTM} und Abbildung~\ref{fig:PIpM}.
-In Abbildung~\ref{fig:PIpTM} ist nur die IP-Adresse des Proxys dargestellt.
-Alle definierten Dateien sind dieser IP-Adresse zugeordnet. 
+In Abbildung~\ref{fig:PIpTM} ist nur ein orangener Kasten für die IP-Adresse des Proxys dargestellt.
+Alle sechs definierten Dateien, test0 bis test5, sind dieser IP-Adresse zugeordnet und als grüne Kästen unter der IP-Adresse des Proxys angeordnet.
 In Abbildung~\ref{fig:PIpM} ist ein Standpunkt in Berlin markiert.
+Der Standpunkt liegt bei Lat: 52.5167 Lon: 13.4. 
 
 \begin{figure}[H]
 %\includegraphics[width=0.5\textwidth]{../pic/IP-Proxy-SetA.png}
@@ -434,26 +436,38 @@ In Abbildung~\ref{fig:PIpM} ist ein Standpunkt in Berlin markiert.
 \label{fig:PIpM}
 \end{figure}
 
-Der Effekt der Proxys, welche die IP-Adressen von Alice und Bob maskiert ist in Abbildung~\ref{fig:PIpTM} klar erkennbar. Die Ip-Adressen von Alice und Bob sind nicht erkennbar und alle Dateien der beiden Benutzer der Ip-Adresse des Proxys zugeordnet. Die Dateien von Alice und Bob sind somit durch die entstandene Anonymitätsmenge geschützt, sodass wir annehmen können das die Anonymitätsmenge die Daten der beiden Benutzer enthält, die Daten aber innerhalb der Menge nicht unterschiden werden können und somit Anonymität erreicht haben. 
-Im Vergleich zu den ungeschützten Daten aus der Abbildung~\ref{fig:ungIpTM}, ist die Fähgkeit anhand der IP-Adresse die Dateien genau den jeweiligen Benutzern zu zuordnen verloren gegangen, dadurch das die Benutzer einen Proxy verwendet haben.
+Es ist klar zu erkennen das durch die Verwendung eines Proxys in Abbildung~\ref{fig:PIpTM} und die ursprüngliche Visualisierung der ungeschützen Beispieldaten aus Abbildung~\ref{fig:ungIpTM} sich unterscheiden. 
+Dies gilt auch für Abbildung~\ref{fig:ungIpM} und Abbildung~\ref{fig:PIpM}.
+Ein Servicebetreiber kann anhand der IP-Adresse oder dem daraus resultierenden Standpunktes die Dateien eines Benutzer zusammen gruppieren.
+In Abbildung~\ref{fig:ungIpTM} können alle Dateien der jeweiligen IP-Adresse dessen Besitzers zugeordnet werden, somit die Beispieldaten korrekt dargestellt werden.
+Die Visualisierung nach Abbildung~\ref{fig:PIpTM} und Abbildung~\ref{fig:PIpM} lässt diese Zuordnung nicht mehr zu. 
+Alle Dateien sind unter der IP-Adresse des Proxys angeordnet worden, somit wurde eine Anonymitätsmenge über der IP-Adresse der Proxys gebildet.
+Da jede Datei der selben IP-Adresse zugeordnet ist muss ein Servicebetreiber somit annehmen das alle Dateien von dem selben Benutzer stammen.
+Dies widerspricht klar den definierten Daten, welche zwei Benutzer definieren, und zeigt somit eine Erfolgreiche Anonymisierung der Daten durch die Verwendung eines Proxys im Hinblick auf die IP-Adresse.
 
-
-Die entstehender Visualisierungen beim betrachten des zweiten Falls sind in Abbildung~\ref{fig:TIpTM} und Abbildung~\ref{fig:TIpM} abgebildet.
-
-In der Abbilung~\ref{fig:TIpTM} sind 6 verschiedene IP-Adressen erkennbar.
-Jeder IP-Adresse sind eine Datei zugeordnet.
-\begin{description}
-\centering
-\item[81.7.10.29] Datei: test0
-\item[129.13.131.140] Datei: test1
-\item[2.202.33.28] Datei: test2
-\item[81.169.133.228] Datei: test3
-\item[85.197.58.203] Datei: test4
-\item[178.63.80.54] Datei: test5
+Die entstehender Visualisierungen beim betrachten des zweiten Falls sind in Abbildung~\ref{fig:TIpTM} und Abbildung~\ref{fig:TIpM} zu sehen.
+In der Abbilung~\ref{fig:TIpTM} sind sechs verschiedene orange Kästen für sechs verschiedene IP-Adressen abgebildet.
+Jeder IP-Adresse sind eine Datei zugeordnet, welche als verschieden farblich Markierter Kästen der jeweiligen IP-Adresse untergeordnet wurde.
+\begin{description}[style=nextline]
+%\centering
+\item[81.7.10.29] Datei: test0, Farbe: Grün
+\item[129.13.131.140] Datei: test1, Farbe: Rot
+\item[2.202.33.28] Datei: test2, Farbe: Lila
+\item[81.169.133.228] Datei: test3, Farbe: Braun
+\item[85.197.58.203] Datei: test4, Farbe: Pink
+\item[178.63.80.54] Datei: test5, Farbe: Grau
 \end{description}
 
 Für jede dieser IP-Adressen ist in der Karte in Abbildung~\ref{fig:TIpM} ein Standort abgebildet, welche über Deutschland verteilt sind. 
-s
+\begin{description}
+\item[1] Nuremberg - Lat:50.8919 Lon:11.8682
+\item[2] Karlsruhe (Innenstadt-Ost) - Lat:49.0096 Lon:8.41217
+\item[3] Frankfurt am Main - Lat:50.1109 Lon:8.68213
+\item[4] Berlin (Charlottenburg-Wilmersdorf) - Lat:52.5239 Lon:13.3214
+\item[5] Cologne - Lat:50.9872 Lon:6.89416
+\item[6] Falkenstein - Lat:49.0976 Lon:12.4869
+\end{description}
+
 \begin{figure}[H]
 %\includegraphics[width=\textwidth]{../pic/IP-Tor-SetB-tree2.png}
 \includegraphics[width=0.7\textwidth]{../pic/IP-Tor-SetB-tree2.PNG}
@@ -468,9 +482,21 @@ s
 \label{fig:TIpM}
 \end{figure}
 
+Der Vergleich von Abbildung~\ref{fig:ungIpTM} und Abbildung~\ref{fig:TIpTM} zeigt einen deutlichen Unterschied der beiden Visualisierungen.
+Während wie bereits ausgeführt in Abbildung~\ref{fig:ungIpTM} die Beispieldaten korrekt gruppiert visuell dargestellt werden. 
+Lässt die Darstellung aus Abbildung~\ref{fig:TIpTM} und Abbildung~\ref{fig:TIpM} dies nicht mehr zu.
+Da alle Dateien einer anderen IP-Adresse zugeordnet wurden muss ein Servicebetreiber annehmen das alle Dateien von einem anderem Benutzer stammen, somit 6 Benutzern, welche über Deutschland verteilt sind. 
+Dies widerspricht klar den definierten Daten und zeigt eine weitere erfolgreiche Anonymisierung der Daten durch die Verwendung des Tor-Netzwerks.
+
+Die Betrachtung der beiden Fälle zeigt verschiedene Möglichkeiten der Anonymisierung der Daten durch die Verwendung eines Proxys und des Tor-Netzwerks.
+Beide Schutzmethoden haben im Hinblick auf die IP-Adresse einen derart ausreichenden Effekt gehabt, das die Visualisierungen der Beispieldaten mit und ohne die Verwendung der Schutzmethode klar erkennbare Unterschiede in der Visualisierung erzeugt haben.
+%
+\begin{comment}
 Die Visualisierung des zweiten Falls unterscheidet sich klar von den ungeschützten Beispieldaten sowohl auch von den Beispieldaten mit Verwendung des Proxys als Methode zum Anonymisieren der Daten. 
 Da jeder Datei eine anderen IP-Adresse zugeordnet ist, ist es nicht möglich anhand der IP-Adresse die Dateien den Benutzern Alice und Bob zu zuordnen.
 Beide Methoden zum Anonymisieren der Daten haben somit ihre Aufgabe erfüllt und lassen eine Zuordnung der Dateien eines Benutzer zu diesem Benutzer nicht mehr zu.
+\end{comment}
+%
 \begin{comment}
     \subsection{IP-Adressen bezogene Visualisierung von Alice und Bobs Daten}
 
@@ -609,12 +635,13 @@ Da jeder hochgeladener Datei ein neuer Exit-Server zugewiesen wurde, können wir
 Bei Betrachtung der Abbildung 3.6 ist auch erkennbar, das die verschiedenen Positionen der Exit-Server des Tor-Netzwerks variieren und es keinen Anhaltspunkt auf die eigentliche Postion von Alice und Bob gibt. 
 \end{comment}
 
-\newpage
-    \subsection{Darstellung: Headerfingerprinting}
+    \subsection{Headerfingerprint bezogene Visualisierung}
 Der Headerfingerprint wird wie im Kapitel~\ref{ipVis} beschrieben mit einer sog. TreeMap und einer dieser TreeMap zugrundeliegender Baumstruktur.
 Nur die Schlüsseleigenschaft wird für diese Visualisierung von der IP-Adresse auf den Headerfingerprint geändert.
 Für die ungeschützten Beispieldaten von Alice und Bob erhalten wir die Visualisierung nach Abbildung~\ref{fig:ungHTM}.
-Zusehen ist der Headerfingerprint von Alice mit zugeordneten Dateien test0, test1 und test2, sowie den Headerfingerprint von Bob mit den zugeordneten Dateien test3, test4 und test5.
+Zuerkennen sind zwei orange Kästen für die beiden verschiedenen Headerfingerprints.
+Dem oberen Orangen Kasten mit dem Headerfingerprint db9080... sind drei Dateien test0, test1 und test2 zugeordnet, welche alle farblich grün markiert sind.
+Dem unteren Orange n Kasten mit der Headerfingerprint 428eda... sind die drei Dateien test3, test4 unt test5 zugeordnet, welche farblich rot markiert sind.
 
 \begin{figure}[H]
 %\includegraphics[width=0.7\textwidth]{../pic/IP-Tor-SetB.png}
@@ -623,7 +650,7 @@ Zusehen ist der Headerfingerprint von Alice mit zugeordneten Dateien test0, test
 \label{fig:ungHTM}
 \end{figure}
 
-Wie in Abbildung~\ref{fig:ungIpTM} stellt Abbildung~\ref{fig:ungHTM} die Relationen der Beispieldaten und Benutzer richtig dar. 
+Wie in Abbildung~\ref{fig:ungIpTM} stellt Abbildung~\ref{fig:ungHTM} die Zusammengehörigkeit von den Dateien test0, test1 und test2 sowie den Dateien test3, test4 und test5 richtig dar.
 
 Bei Betrachtung der Visualisierung der Beispieldaten bei der Verwendung eines Proxys erhalten wir die Visualisierung nach Abbildung~\ref{fig:PHTM}.
 Diese Visualisierung ist mit der Visualisierung der ungeschützten Beispieldaten in Abbildung~\ref{fig:ungHTM} identisch. 
@@ -647,13 +674,37 @@ Header-Tor-SetB.png
 \label{fig:THTM}
 \end{figure}
 
-Die Verwendung das Tor-Netzwerks hat somit eine Anonymitätsmenge für die Eigenschaft des Headerfingerprints erzeugt, in welcher Menge die Dateien Anonym sind und den Benutzern Alice und Bob nicht zugeordnet werden können.
+Die Verwendung des Tor-Netzerks hat somit zur Folge das die Dateien und Alice und Bob unter alle unter einem einzelnem Headefingerprint gruppiert werden. 
+Für den Servicebetreiber bedeutet dies das anhand des Headerfingerprints die Dateien alle von einem einzelnen Benutzer stammen. 
+Dies steht klar mit de definierten Beispieldaten, welche zwei benutzer Alice und Bob vorsehen im Konflikt.
 
+Während die Verwendung eines Proxys keinen Effekt auf die verwendeten Header hatte und somit der Headerfingerprint der Benutzer trotz Benutzung des Proxys gleich geblieben ist. 
+Hat die Verwendung des Tor-Netzwerks dazu geführt das die Headerfingerprints von Alice und Bob beide durch einen standardisierten Headerfingerprint ersetzt wurden und somit die Zuordnung der Dateien zu den jeweiligen Benutzern nicht mehr möglich war.
+
+Die Verwendung des Tor-Netzwerks hat somit eine Anonymitätsmenge für die Eigenschaft des Headerfingerprints erzeugt, in welcher Menge die Dateien Anonym sind und den Benutzern Alice und Bob nicht zugeordnet werden können.
+
+
+    \subsection{Vergleich der Schutzmethoden}
+Bei Betrachtung der Verschiedenen Visualisierungen für die Darstellung des Proxys im Hinblick auf die IP-Adresse in Abbildung~\ref{fig:PIpTM} und dem Headerfingerprint in Abbildung~\ref{fig:PHTM} bietet eine Proxy, wie bereits ausgeführt, nur Schutz im Hinblick auf die IP-Adresse.
+Benutzer welche einen Proxy benutzen sind somit prinzipiell über ihren Headerfingerprint zu identifizieren, falls sie keine weiteren Schutzmethoden verwenden oder ihre Headerfingerprint eindeutig genung ist um daran Identifiziert zu werden. 
+Die Verwendung des Tor-Netzwerks dagegen kann wie in Abbildung~\ref{fig:TIpTM} und Abbildung~\ref{fig:THTM} gezeigt Schutz vor der Identifizierung durch die IP-Adresse und dem Headerfingerprint bieten.
+Dabei ist zu beachten das die während durch die Visualisierung aus Abbildung~\ref{fig:TIpTM} ein Servicebetreiber von mehreren Benutzern ausgehen muss.
+Die Visualisierung in Abbildung~\ref{fig:THTM} nur auf einen Benutzer schließe lässt.
+
+Aus dem definierten Szenario lässt sich schließen das während die Verwendung eines Proxys und des Tor-Netzwerks im Hinblick auf die Anonymisierung der IP-Adresse gleich erfolgreich seien können, die Verwendung eines Proxys gegenüber dem Tor-Netzwerk jedoch einen deutlichen Nachteil hat bezogen auf die Möglichkeit durch seinen eigenen Individuellen Headerfingerprint identifiziert zu werden.
+
+
+
+%%%%
+\begin{comment}
 Somit ist klar erkennbar das die Verwendung eins Proxys keine Auswirkung auf die übermittelten Header hatte und Alice und Bob trotz der Verwendung eines Proxys an ihren spezifischen Headern in diesem Beispiel identifiziert werden können.
 Die Verwendung des Tor-Netzwerks, jedoch erzeugt eine Anonymitätsmenge über dem Headerfingerprint, durch welche die Dateien Anonymisiert werden.
+\todo{kick this}
 Die Verwendung des Proxys zeigt hier somit bereits eine Schwäche gegenüber der Verwendung der Tor-Netzwerks auf, sie nur Schutz vor der Zuordnung der Dateien im Hinblick auf die IP-Adresse gibt.
 Nicht jedoch im Hinblick auf den Headerfingerprint.
 Die Verwendung des Tor-Netzwerks schützt sowohl vor der Erkennnung der Relationen von Benutzern und Dateien im Bezug auf die IP-Adresse sowohl auch der des Headerfingerprint.
+\end{comment}
+
 
 
 % Schluss
@@ -671,7 +722,7 @@ Die Verwendung des Tor-Netzwerks schützt sowohl vor der Erkennnung der Relation
 \item Dokumentenspeicher sehr simple, nicht vollständig implementiert
 \item Dokumentenspeicher reicht für Darstellung von einfachen Szenarien, Verwendung von echt Daten möglich, jedoch Visualisierungen passend ? Aussagekräftig ?
 \item Einfache Verwendung von Headern und verschlüssleung, verbesserungsmöglichkeiten an vielen stellen.
-\item Viele Annahmen sind für die Verwendung des Dokumentenspeichers getroffe
+\item Viele Annahmen sind für die Verwendung des Dokumentenspeichers getroffen
 \end{itemize}
 
 \section{Ausblick}
