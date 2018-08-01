@@ -90,45 +90,9 @@ Das Framework wird benutzt um die Webbenutzeroberfläche sowie die Web API des D
 Dazu wird das Javascript Framework Data-Driven Documents, i.d.R. d3.js genannt, zur Visualisierung der Daten verwendet. 
 Der Dokumentenspeicher soll vor allem den Unterschied zwischen der Verwendung von Methoden zur Verschlüsselung oder das anonymisieren von Daten visualisieren und verwaltet dazu zwei verschiedene Datensätze, wobei eine Datenmenge ohne, und eine Datenmenge mit der Verwendung von Methoden zur Verschlüsselung oder das anonymisieren von Daten erzeugt wird. Der entstehende Unterschied der gesammelten Metadaten durch die verschiedenen Methoden führt dann zu einer Veränderung in der Visualisierung, was dann den Effekt und Nutzen der Methoden deutlich sichtbar macht.  
 
-%\chapter{Grundlagen}
-
-%\newpage
-%\section{Terminologie}
-%\begin{enumerate}
-%\item HTTP-Header
-%\begin{enumerate}
-%\item Teil des Hypertext Transfer Protocol (HTTP)
-%\item Headerblock und Headerfeld nach RFC 2616(https://tools.ietf.org/html/rfc2616)
-%\end{enumerate}
-%\item Geo lookup
-%\begin{enumerate}
-%\item eine Methodik zur Bestimmung des geografischen Standort einer IP-Adresse
-%\item keine eigenen Implementation der Standortbestimmung, sondern Verwendung eines öffentlich zugänglichen Service, aus Zeit und komplexitätsgründen
-%\item Patent US7752210B2
-%\end{enumerate}
-%\item Header Fingerprint
-%\begin{enumerate}
-%\item eine Methodik zur Identifikation eines Benutzers anhand der von ihm Verwendeten HTTP Header
-%\item Aggregation über allen Http-Header oder einem ausgewählten Set an Headerfeldern 
-%\item erzeugt Fingerprint wird gehasht und gespeichert
-%\item bei übereinstimmenden Fingerprints wird angenommen das diese vom gleichen Benutzer erzeugt wurden 
-%\end{enumerate}
-%\end{enumerate}
-
-%\newpage
-%\section{Set A / Set B}
-%
-%Die angeführten DbSets FileEntryItemsA und FileEntryItemsB verfügen jeweils über Daten welche zu visualisieren sind. Dabei wird das DbSet FileEntryItemsA weiterhin als die ungeschützte Datenmenge beschrieben, da diese Datenbank nur mit Daten befüllt werden soll, bei welchen keine datenschutzfreundlichen Methoden zum anonymisieren verwendet wurden. Das DbSet FileEntryItemsB wird weiterhin als geschützte Datenmenge beschrieben, da ausschließlich Daten , welche mit Methoden zum anonymisieren hochgeladen wurden, verwendet werden sollen. Dabei sollte die geschützte und ungeschützte Datenmenge in den Zugrunde liegenden Datenmenge identisch sein und lediglich die Verwendung von Methoden zum anonymisieren die Datensätze unterscheiden, sodass die beiden Datenmenge miteinander in Hinblick auf den Effekt der Verwendung von Methoden zum anonymisieren untersucht werden können. 
-%So wird im jedem beschriebenen Szenario zur Benutzung des Dokumentenspeichers angenommen das ein Benutzer eine Datei einmal ohne die Verwendung von Methoden zum anonymisieren in die ungeschützte Datenmenge via HTTP hochlädt und einmal mit der Verwendung von Methoden zum anonymisieren in die geschützte Datenmenge via HTTP hochlädt.
-
-%Das führt dazu das bei der Auswertung der Datei durch die Verwendung oder nicht Verwendung von Methoden zum anonymisieren, die erfassten Meta-Daten sich nur durch die jeweilige Art der Methoden zum anonymisieren unterscheiden und die anschließenden Visualisierung nur diesen Unterschied darstellt und keine anderen Faktoren. 
-
-
-
 \chapter{Grundlagen}
 
-    \section{Verwendungszweck des Dokumentenspeichers}
-%Der Dokumentenspeicher dient vor allem dazu den Vergleich zwischen den unterschiedlichen gesammelten Metadaten mit und ohne die Verwendung von datenschutzfreundlichen Methoden zum Anonymisieren von Daten. 
+    \section{Verwendungszweck des Dokumentenspeichers} 
 
 Der Dokumenspeicher dient vor allem dazu die gesammelten Verkehrs- und Metadaten, mit und ohne die Verwendung von datenschutzfreundlichen Methoden zum Anonymisieren von Daten, zu Vergleichen und deren Unterschiede grafisch möglichst aussagekräftig darzustellen.
 Die Unterschiede in den gesammelten Daten sollen vor allem zeigen, dass durch die gesammelten Verkehr- und Metadaten es möglich ist Dateien welche vom gleichen Benutzer stammen korrekt einander zuzuordnen und das die Verwendung von datenschutzfreundlichen Methoden zum Anonymisieren von Daten dies verhindern kann.
@@ -150,43 +114,10 @@ In dem Visualisierungstool des Dokumentenspeichers kann eine Visualiserungsoptio
 Der Dokumentenspeicher kann aber auch zur Visualisierung von einer gemischten Datenmenge aus geschützten und ungeschützten Dateien verwendet werden. Dies wird erreicht, indem die ungeschützten und geschützten Dateien lediglich über einen API-Endpunkt hochgeladen werden.
 
 Die Verwendung reiner Datenmengen (aus nur ungeschützten und nur geschützten Dateien) eignet sich somit, die entstehenden Unterschiede durch die Verwendung von datenschutzfreundlichen Methoden zum Anonymisieren von Daten und ohne diese zu Visualisieren und ausschließlich diese Unterschiede zu Visualisieren, da die Zugrunde liegenden Dateien sich sonst nicht unterscheiden. 
-  
-%Dazu werden im Dokumentenspeicher für jede Hochgeladene Datei Vehrkehrsdaten, Metadaten und die Datei selbst abgespeichert.
-%Diese Daten sind die Grundlage für die Visualisierung. 
-%Um die Daten ohne die Verwendung von datenschutzfreundlichen Methoden zum Anonymiseren von Daten von solchen zu trennen, welche solche Methoden benutzen, stellt der Dokumentenspeicher zwei API-Endpunkte zur Verfügung.
-%Ein API-Punkt für die Verwendung von datenschutzfreundlichen Methoden zum Anonymisierne von Daten und einen ohne die Verwendung solcher Methoden.
-%Die Trennung der Daten in diese Kategorien ist wichtig da für den Dokumentenspeicher angenommen wird das es keine Authentifizierung durch Benutzerkonten oder ähnlichen gibt, da diese es ermöglichen würden jede Datei anhand dieser Authentifizierung einem Benutzer zuzuordnen. 
-%Genauso wird angenommen das alle Dateien der Benutzern von diesen so Verschlüsselt worden sind, das nur die jeweiligen Benutzer die Dateien wieder Entschlüsseln können.
-
-%Diese entstehenden Unterschiede werden in der Visualisierung der Daten deutlich und veranschaulichen so den Effekt der Verwendung von datenschutzfreundlichen Methoden zum Anonymisieren von Daten.
-%Die durch datenschutzfreundlichen Methoden zum Anonymisieren von Daten erzeugte Datenmenge wird folgend als geschützte Datenmenge beschrieben und nimmt an, dass mindestens eine Methoden zum Anonymisieren von Daten benutzt wurde, um diese Datenmenge zu generieren. 
-%Die erzeugte Datenmenge ohne die Verwendung von datenschutzfreundlichen Methoden zum Anonymisieren wird folglich als ungeschützte Datenmenge beschreiben und nimmt an das keine Methoden zum Anonymisieren von Daten benutzt wurde% oder das zumindest keine Methoden zum Anonymisieren von Daten verwendet wurde, im Aspekt auf die Eigenschaften, die in einem gegebenen Szenario untersucht wurden.
-%Der Dokumentenspeicher ist somit so konzipiert, dass ein geschützter und ein ungeschützter Datensatz angelegt werden kann. 
-%Dafür wurden verschiedene API-Endpunkt implementiert, welche die Trennung der beiden Datensätze ermöglicht. 
-%Es können jedoch auch geschützte und ungeschützte Daten in die gleiche Datenmenge eingespeist werden, falls dies für das zu betrachtende Szenario sinnvoll ist. 
-%Die folgenden vorgestellten Szenarien trennen jedoch die geschützte Datenmenge und die ungeschützte Datenmenge und verwenden die dafür vorgesehenen API-Punkte.
-%Da die geschützte und ungeschützte Datenmenge verglichen werden soll, um den Effekt der zu untersuchenden Methode zum Anonymisieren von Daten sichtbar zu machen, ist es von Vorteil wenn die verwendeten Daten zum Erzeugen der geschützten und ungeschützten Datenmenge dieselben sind und sich lediglich durch die Anonymisierung der Daten und deren Effekt unterscheiden.
-%Dies stellt sicher, dass lediglich der Effekt der Methode zum Anonymisieren einen Unterschied in der Visualisierung erzeugt und keine anderen Faktoren die Visualisierung beeinflussen.
-%Im ideal Fall können so, durch die Betrachtung der Visualisierung der ungeschützten Datenmenge, Relationen zwischen Dateien deutlich werden, welche darauf schließen lassen, dass diese Dateien z.B. von dem gleichen Benutzer stammen.
-%Die Betrachtung der geschützten Datenmenge sollte dann im ideal Fall zeigen, dass durch die Verwendung von einer oder mehreren Methoden zum Anonymisieren von Daten diese Relation nicht mehr sichtbar ist und die Methode somit einen sichtbaren Effekt hat.
 
 \newpage
     \section{Implementation des Dokumentenspeichers}    
     
-%Der entwickelte Dokumentenspeicher besteht aus einer Controller-Klasse, welche verschiedene API-Endpunkte implementiert. 
-%Die API-Endpunkte werden durch Routen angesprochen, welche vorher definiert worden. 
-%Die implementierten Routen sind: 
-
-%In der Controllerklasse ist auch für das Sammeln der Meta-Daten für die hochgeladenen Dateien zuständig und speichert diese mit Hilfe der Modellklasse in einem Datenbankschema ab. 
-%Die Modellklasse besitzt verschiedene Eigenschaften, welche die gesammelten Metadaten widerspiegeln. 
-%Die Eigenschaften sind : 
-
-%Diese Eigenschaften enthalten alle gesammelten Metadaten und können zur Visualisierung verwendet werden. 
-%Mit Hilfe des Entity Framework Core von Microsoft wird ein Datenbankschema erzeugt, was dieser Modellklasse entspricht. 
-%Dabei wird eine SQLite Datenbankdatei erzeugt, die dem Datenbankschema entspricht und im Verzeichnis der Anwendung liegt.
-%Im Gegensatz zur Verwendung eines festen SQL Server, der die Datenbank verwaltet, bietet die Anwendung so mehr Flexibilität und erlaubt es mehrere Datenbankdateien mit der Anwendung bereit zu stellen, um so verschiedene Szenarien in verschiedenen Dateien bereitzustellen.
-
-
     \subsection{Verwendete Technologien}
 Der Dokumentenspeicher wurde mit Hilfe des ASP.NET Core Framework erstellt. 
 Das Framework ist Microsofts aktuellste plattformübergreifendes Framework zur Realisierung von Webanwendungen.
@@ -490,150 +421,6 @@ Dies widerspricht klar den definierten Daten und zeigt eine weitere erfolgreiche
 
 Die Betrachtung der beiden Fälle zeigt verschiedene Möglichkeiten der Anonymisierung der Daten durch die Verwendung eines Proxys und des Tor-Netzwerks.
 Beide Schutzmethoden haben im Hinblick auf die IP-Adresse einen derart ausreichenden Effekt gehabt, das die Visualisierungen der Beispieldaten mit und ohne die Verwendung der Schutzmethode klar erkennbare Unterschiede in der Visualisierung erzeugt haben.
-%
-\begin{comment}
-Die Visualisierung des zweiten Falls unterscheidet sich klar von den ungeschützten Beispieldaten sowohl auch von den Beispieldaten mit Verwendung des Proxys als Methode zum Anonymisieren der Daten. 
-Da jeder Datei eine anderen IP-Adresse zugeordnet ist, ist es nicht möglich anhand der IP-Adresse die Dateien den Benutzern Alice und Bob zu zuordnen.
-Beide Methoden zum Anonymisieren der Daten haben somit ihre Aufgabe erfüllt und lassen eine Zuordnung der Dateien eines Benutzer zu diesem Benutzer nicht mehr zu.
-\end{comment}
-%
-\begin{comment}
-    \subsection{IP-Adressen bezogene Visualisierung von Alice und Bobs Daten}
-
-Die Darstellung von Alice und Bobs erfolgt durch eine sog. TreeMap, welche eine gegebene Datenstruktur, welche als Baum dargestellt werden kann, visualisiert.
-Die Baumstruktur besteht aus einem Wurzelknoten, den davon abgehenden Kindknoten und den Blattknoten, welche dadurch ausgezeichnet sind das sie keine Kindknoten besitzen. 
-Der Wurzelknoten wird künstliche erzeugt und als Überschrift für die Visualisierung verwendet und Zeigt die Schlüsseleigenschaft über dem die Baumstruktur erzeugt wurde, in diesem Fall die IP-Adresse.
-Die restlichen Knoten sind aus den gegebenen Daten erzeugt worden, wobei der Schlüssel: die IP-Adresse, die Ausschlag gebende Eigenschaft ist, über welcher die Baumstruktur erzeugt wird. 
-Die erzeugte Baumstruktur hat somit 3 Ebenen. 
-Auf der 1. Ebene den Wurzelknoten, welche zum Visualisieren der Schlüsseleigenschaft benutzt wird. 
-Auf der 2. Ebene die Kindknoten, welche die IP-Adressen darstellen, welche im Datensatz vorhanden sind und auf der 3. Ebene die Blattknoten, welche die Dateien selbst darstellen.
-Für das Beispiel von Alice und Bob sieht die Baumstruktur also wie folgt aus: 
-
-\begin{figure}[H]
-\centering
-	\begin{forest}
-  	for tree={%
-    	folder,
-    	grow'=0,
-    	fit=band,
-  	}
-  	[Schlüsseleigenschaft: IP-Adresse
-  		[Alice (95.91.226.214)
-			[test0]
-			[test1]
-			[test2]  		
-  		]
-  		[Bob (95.91.225.215)
-			[test3]  	
-  			[test4]
-  			[test5]
-  		]
-  	]
-	\end{forest}
-\caption{Baumstruktur erzeugt als dem Beispiel von Alice und Bob}
-\label{fig:baum}
-\end{figure}
-
-Aus dieser Struktur wird nun die TreeMap erzeugt. 
-Für jeden Knoten im Baum wird ein Rechteck/Box erzeugt, dabei wird jeder Kindknoten in das Rechteck/Box des Elternknoten eingebettet. 
-Durch farbliche Unterschiede sollen dann die verschiedenen Ebenen und Relationen deutlich werden. 
-Eine Schematische Darstellung des Beispiels ist in~\ref{fig:schem} zu sehen. 
-
-\begin{figure}[H]
-\centering
-\begin{tikzpicture}
-\node (rect) [rectangle, draw, minimum width=160mm, minimum height=90mm, anchor= north west] at (0,0) {};
-\node [below right] at (rect.north west) {Schlüsseleigenschaft: IP-Adresse};
-
-\node (rectA) [rectangle, draw, minimum width=80mm, minimum height=80mm, anchor= north west] at (0,-1) {};
-\node [below right] at (rectA.north west) {Alice (95.91.226.214};
-
-\node (rectA0) [rectangle, draw, minimum width=22mm, minimum height=60mm, anchor= north west] at (0.35,-2) {};
-\node [] at (rectA0.center) {test0};
-\node (rectA1) [rectangle, draw, minimum width=22mm, minimum height=60mm, anchor= north west] at (2.9,-2) {};
-\node [] at (rectA1.center) {test1};
-\node (rectA2) [rectangle, draw, minimum width=22mm, minimum height=60mm, anchor= north west] at (5.45,-2) {};
-\node [] at (rectA2.center) {test2};
-
-\node (rectB) [rectangle, draw, minimum width=80mm, minimum height=80mm, anchor= north west] at (8,-1) {};
-\node [below right] at (rectB.north west) {Bob (95.91.225.215)};
-
-\node (rectB0) [rectangle, draw, minimum width=23mm, minimum height=60mm, anchor= north west] at (8.35,-2) {};
-\node [] at (rectB0.center) {test3};
-\node (rectB1) [rectangle, draw, minimum width=23mm, minimum height=60mm, anchor= north west] at (10.9,-2) {};
-\node [] at (rectB1.center) {test4};
-\node (rectB2) [rectangle, draw, minimum width=23mm, minimum height=60mm, anchor= north west] at (13.45,-2) {};
-\node [] at (rectB2.center) {test5};
-\end{tikzpicture}
-\caption{Schematische Darstellung einer Visualitionmöglichkeit der Baumstruktur}
-\label{fig:schem}
-\end{figure}
-
-Die Umsetztung dieses schematischen Ansatzes wird verwendet um das Beispiel von Allice und Bob darzustellen. 
-Ein entsprechendes Datenbankmodell ist dafür in dem Dokumentenspeicher eingespeißt worden.
-
-\begin{figure}[H]
-%\includegraphics[width=\textwidth]{../pic/IP-Proxy-SetA-tree2.png}
-\includegraphics[width=\textwidth]{../pic/IP-Proxy-SetA-tree2.PNG}
-\captionof{figure}{Darstellung der Daten von Alice und Bob}
-\label{fig:tmA}
-\end{figure}
-
-In Abbildung 3.1 werden die Daten von Alice und Bob dargestellt, welche ohne die Verwendung eines Proxys hochgeladen worden sind. 
-
-In Abbildung 3.1 sind die IP-Adressen von Alice(95.91.226.214) und Bob(95.91.225.215) erkennbar. 
-Zu jeder IP-Adresse können jeweils die drei Dateien der Benutzer zugeordnet werden. 
-Die Dateien test0 bis test2 sind der IP-Adresse 95.91.226.214 zugeordnet und test3 bis test5 sind der IP-Adresse 95.91.225.215 zugeordnet.
-Damit ist das gegebene Beispiel richtig abgebildet und die echten Relationen zwischen Dateien und IP-Adressen sind richtig modelliert und nachvollziehbar. 
-
-\begin{center}
-%\includegraphics[width=0.5\textwidth]{../pic/IP-Proxy-SetA.png}
-\includegraphics[width=0.5\textwidth]{../pic/IP-Proxy-SetA.PNG}
-\captionof{figure}{Visualisierung von Dateien mittels einer Karte, welche die Geoposition einer IP-Adresse anzeigt}
-\end{center}
-
-Die Abbildung 3.2 zeigt uns die Geoposition der IP-Adressen von Alice und Bob und zeigt deren Position in Hamburg, 
-wobei die Position nur einen ungefähren Standpunkt darstellt und die eigentliche Position bis zu einem Kilometer abweichen kann.
-
-\begin{center}
-%\includegraphics[width=\textwidth]{../pic/IP-Proxy-SetB-tree2.png}
-\includegraphics[width=\textwidth]{../pic/IP-Proxy-SetB-tree2.PNG}
-\captionof{figure}{Visualisierung von Dateien mittels einer TreeMap, welche nach der IP-Adresse gruppiert sind}
-\end{center}
-
-In Abbildung 3.3 sind die Daten visualisiert, welche mittels eines proxy hochgeladen wurden. 
-Alle Dateien wurden über die IP-Adresse des proxys 85.214.132.117 gruppiert und somit eine Anonymitätsmenge erzeugt.
-Die Daten von Alice und Bob sind nun in einer Anonymitätsmenge zusammengefasst und lassen sich anhand der IP-Adresse nicht mehr eindeutig den beiden Benutzern zuordnen.
-
-\begin{center}
-%\includegraphics[width=\textwidth]{../pic/IP-Proxy-SetB.png}
-\includegraphics[width=\textwidth]{../pic/IP-Proxy-SetB.PNG}
-\captionof{figure}{Visualisierung von Dateien mittels einer Karte, welche die Geoposition einer IP-Adresse anzeigt}
-\end{center}
-
-Abbildung 3.4 zeigt und nun die Geoposition des proxys welches in Berlin steht.
-Damit sind auch die eigentlichen Geoposition von Alice und Bob durch die Verwendung des Proxys maskiert worden. 
-
-Anstelle eines proxys könnten Alice und Bob das Tor-Netzwerk benutzen um ihre IP-Adressen zu maskieren. Alice und Bob laden drei Dateien, einmal ungeschützt und einmal geschützt durch das Tor-Netzwerk hoch.
-Dabei nehmen wir an das alle Dateien einzeln hochgeladen wurden und jeder hochgeladenen Datei eine andere Route durch das Tor-Netzwerk zugewiesen wurde, sodass jede hochgeladene Dateie einen anderen Exit-Server des Tor-Netzwerkes durchläuft. 
-
-\begin{center}
-%\includegraphics[width=\textwidth]{../pic/IP-Tor-SetB-tree2.png}
-\includegraphics[width=\textwidth]{../pic/IP-Tor-SetB-tree2.PNG}
-\captionof{figure}{Visualisierung von Dateien mittels einer TreeMap, welche nach der IP-Adresse gruppiert sind}
-\end{center}
-
-In Abbildung 3.5 sehen wir nun die IP-Adressen der verschiedenen Exit-Server des Tor-Netzwerks.
-Da jeder hochgeladener Datei ein neuer Exit-Server zugewiesen wurde, können wir über die IP-Adresse die Dateien nicht mehr entsprechend der Benutzer gruppieren.
-
-\begin{center}
-%\includegraphics[width=0.7\textwidth]{../pic/IP-Tor-SetB.png}
-\includegraphics[width=0.7\textwidth]{../pic/IP-Tor-SetB.PNG}
-\captionof{figure}{Visualisierung von Dateien mittels einer Karte, welche die Geoposition einer IP-Adresse anzeigt}
-\end{center}
-
-Bei Betrachtung der Abbildung 3.6 ist auch erkennbar, das die verschiedenen Positionen der Exit-Server des Tor-Netzwerks variieren und es keinen Anhaltspunkt auf die eigentliche Postion von Alice und Bob gibt. 
-\end{comment}
 
     \subsection{Headerfingerprint bezogene Visualisierung}
 Der Headerfingerprint wird wie im Kapitel~\ref{ipVis} beschrieben mit einer sog. TreeMap und einer dieser TreeMap zugrundeliegender Baumstruktur.
@@ -644,8 +431,8 @@ Dem oberen Orangen Kasten mit dem Headerfingerprint db9080... sind drei Dateien 
 Dem unteren Orange n Kasten mit der Headerfingerprint 428eda... sind die drei Dateien test3, test4 unt test5 zugeordnet, welche farblich rot markiert sind.
 
 \begin{figure}[H]
-%\includegraphics[width=0.7\textwidth]{../pic/IP-Tor-SetB.png}
-\includegraphics[width=0.7\textwidth]{../pic/Header-Proxy-SetA.PNG}
+\includegraphics[width=0.7\textwidth]{../pic/IP-Tor-SetB.png}
+%\includegraphics[width=0.7\textwidth]{../pic/Header-Proxy-SetA.PNG}
 \captionof{figure}{Darstellung der Beispieldaten von Alice und Bob bei der Verwendung eines Proxy}
 \label{fig:ungHTM}
 \end{figure}
@@ -658,8 +445,8 @@ Der Headerfingerprint von Alice ist dargestellt sowie die Dateien von Alice test
 Der Headerfingerprint von Bob ist ebenfalls dargestellt und die Beispieldateien von Bob test3, test4 und test5 sind diesem zugeordnet.
 
 \begin{figure}[H]
-%\includegraphics[width=0.7\textwidth]{../pic/IP-Tor-SetB.png}
-\includegraphics[width=0.7\textwidth]{../pic/Header-Proxy-SetA.PNG}
+\includegraphics[width=0.7\textwidth]{../pic/IP-Tor-SetB.png}
+%\includegraphics[width=0.7\textwidth]{../pic/Header-Proxy-SetA.PNG}
 \captionof{figure}{Darstellung der Beispieldaten von Alice und Bob bei der Verwendung eines Proxy}
 \label{fig:PHTM}
 \end{figure}
@@ -668,8 +455,8 @@ Bei Betrachtung des zweiten Falls der Verwendung des Tor-Netzwerkes entspricht d
 Zu erkennen ist das ähnlich der Abbildung~\ref{fig:PIpTM} alle Dateien unter einem Headerfingerprint angeordnet sind.
 Header-Tor-SetB.png
 \begin{figure}[H]
-%\includegraphics[width=0.7\textwidth]{../pic/IP-Tor-SetB.png}
-\includegraphics[width=0.7\textwidth]{../pic/Header-Tor-SetB.png}
+\includegraphics[width=0.7\textwidth]{../pic/IP-Tor-SetB.png}
+%\includegraphics[width=0.7\textwidth]{../pic/Header-Tor-SetB.png}
 \captionof{figure}{Darstellung der Beispieldaten von Alice und Bob bei der Verwendung des Tor-Netzwerkes}
 \label{fig:THTM}
 \end{figure}
@@ -692,20 +479,6 @@ Dabei ist zu beachten das die während durch die Visualisierung aus Abbildung~\r
 Die Visualisierung in Abbildung~\ref{fig:THTM} nur auf einen Benutzer schließe lässt.
 
 Aus dem definierten Szenario lässt sich schließen das während die Verwendung eines Proxys und des Tor-Netzwerks im Hinblick auf die Anonymisierung der IP-Adresse gleich erfolgreich seien können, die Verwendung eines Proxys gegenüber dem Tor-Netzwerk jedoch einen deutlichen Nachteil hat bezogen auf die Möglichkeit durch seinen eigenen Individuellen Headerfingerprint identifiziert zu werden.
-
-
-
-%%%%
-\begin{comment}
-Somit ist klar erkennbar das die Verwendung eins Proxys keine Auswirkung auf die übermittelten Header hatte und Alice und Bob trotz der Verwendung eines Proxys an ihren spezifischen Headern in diesem Beispiel identifiziert werden können.
-Die Verwendung des Tor-Netzwerks, jedoch erzeugt eine Anonymitätsmenge über dem Headerfingerprint, durch welche die Dateien Anonymisiert werden.
-\todo{kick this}
-Die Verwendung des Proxys zeigt hier somit bereits eine Schwäche gegenüber der Verwendung der Tor-Netzwerks auf, sie nur Schutz vor der Zuordnung der Dateien im Hinblick auf die IP-Adresse gibt.
-Nicht jedoch im Hinblick auf den Headerfingerprint.
-Die Verwendung des Tor-Netzwerks schützt sowohl vor der Erkennnung der Relationen von Benutzern und Dateien im Bezug auf die IP-Adresse sowohl auch der des Headerfingerprint.
-\end{comment}
-
-
 
 % Schluss
 \chapter{Schluss}
@@ -736,4 +509,5 @@ Die Verwendung des Tor-Netzwerks schützt sowohl vor der Erkennnung der Relation
     \end{itemize}
 \item Evulation der Visualisierungen im bezug auf die Angemssenheit und Aussagekräftigkeit der Visualisierung.
 \end{itemize}
+
 \end{document}
