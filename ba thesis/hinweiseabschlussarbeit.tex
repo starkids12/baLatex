@@ -128,7 +128,7 @@ Modelle werden in diesem Kontext als Objekte zur Datenrepräsentation verstanden
 Views sind die HTML-Seiten welche an die Klienten ausgegeben werden.
 Controller sind zentrale Elemente. 
 Sie stellen die Funktionalität von Views auf der Serverseite dar.
-Sie sind zur Steuerung verschiedener Routen und die Implementation von API-endpunkten vorgesehen.
+Sie sind zur Steuerung verschiedener Routen und die Implementation von API-Endpunkten vorgesehen.
 Dabei verwalten die Controller ebenfalls die zu Grunde liegenden Datenbanken.
     \subsection{Aufbau des Dokumentenspeichers}
 
@@ -141,7 +141,7 @@ Die Controller-Klasse implementiert verschiedene API-Endpunkte, welche das das h
 \item[/api/GetB] HTTP Get Methode welche die gesammelten Verkehrs- und Metadaten der geschützten Datensatz ausgiebt
 \item[/api/uploadA] HTTP Post Methode zum hochladen von ungeschützten Dateien
 \item[/api/uploadB] HTTP Post Methode zum hochladen von geschützten Dateien
-\item[api/uploadEmu] HTTP Post Methode zum erzeugen von Dummy Daten
+\item[api/uploadEmu] HTTP Post Methode zum erzeugen von Dummydaten
 \end{description}
 
 Beim hochladen der Dateien werden in der Kontroller-Klasse die Verkehrs und Metadaten der Dateien erfasst, sowie die hochgeladenen Dateien abgespeichert.
@@ -157,7 +157,7 @@ Die Modellklasse hält für alle erfassten Verkehr- und Metadaten Eigenschaften,
 \item[Size] Die Dateigröße in Byte
 \item[IPAddress] Die IP-Adresse von der die Datei hochgeladen wurde
 \item[Headers] Ein String bestehend aus den Headern der Datei
-\item[HeaderFingerprint] Ein Zusammenschluss aus ausgewählten Headern um eine möglichst eindeutige Signatur zu erzeugen
+\item[HeaderFingerprint] Ein Hash erzeugt aus dem Zusammenschluss von ausgewählten Headerfeldern
 \item[DateTime] Als Zeitstempel für das Hochladen der Datei
 \item[Country] Land aus welchem die Datei hochgeladen wurde
 \item[RegionName] Region (Bundesland) aus welchem die Datei hochgeladen wurde
@@ -178,65 +178,23 @@ Der Dokumentenspeicher besitzt 3 Views, welche HTML-Seiten darstellen welche ein
 Die FileEntry HTML-Seite ist ist die Startseite der Webanwendung und verweist zu der FileEntryCreate und FileEntryVisual HTML-Seite.
 Die FileEntry HTML-Seite zeigt lediglich die Datenbank in tabellarischer Form und ist hauptsächlich für die Entwicklung gebraucht worden. 
 Dies gilt auch für die FileEntryCreate HTML-Seite. 
-Die FileEntryVisual-Page ist der Hauptbestandteil dieser Arbeit und stellt die verschiedenen Visualisierungsmöglichkeiten dar.
+Die FileEntryVisual HTML-Seite ist der Hauptbestandteil dieser Arbeit und stellt die verschiedenen Visualisierungsmöglichkeiten dar.
 
-\todo{FileEntryPage beschreiben und Funktionen zeigen}
-
-\chapter{Hauptteil}
-
-    \section{Beipiel: Alice und Bob}
-Um die Visualisierungen an einem Beispiel zu erläutern wird ein Szenario definiert welches die Benutzung des Dokumentenspeichers und die verwendeten Daten definiert.
-Dazu werden zwei Benutzer Alice und Bob definiert, welche sich beide in Hamburg befinden und sich in den Verkehrs- und Metadaten unterscheiden, sodass wir sie anhand dieser klar unterscheiden können.
-Alice und Bob laden jeweils drei hypothetische Dateien mit und ohne die Verwendung einer Methode zum Anonymisieren ihrer Daten hoch.
-Alice Dateien sind test0, test1 und test2 und Bobs Dateien sind test3, test4 und test5 und haben alle unterschiedliche Dateigrößen.
-Die Verkehrs- und Metadaten für diese Dateien sind so gewählt das sie nicht realitätsfern sind und sich eignen die verschiedenen Visualisierungen daran aufzuzeigen. 
-Es wird angenommen das die Dateien von Alice und Bob einzeln in einem Abstand von mehreren Minuten hochgeladen werden.
-Für die Verwendung einer Methode zum Anonymisieren ihrer Daten betrachten zwei Fälle:
-\begin{enumerate}
-\item Die Verwendung eines Proxys, welcher von Alice und Bob verwendet wird.
-\item Die Verwendung des Tor-Netzwerks von Alice und Bob
-\end{enumerate}
-
-Für die Benutzer nehmen wir folgende Verkehrs- und Metadaten an: 
-\paragraph{Alice}
+Die HTML-Seite lässt sich in zwei Bereiche gliedern.
+Ein Bereich zur Navigation in der Seite und einen Bereich für die Visualisierung.
+Die Navigation bietet die Möglichkeit zwischen den ungeschützten und dem geschützten Datensatz zu wechseln, verschiedene Visualisierungsmöglichkeiten auszuwählen und hat einen Bereich wo Verkehrs- und Metadaten einer Ausgewählten Datei aufgelistet werden können.
+Der Navigationsbereich bietet drei Implementierte Visualisierungsmöglichkeiten.
+Die Visualisierung durch:
 \begin{itemize}
-  \item IP: 
-  \begin{itemize}
-  \item IP-Adresse: 95.91.226.214
-  \item Lat: 53.5770988464355 Lon: 10.0190000534058
-  \item Land: Deutschland Region: Hamburg Stadt: Hamburg
-  \end{itemize}
-  \item Headerfigerprint:  
-  \begin{itemize}
-  \item Accept: text/html, application/xhtml+xml, application/xml;q=0.9,*/*;q=0.8
-  \item Accept-Encoding: gzip, deflate
-  \item User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10\_11\_6) AppleWebKit/601.7.7 (KHTML, like Gecko) Version/9.1.2 Safari/601.7.7
-  \end{itemize}
-\end{itemize}
-
-\paragraph{Bob}
-\begin{itemize}
-  \item IP: 
-  \begin{itemize}
-  \item IP-Adresse: 95.91.225.215
-  \item Lat: 53.5830001831055 Lon: 9.98130035400391
-  \item Land: Deutschland Region: Hamburg Stadt: Hamburg
-  \end{itemize}
-  \item Headerfigerprint:  
-  \begin{itemize}
-  \item Accept: text/html, application/xhtml+xml, application/xml;q=0.9,*/*;q=0.8
-  \item Accept-Encoding: gzip, deflate
-  \item User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0
-  \end{itemize}
-\end{itemize}
-
-    \subsection{IP-Adressen bezogene Visualisierung} \label{ipVis}
-Die IP-Adressen können mit Hilfe des Dokumentenspeichers auf zwei unterschiedliche weisen Visualisiert werden. 
-Einmal die Darstellung durch eine sog. TreeMap, welche eine gegebene Baumstruktur visualisieren kann. 
-Und die Darstellung auf einer Karte, indem die Geo-Position einer IP-Adresse gezeigt wird.
+\item eine Baumkarte
+\item das Anzeigen von Standpunkten auf einer Karte
+\item einem Zeitstrahl
+\end{itemize} 
+Bei der Verwendung der Baumkarte muss eine zusätzliche Eigenschaft ausgewählt werden.
+Diese Eigenschaft wird Verwendet um eine Baumstruktur zu bilden, welche der Baumkarte zugrunde liegt.
 
 Die Baumstruktur besteht aus einem Wurzelknoten, den davon abgehenden Kindknoten und den Blattknoten, welche dadurch ausgezeichnet sind das sie keine Kindknoten besitzen. 
-Der Wurzelknoten wird künstliche erzeugt und als Überschrift für die Visualisierung verwendet und Zeigt die Schlüsseleigenschaft über dem die Baumstruktur erzeugt wurde, in diesem Fall die IP-Adresse.
+Der Wurzelknoten wird künstliche erzeugt und als Überschrift für die Visualisierung verwendet und Zeigt die Schlüsseleigenschaft über dem die Baumstruktur erzeugt wurde, in diesem Beispiel die IP-Adresse.
 Die restlichen Knoten sind aus den gegebenen Daten erzeugt worden, sodass alle Dateien mit der gleichen IP-Adresse unter einem Knoten zusammen gefasst werden.
 Die erzeugte Baumstruktur hat somit 3 Ebenen. 
 Auf der 1. Ebene den Wurzelknoten, welche zum Visualisieren der Schlüsseleigenschaft benutzt wird. 
@@ -256,26 +214,26 @@ Zu jedem dieser Knoten sind die jeweiligen Dateien der beiden Benutzer als Blatt
     	fit=band,
   	}
   	[Schlüsseleigenschaft: IP-Adresse
-  		[Alice (95.91.226.214)
+  		[192.0.2.1
 			[test0]
 			[test1]
 			[test2]  		
   		]
-  		[Bob (95.91.225.215)
+  		[192.0.2.2
 			[test3]  	
   			[test4]
   			[test5]
   		]
   	]
 	\end{forest}
-\caption{Baumstruktur erzeugt aus dem ungeschützten Beispieldaten von Alice und Bob}
+\caption{Beispielhafte Baumstruktur für das erstellen einer Baumkarte}
 \label{fig:baum}
 \end{figure}
 
-Aus dieser Struktur wird nun die TreeMap erzeugt. 
-Für jeden Knoten im Baum wird ein Rechteck/Box erzeugt, dabei wird jeder Kindknoten in das Rechteck/Box des Elternknoten eingebettet. 
-Durch farbliche Unterschiede sollen dann die verschiedenen Ebenen und Relationen deutlich werden. 
-Eine Schematische Darstellung des Beispiels ist in~\ref{fig:schem} zu sehen. 
+Aus dieser Struktur wird nun die Baumkarte erzeugt. 
+Für jeden Knoten im Baum wird ein Box erzeugt, dabei wird jeder Kindknoten in die Box des Elternknoten eingebettet. 
+Jeder Knoten wird abhängig von einem Elternknoten eingefärbt, durch diese farblichen Unterschide sollen dann die verschiedenen Ebenen und Relationen deutlich werden.
+Eine Schematische Darstellung des Beispiels ist in~\ref{fig:schem} zu sehen.
 
 \begin{figure}[H]
 \centering
@@ -284,7 +242,7 @@ Eine Schematische Darstellung des Beispiels ist in~\ref{fig:schem} zu sehen.
 \node [below right] at (rect.north west) {Schlüsseleigenschaft: IP-Adresse};
 
 \node (rectA) [rectangle, draw, minimum width=80mm, minimum height=80mm, anchor= north west] at (0,-1) {};
-\node [below right] at (rectA.north west) {Alice (95.91.226.214};
+\node [below right] at (rectA.north west) {192.0.2.1};
 
 \node (rectA0) [rectangle, draw, minimum width=22mm, minimum height=60mm, anchor= north west] at (0.35,-2) {};
 \node [] at (rectA0.center) {test0};
@@ -294,7 +252,7 @@ Eine Schematische Darstellung des Beispiels ist in~\ref{fig:schem} zu sehen.
 \node [] at (rectA2.center) {test2};
 
 \node (rectB) [rectangle, draw, minimum width=80mm, minimum height=80mm, anchor= north west] at (8,-1) {};
-\node [below right] at (rectB.north west) {Bob (95.91.225.215)};
+\node [below right] at (rectB.north west) {192.0.2.2};
 
 \node (rectB0) [rectangle, draw, minimum width=23mm, minimum height=60mm, anchor= north west] at (8.35,-2) {};
 \node [] at (rectB0.center) {test3};
@@ -303,15 +261,93 @@ Eine Schematische Darstellung des Beispiels ist in~\ref{fig:schem} zu sehen.
 \node (rectB2) [rectangle, draw, minimum width=23mm, minimum height=60mm, anchor= north west] at (13.45,-2) {};
 \node [] at (rectB2.center) {test5};
 \end{tikzpicture}
-\caption{Schematische Darstellung einer Visualitionmöglichkeit der Baumstruktur}
+\caption{Schematische Darstellung der Visualitionmöglichkeit der Baumstruktur}
 \label{fig:schem}
 \end{figure}
+ 
+Die HTML-Seite ist in Abbildung~\ref{fig:VisualPageAll} zusehen. 
+Es wird eine Baumkarte anhand der IP-Adresse erzeugt. 
+Im linken Bereich des Fensters ist der Navigationsbereich zu erkennen. 
+Es wird das ausgewählte Set A angezeigt, welches für die ungeschützte Datenmenge steht, Set B steht somit für die geschützte Datenmenge.
+Zum wechseln zwischen den beiden Datenmengen sind zwei Schaltflächen mit den Beschreibungen A und B zu erkennen.
+Unter den beiden Schaltflächen sind zwei Auswählmenüs, das obere zur Auswahl der Visualisierungsmethode, das untere zur Auswahl der Eigenschaft, welche zum erstellen der Baumkarte verwendet werden soll.
+Darunter sind verschiedene Paragraphen, welche die Eigenschaften einer ausgewählten Datei wieder geben.
+Die ausgewählte Datei in der Abbildung ist dataAlice1, welche in der Visualisierung im rechten Teil des Fensters als linke grüne Box zu erkennen ist.
+Durch das anklicken der Box werden die Eigenschaften dieser Datei angezeigt. 
+Dargestellt wird ein Beispiel nach dem in Kapitel~\ref{Kap:Szenarios} aufgeführten Beispielszenarios.
+Eine genauere Beschreibung der Visualisierung im rechten Teil der Abbildung~\ref{fig:VisualPageAll} folgt im nächsten Kapitel. 
+
+\begin{figure}[H]
+\includegraphics[width=0.7\textwidth]{../pic/VisualPageAll.png}
+\captionof{figure}{FileEntryVisual HTML-Seite mit Beispieldaten aus Kapitel~\ref{Kap:Szenarios}}
+\label{fig:VisualPageAll}
+\end{figure}
+
+\todo{FileEntryPage beschreiben und Funktionen zeigen}
+
+\chapter{Hauptteil} \label{Kap:Szenarios}
+
+Um die Visualisierungen darstellen zu können werden Daten benötigt, die verschiedenen Benutzern gehören.
+Diese Daten sollen wie bereits ausgeführt als geschützte Daten und ungeschützte Daten vorhanden sein. 
+Dafür wird im folgenden ein Szenario definiert, anhand welchem die Visualisierungen Beispielhaft dargestellt werden. 
+Dieses Beispiel ist Hypothetisch und es gibt keine zugrunde liegenden Daten. 
+Die Verkehrs- und Metadaten werden für jeden Benutzer so gewählt das diese sich unterscheiden. 
+Für die genauen Daten werden Standartwerte und Beispieledaten aus anderen Quellen verwendet. 
+
+    \section{Beispiel: Alice und Bob}
+Um die Visualisierungen an einem Beispiel zu erläutern wird ein Szenario definiert welches die Benutzung des Dokumentenspeichers und die verwendeten Daten definiert.
+Dazu werden zwei Benutzer Alice und Bob definiert, welche sich beide in Hamburg befinden und sich in den Verkehrs- und Metadaten unterscheiden, sodass wir sie anhand dieser klar unterscheiden können.
+Alice und Bob laden jeweils drei hypothetische Dateien mit und ohne die Verwendung einer Methode zum Anonymisieren ihrer Daten hoch.
+Alice Dateien sind dataAlice1, dataAlice2 und dataAlice3 und Bobs Dateien sind dataBob1, dataBob2 und dataBob3 und haben alle unterschiedliche Dateigrößen.
+Die Verkehrs- und Metadaten für diese Dateien sind so gewählt das sie nicht realitätsfern sind und sich eignen die verschiedenen Visualisierungen daran aufzuzeigen. 
+Es wird angenommen das die Dateien von Alice und Bob einzeln in einem Abstand von mehreren Minuten hochgeladen werden.
+Für die Verwendung einer Methode zum Anonymisieren ihrer Daten betrachten zwei Fälle:
+\begin{enumerate}
+\item Die Verwendung eines Proxys, welcher von Alice und Bob verwendet wird.
+\item Die Verwendung des Tor-Netzwerks von Alice und Bob
+\end{enumerate}
+
+Für die Benutzer nehmen wir folgende Verkehrs- und Metadaten an: 
+\paragraph{Alice}
+\begin{itemize}
+  \item IP: 
+  \begin{itemize}
+  \item IP-Adresse: 192.0.2.1
+  \item Lat: 53.5770988464355 Lon: 10.0190000534058
+  \item Land: Deutschland Region: Hamburg Stadt: Hamburg
+  \end{itemize}
+  \item Headerfigerprint:  
+  \begin{itemize}
+  \item Accept: text/html, application/xhtml+xml, application/xml;q=0.9,*/*;q=0.8
+  \item Accept-Encoding: gzip, deflate
+  \item User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10\_11\_6) AppleWebKit/601.7.7 (KHTML, like Gecko) Version/9.1.2 Safari/601.7.7
+  \end{itemize}
+\end{itemize}
+
+\paragraph{Bob}
+\begin{itemize}
+  \item IP: 
+  \begin{itemize}
+  \item IP-Adresse: 192.0.2.2
+  \item Lat: 53.5830001831055 Lon: 9.98130035400391
+  \item Land: Deutschland Region: Hamburg Stadt: Hamburg
+  \end{itemize}
+  \item Headerfigerprint:  
+  \begin{itemize}
+  \item Accept: text/html, application/xhtml+xml, application/xml;q=0.9,*/*;q=0.8
+  \item Accept-Encoding: gzip, deflate
+  \item User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0
+  \end{itemize}
+\end{itemize}
+
+    \subsection{IP-Adressen bezogene Visualisierung} \label{ipVis}
+
 \todo{Die Quotes sind fucked up}
 In Abbildung~\ref{fig:ungIpTM} und der Abbildung~\ref{fig:ungIpM} werden die Beispieldaten von Alice und Bob mit dem Visualisierungstool des Dokumentenspeichers dargestellt.
 Die Abbildung~\ref{fig:ungIpTM} zeigt die Visualisierung der TreeMap nach dem schematischem Beispiel aus Abbildung~\ref{fig:schem}. 
 In Abbildung~\ref{fig:ungIpTM} ist ein blauer Kasten zu erkennen welche den Titel: \glqq Key: ipAddress\grqq trägt und damit die Angezeigt Eigenschaft die IP-Adresse beschreibt.
 In diesen Kasten sind zwei orange Kästen eingebettet.
-Beide Kästen tragen einen Titel, der obere \glqq Key: 95.91.226.214\grqq, die Ip-Adresse von Alice, und der untere \glqq Key: 95.91.225.215\grqq, die IP-Adresse von Bob.
+Beide Kästen tragen einen Titel, der obere \glqq Key: 192.0.2.1\grqq, die Ip-Adresse von Alice, und der untere \glqq Key: 192.0.2.2\grqq, die IP-Adresse von Bob.
 In den oberen Kasten, welcher mit Alice's IP-Adresse betitelt ist, sind 3 weitere grüne Kästen eingebettet, welche für die Dateien test0, test1 und test2 stehen.
 Im unteren Kasten, welcher mit Bob's IP-Adresse betitelt ist, sind 3 rote Kästen eingebettet, welche die Dateien test3, test4 und test5 darstellen.
 Die Farbe der einzelnen Kästen ist ausschlaggebend für die Ebene des Eintrags in der Baumstruktur.
@@ -323,23 +359,13 @@ Ein Punkt bei Lat: 53.5770988464355, Lon: 10.0190000534058, welcher mit dem Vorg
 Der zweite Punkt liegt bei Lat: 53.5830001831055 Lon: 9.98130035400391, welcher dem Vorgegebenen Standpunkt von Bob entspricht.
 Beim überfliegen eines Punktes mit der Maus wird für jeden Punkt die zugehörige IP-Adresse angezeigt und die Anzahl von Dateien, welche von dieser IP-Adresse hochgeladen wurden.
 
-\begin{comment}
-In Abbildung~\ref{fig:ungIpTM} sind die zwei IP-Adressen von Alice(95.91.226.214) und Bob(95.91.225.215) dargestellt.
-Alice sind die Dateien testo, test1 und test2 zugeordnet.
-Bob sind die Dateien test3, test4 und test5 zugeordnet. 
-In Abbildung~\ref{fig:ungIpM} sind zwei Standpunkte im Hamburg zu erkennen.
-Den Standpunkt von Alice (Lat: Lon:) und dem Standpunkt von Bob (Lat: Lon:)
-\end{comment}
-
 \begin{figure}[H]
-%\includegraphics[width=\textwidth]{../pic/IP-Proxy-SetA-tree2.png}
-\includegraphics[width=0.7\textwidth]{../pic/IP-Proxy-SetA-tree2.PNG}
+\includegraphics[width=0.7\textwidth]{../pic/vec/IP-Proxy-SetA-tree3.PNG}
 \captionof{figure}{Darstellung der ungeschützten Beispieldaten von Alice und Bob}
 \label{fig:ungIpTM}
 \end{figure}
 
 \begin{figure}[H]
-%\includegraphics[width=0.5\textwidth]{../pic/IP-Proxy-SetA.png}
 \includegraphics[width=0.5\textwidth , height=0.4\textheight]{../pic/IP-Proxy-SetA.PNG}
 \captionof{figure}{Darstellung der ungeschützten Beispieldaten von Alice und Bob}
 \label{fig:ungIpM}
@@ -354,14 +380,12 @@ In Abbildung~\ref{fig:PIpM} ist ein Standpunkt in Berlin markiert.
 Der Standpunkt liegt bei Lat: 52.5167 Lon: 13.4. 
 
 \begin{figure}[H]
-%\includegraphics[width=0.5\textwidth]{../pic/IP-Proxy-SetA.png}
-\includegraphics[width=0.7\textwidth]{../pic/IP-Proxy-SetB-tree2.PNG}
+\includegraphics[width=0.7\textwidth]{../pic/IP-Proxy-SetB-tree3.PNG}
 \captionof{figure}{Darstellung der Beispieldaten von Alice und Bob bei der Verwendung eines Proxys}
 \label{fig:PIpTM}
 \end{figure}
 
 \begin{figure}[H]
-%\includegraphics[width=\textwidth]{../pic/IP-Proxy-SetB-tree2.png}
 \includegraphics[width=0.5\textwidth , height=0.2\textheight]{../pic/IP-Proxy-SetB.PNG}
 \captionof{figure}{Darstellung der Beispieldaten von Alice und Bob bei der Verwendung eines Proxys}
 \label{fig:PIpM}
@@ -400,14 +424,12 @@ Für jede dieser IP-Adressen ist in der Karte in Abbildung~\ref{fig:TIpM} ein St
 \end{description}
 
 \begin{figure}[H]
-%\includegraphics[width=\textwidth]{../pic/IP-Tor-SetB-tree2.png}
-\includegraphics[width=0.7\textwidth]{../pic/IP-Tor-SetB-tree2.PNG}
+\includegraphics[width=0.7\textwidth]{../pic/IP-Tor-SetB-tree3.PNG}
 \captionof{figure}{Darstellung der Beispieldaten von Alice und Bob bei der Verwendung des Tor-Netzwerks}
 \label{fig:TIpTM}
 \end{figure}
 
 \begin{figure}[H]
-%\includegraphics[width=0.7\textwidth]{../pic/IP-Tor-SetB.png}
 \includegraphics[width=0.4\textwidth]{../pic/IP-Tor-SetB.PNG}
 \captionof{figure}{Darstellung der Beispieldaten von Alice und Bob bei der Verwendung des Tor-Netzwerks}
 \label{fig:TIpM}
@@ -431,8 +453,8 @@ Dem oberen Orangen Kasten mit dem Headerfingerprint db9080... sind drei Dateien 
 Dem unteren Orange n Kasten mit der Headerfingerprint 428eda... sind die drei Dateien test3, test4 unt test5 zugeordnet, welche farblich rot markiert sind.
 
 \begin{figure}[H]
-\includegraphics[width=0.7\textwidth]{../pic/IP-Tor-SetB.png}
-%\includegraphics[width=0.7\textwidth]{../pic/Header-Proxy-SetA.PNG}
+%\includegraphics[width=0.7\textwidth]{../pic/IP-Tor-SetB.png}
+\includegraphics[width=0.7\textwidth]{../pic/Header-Proxy-SetA.png}
 \captionof{figure}{Darstellung der Beispieldaten von Alice und Bob bei der Verwendung eines Proxy}
 \label{fig:ungHTM}
 \end{figure}
@@ -445,8 +467,7 @@ Der Headerfingerprint von Alice ist dargestellt sowie die Dateien von Alice test
 Der Headerfingerprint von Bob ist ebenfalls dargestellt und die Beispieldateien von Bob test3, test4 und test5 sind diesem zugeordnet.
 
 \begin{figure}[H]
-\includegraphics[width=0.7\textwidth]{../pic/IP-Tor-SetB.png}
-%\includegraphics[width=0.7\textwidth]{../pic/Header-Proxy-SetA.PNG}
+\includegraphics[width=0.7\textwidth]{../pic/Header-Proxy-SetA.png}
 \captionof{figure}{Darstellung der Beispieldaten von Alice und Bob bei der Verwendung eines Proxy}
 \label{fig:PHTM}
 \end{figure}
@@ -455,8 +476,7 @@ Bei Betrachtung des zweiten Falls der Verwendung des Tor-Netzwerkes entspricht d
 Zu erkennen ist das ähnlich der Abbildung~\ref{fig:PIpTM} alle Dateien unter einem Headerfingerprint angeordnet sind.
 Header-Tor-SetB.png
 \begin{figure}[H]
-\includegraphics[width=0.7\textwidth]{../pic/IP-Tor-SetB.png}
-%\includegraphics[width=0.7\textwidth]{../pic/Header-Tor-SetB.png}
+\includegraphics[width=0.7\textwidth]{../pic/Header-Tor-SetB.png}
 \captionof{figure}{Darstellung der Beispieldaten von Alice und Bob bei der Verwendung des Tor-Netzwerkes}
 \label{fig:THTM}
 \end{figure}
@@ -471,6 +491,11 @@ Hat die Verwendung des Tor-Netzwerks dazu geführt das die Headerfingerprints vo
 Die Verwendung des Tor-Netzwerks hat somit eine Anonymitätsmenge für die Eigenschaft des Headerfingerprints erzeugt, in welcher Menge die Dateien Anonym sind und den Benutzern Alice und Bob nicht zugeordnet werden können.
 
 
+    
+    \subsection{Zeit bezogene Visualisierung}
+    
+    
+    
     \subsection{Vergleich der Schutzmethoden}
 Bei Betrachtung der Verschiedenen Visualisierungen für die Darstellung des Proxys im Hinblick auf die IP-Adresse in Abbildung~\ref{fig:PIpTM} und dem Headerfingerprint in Abbildung~\ref{fig:PHTM} bietet eine Proxy, wie bereits ausgeführt, nur Schutz im Hinblick auf die IP-Adresse.
 Benutzer welche einen Proxy benutzen sind somit prinzipiell über ihren Headerfingerprint zu identifizieren, falls sie keine weiteren Schutzmethoden verwenden oder ihre Headerfingerprint eindeutig genung ist um daran Identifiziert zu werden. 
