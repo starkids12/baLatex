@@ -62,86 +62,113 @@ Szenarien soll eine grafische Auswertung Unterschiede zwischen anonymisierten Da
 nicht anonymisierten Daten visuell sichtbar machen und die Unterschiede somit leicht zugänglich
 sein.
 
-\chapter*{Zusammenfassung}
+\chapter*{Abstract}
+Um ein mögliches Missbrauchspotential und die generelle Informationsgewinnung aus gesammelten Verkehrs- und Metadaten durch Servicebetreiber deutlich zu machen, wird im Rahmen dieser Arbeit ein einfacher Dokumentenspeicher konzipiert und implementiert.
+Der Dokumentenspeicher sammelt Verkehrs- und Metadaten und besitzt ein Visualisierungstool um diese gesammelten Daten anschaulich grafisch darzustellen.
+\todo{ausgeführt durch ein anderes Wort ersetzten, das passt so nicht}
+Weiter wird ein Szenario definiert und ausgeführt, welches die Benutzung des Dokumentenspeichers exemplarisch aufzeigt.
+Sowie die Visualisierungsmöglichkeiten anhand der Beispieldaten des Szenarios vorführt.
+Anhand der verschiedenen Viesualisierungen durch die Auswirkungen verschieder datenschutzfreundlicher Methoden zum Anonymisieren von Daten, wird der potentielle Informationsverlust für einen Servicebetreiber sichtbar gemacht.
+\begin{comment}
 \begin{enumerate}
 \item Dokumentenspeicherdienste Vorteile (Problemstellung erläutern)
 \item Mögliche Datenschutz unfreundliche Aspekte von gängigen Anbietern (Problemstellung erläutern)
 \item Entwicklung des Dokumentenspeichers und der Visualisierung zur deutlich Veranschaulichung von Potentiellen Unterschieden zwischen der Verwendung von Datenschutz freundlichen Methoden zum Anonymisieren oder nicht. (Bearbeitung der Problemstellung)
 \begin{enumerate}
 \item Implementation des Dokumentenspeichers
-\item Implementation der API zur Datenübergabe 
+\item Implementation der \ac{API} zur Datenübergabe 
 \item Implementation des Visualisierungswerkzeug
-\item Darstellung der Szenarien zur Benutzung des Visualisierungswerkzeug
+    \item Darstellung der Szenarien zur Benutzung des Visualisierungswerkzeug
 \end{enumerate}
 \end{enumerate}
+\end{comment}
 
 \tableofcontents
+\listoffigures
+\chapter*{Abkürzungsverzeichnis}
+\begin{acronym}
+\acro{API}{Application Programming Interface}
+\acro{HTTP}{Hypertext Transfer Protocol}
+\acro{d3.js}{Data-Driven Documents Javascript Framework}
+\acro{IIS}{Internet Information Service}
+\acro{MVC}{Model-view-controller}
+\acro{Lat}{Breitengrad(Latitude)}
+\acro{Lon}{Längengrad(Longitude)}
+\acro{ISP}{Internet Service Provider}
+\end{acronym}
+\addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
+\addcontentsline{toc}{chapter}{Abkürzungsverzeichnis}
 
-\chapter{Einleitung}
+\chapter{Einleitung} \label{Kap:Einleitung}
 
 Dokumentenspeicherdienste sind nützliche Alltagsgegenstände, welche für private sowie kommerzielle Nutzer meist unverzichtbar sind. 
 Sie bieten nicht nur den Speicherplatz für wichtige Dateien der Nutzer sondern stellen auch die Sicherheit der Dateien sicher und machen sie global jederzeit verfügbar. 
-Durch die große Datensammlung dieser Dienstleister machen sie sich nicht nur selbst zu lukrativen Zielen von gezielten Angriffen (Yahoo, UBER etc.), jedoch auch die Dienstleister selber können die Daten auswerten und weitere Metadaten wie z.B. die Dateigröße oder den Autor der Datei sowie Verkehrsdaten wie z.B. die IP-Adresse oder die HTTP Header Felder über die Nutzer sammeln und weiterverwenden. 
+Durch die große Datensammlung dieser Dienstleister machen sie sich nicht nur selbst zu lukrativen Zielen von gezielten Angriffen (Yahoo, UBER etc.), jedoch auch die Dienstleister selber können die Daten auswerten und weitere Metadaten wie z.B. die Dateigröße oder den Autor der Datei sowie Verkehrsdaten wie z.B. die IP-Adresse oder die \ac{HTTP} Header Felder über die Nutzer sammeln und weiterverwenden. 
 Vor allem private Nutzer sind meist gar nicht über die Risiken und das Missbrauchspotenzial aufgeklärt, welche die Verwendung solcher Dienstleistungen mit sich bringen. 
 Methoden zur Verschlüsselung oder das anonymisieren von Daten sind Benutzern meist nicht bekannt, werden von den Dienstanbietern nicht angeboten oder sind schwer umzusetzen, da es einen meist erheblichen Aufwand für die Benutzer bedeutet und Kompetenzen erfordert welche diese Benutzer nicht besitzen. 
 Um genau die Risiken und Missbrauchspotenziale aufzuzeigen wird im Zuge dieser Arbeit ein Dokumentenspeicherdienst entwickelt, welcher Meta- und Verkehrsdaten der Nutzer sammelt und diese in einer visuellen Darstellung zusammenfasst. 
 Zur Implementation des Dokumentenspeichers wird dabei das Microsoft ASP.NET Core Framework verwendet. 
-Das Framework wird benutzt um die Webbenutzeroberfläche sowie die Web API des Dokumentenspeichers zu realisieren. 
-Dazu wird das Javascript Framework Data-Driven Documents, i.d.R. d3.js genannt, zur Visualisierung der Daten verwendet. 
+Das Framework wird benutzt um die Webbenutzeroberfläche sowie die Web \ac{API} des Dokumentenspeichers zu realisieren. 
+Dazu wird das \ac{d3.js} Javascript Framework Data-Driven Documents, zur Visualisierung der Daten verwendet. 
 Der Dokumentenspeicher soll vor allem den Unterschied zwischen der Verwendung von Methoden zur Verschlüsselung oder das anonymisieren von Daten visualisieren und verwaltet dazu zwei verschiedene Datensätze, wobei eine Datenmenge ohne, und eine Datenmenge mit der Verwendung von Methoden zur Verschlüsselung oder das anonymisieren von Daten erzeugt wird. Der entstehende Unterschied der gesammelten Metadaten durch die verschiedenen Methoden führt dann zu einer Veränderung in der Visualisierung, was dann den Effekt und Nutzen der Methoden deutlich sichtbar macht.  
+\section{Related Work}
 
-\chapter{Grundlagen}
+
+\section{Struktur dieser Arbeit}
+\todo{Struktur der Arbeit am Ende hier einmal aufführen.}
+
+
+\chapter{Dokumentenspeicher} \label{Kap:Dokumentenspeicher}
 
     \section{Verwendungszweck des Dokumentenspeichers} 
 
 Der Dokumenspeicher dient vor allem dazu die gesammelten Verkehrs- und Metadaten, mit und ohne die Verwendung von datenschutzfreundlichen Methoden zum Anonymisieren von Daten, zu Vergleichen und deren Unterschiede grafisch möglichst aussagekräftig darzustellen.
-Die Unterschiede in den gesammelten Daten sollen vor allem zeigen, dass durch die gesammelten Verkehr- und Metadaten es möglich ist Dateien welche vom gleichen Benutzer stammen korrekt einander zuzuordnen und das die Verwendung von datenschutzfreundlichen Methoden zum Anonymisieren von Daten dies verhindern kann.
+Die Unterschiede in den gesammelten Daten sollen zeigen, das Benutzer anhand ihrer Verkehrs- und Metadaten identifiziert werden können, solange keine datenschutzfreundlichen Methoden zum Anonymisieren der Daten verwendet werden.
+Dies wird in der Visualisierung sichtbar gemacht, sodass in der Visualisierung Dateien anhand ihrer Verkehrs- und Metadaten gruppiert werden.
+Die dabei erzeugten Mengen sind ohne die Verwendung von datenschutzfreundlichen Methoden zum Anonymisieren von Daten bei z. B. der Eigenschaft der IP-Adresse, so eindeutig das die dargestellten Menge den Dateien eines Benutzers entsprechen.
+Die Verwendung von datenschutzfreundlichen Methoden zum Anonymisieren von Daten kann jedoch die Identifikation des Benutzers anhand der Verkehrs- und Metadaten verhindern, sodass die erzeugten Mengen in der Visualisierung nicht mehr den tatsächlichen Relationen von Benutzern und Daten entspricht.
 Da die Verwendung von Authentifizierungen durch einen Benutzeraccount oder ähnliches diese Zuordnung trivialisiert, wird für diesen Dokumentenspeicher keine solche Authentifizierungen verwendet. 
 Für den Dokumentenspeicher wird angenommen das alle Dateien von den Benutzern so Verschlüsselt wurden, das nur die Benutzer in der Lage sind sie wieder zu Entschlüsseln.
 Daher werden alle Dateien durch kryptografische Methoden logisch getrennt in einen gemeinsamen Speicher abgelegt.
-
 \todo{mandantenspezifische Verschlüsselung, siehe ...}
 Um es zu ermöglichen die gesammelten Daten in die zu Untersuchenden Gruppen von mit und ohne Verwendung von datenschutzfreundlichen Methoden zum Anonymisieren von Daten einzuteilen.
-Bietet der Dokumentenspeicher zwei verschiedene API-Endpunkte an um Dateien hoch zu laden.
+Bietet der Dokumentenspeicher zwei verschiedene \ac{API}-Endpunkte an um Dateien hoch zu laden.
 Die vorgesehene Verwendung sieht also vor das zuerst eine Datenmenge an Testdaten erzeugt wird, anhand welchen ein Szenario mit verschiedenen Benutzern erstellt wird, welche verschiedene Dateien zu verschiedenen Zeitpunkte hochladen sollen. 
 Im zweiten Schritt wird eine oder mehrere datenschutzfreundliche Methoden zum Anonymisieren von Daten gewählt, welche untersucht werden sollen.
 Im dritten Schritt wird das Szenario einmal mit und ohne die Verwendung der gewählten Methoden zum Anonymisieren ausgeführt. 
-Dabei wird sichergestellt das das durch Methoden zu Anonymisieren geschützte Szenario und das ungeschützte Szenario jeweils einen anderen API-Endpunkt ansprechen.
+Dabei wird sichergestellt das das durch Methoden zu Anonymisieren geschützte Szenario und das ungeschützte Szenario jeweils einen anderen \ac{API}-Endpunkt ansprechen.
 Der Dokumentenspeicher besitzt so zwei verschiedene Datenmengen welche sich durch das wählen oder nicht wählen einer Methoden zum Anonymisieren von Daten unterscheiden.
-
 In dem Visualisierungstool des Dokumentenspeichers kann eine Visualiserungsoption ausgewählt werden und beliebig zwischen der geschützten Datenmenge und der ungeschützten Datenmenge gewechselt werden, sodass die Unterschiede anhand der Visualisierung der beiden Datenmengen leicht erkennbar sind.
+Der Dokumentenspeicher kann aber auch zur Visualisierung von einer gemischten Datenmenge aus geschützten und ungeschützten Dateien verwendet werden. Dies wird erreicht, indem die ungeschützten und geschützten Dateien lediglich über einen \ac{API}-Endpunkt hochgeladen werden.
 
-Der Dokumentenspeicher kann aber auch zur Visualisierung von einer gemischten Datenmenge aus geschützten und ungeschützten Dateien verwendet werden. Dies wird erreicht, indem die ungeschützten und geschützten Dateien lediglich über einen API-Endpunkt hochgeladen werden.
+Die Verwendung reiner Datenmengen (aus nur ungeschützten und nur geschützten Dateien) eignet sich somit, die entstehenden Unterschiede durch die Verwendung von datenschutzfreundlichen Methoden zum Anonymisieren von Daten und ohne diese zu Visualisieren und somit ausschließlich diese Unterschiede zu Visualisieren, da die Zugrunde liegenden Dateien sich sonst nicht unterscheiden. 
 
-Die Verwendung reiner Datenmengen (aus nur ungeschützten und nur geschützten Dateien) eignet sich somit, die entstehenden Unterschiede durch die Verwendung von datenschutzfreundlichen Methoden zum Anonymisieren von Daten und ohne diese zu Visualisieren und ausschließlich diese Unterschiede zu Visualisieren, da die Zugrunde liegenden Dateien sich sonst nicht unterscheiden. 
-
-\newpage
     \section{Implementation des Dokumentenspeichers}    
     
     \subsection{Verwendete Technologien}
 Der Dokumentenspeicher wurde mit Hilfe des ASP.NET Core Framework erstellt. 
 Das Framework ist Microsofts aktuellste plattformübergreifendes Framework zur Realisierung von Webanwendungen.
 Das Framework unterstützt alle gängigen Betriebssysteme wie Windows, Mac OS und Linux.
-Mit dem ASP.NET Core entwickelte Webanwendungen lassen sich in gängige Hostingplatformen wie, z.B. das IIS von Microsoft, integrieren oder können auch in einem eigenen Prozess selbst gehostet werden. 
-Das ASP.NET Framework sieht dabei eine MVC-Architektur der Projekte vor und verwenden diese Architektur intern zum Realisieren der Anwendungen. 
+Mit dem ASP.NET Core entwickelte Webanwendungen lassen sich in gängige Hostingplatformen wie, z.B. das \ac{IIS} von Microsoft, integrieren oder können auch in einem eigenen Prozess selbst gehostet werden. 
+Das ASP.NET Framework sieht dabei eine \ac{MVC} Architektur der Projekte vor und verwenden diese Architektur intern zum Realisieren der Anwendungen. 
 Modelle werden in diesem Kontext als Objekte zur Datenrepräsentation verstanden. 
 Views sind die HTML-Seiten welche an die Klienten ausgegeben werden.
 Controller sind zentrale Elemente. 
 Sie stellen die Funktionalität von Views auf der Serverseite dar.
-Sie sind zur Steuerung verschiedener Routen und die Implementation von API-Endpunkten vorgesehen.
+Sie sind zur Steuerung verschiedener Routen und die Implementation von \ac{API}-Endpunkten vorgesehen.
 Dabei verwalten die Controller ebenfalls die zu Grunde liegenden Datenbanken.
     \subsection{Aufbau des Dokumentenspeichers}
 
 Der entwickelt Dokumentenspeicher besteht aus aus einer Controller-Klasse, einer Modell-Klasse und drei verschiedenen View-Klassen.
 Dazu eine Datenbankkontext-Klasse zur Verwaltung der Datenbank und Synchronisation zwischen Modell-Klasse und der verwendeten Datenbank.
-Die Controller-Klasse implementiert verschiedene API-Endpunkte, welche das das hochladen von Dateien und die Abfrage der gesammelten Daten ermöglichen.
+Die Controller-Klasse implementiert verschiedene \ac{API}-Endpunkte, welche das das hochladen von Dateien und die Abfrage der gesammelten Daten ermöglichen.
 
 \begin{description}[style=nextline]   
-\item[/api/GetA] HTTP Get Methode welche die gesammelten Verkehrs- und Metadaten der ungeschützten Daten ausgiebt
-\item[/api/GetB] HTTP Get Methode welche die gesammelten Verkehrs- und Metadaten der geschützten Datensatz ausgiebt
-\item[/api/uploadA] HTTP Post Methode zum hochladen von ungeschützten Dateien
-\item[/api/uploadB] HTTP Post Methode zum hochladen von geschützten Dateien
-\item[api/uploadEmu] HTTP Post Methode zum erzeugen von Dummydaten
+\item[/api/GetA] \ac{HTTP} Get Methode welche die gesammelten Verkehrs- und Metadaten der ungeschützten Daten ausgiebt
+\item[/api/GetB] \ac{HTTP} Get Methode welche die gesammelten Verkehrs- und Metadaten der geschützten Datensatz ausgiebt
+\item[/api/uploadA] \ac{HTTP} Post Methode zum hochladen von ungeschützten Dateien
+\item[/api/uploadB] \ac{HTTP} Post Methode zum hochladen von geschützten Dateien
+\item[api/uploadEmu] \ac{HTTP} Post Methode zum erzeugen von Dummydaten
 \end{description}
 
 Beim hochladen der Dateien werden in der Kontroller-Klasse die Verkehrs und Metadaten der Dateien erfasst, sowie die hochgeladenen Dateien abgespeichert.
@@ -164,7 +191,7 @@ Die Modellklasse hält für alle erfassten Verkehr- und Metadaten Eigenschaften,
 \item[City] Stadt aus welchem die Datei hochgeladen wurde
 \item[Lat] Breitengrad welcher mit der bekannten IP-Adresse assoziiert wird
 \item[Lon] Längengrad welcher mit der bekannten IP-Adresse assoziiert wird
-\item[Isp] Der Internetanbieter welcher der IP zugeordnet ist
+\item[ISP] Der Internetanbieter welcher der IP zugeordnet ist
 \end{description}
 
 Der Dokumentenspeicher besitzt 3 Views, welche HTML-Seiten darstellen welche ein Benutzer über bestimme Routen aufrufen kann. 
@@ -178,7 +205,7 @@ Der Dokumentenspeicher besitzt 3 Views, welche HTML-Seiten darstellen welche ein
 Die FileEntry HTML-Seite ist ist die Startseite der Webanwendung und verweist zu der FileEntryCreate und FileEntryVisual HTML-Seite.
 Die FileEntry HTML-Seite zeigt lediglich die Datenbank in tabellarischer Form und ist hauptsächlich für die Entwicklung gebraucht worden. 
 Dies gilt auch für die FileEntryCreate HTML-Seite. 
-Die FileEntryVisual HTML-Seite ist der Hauptbestandteil dieser Arbeit und stellt die verschiedenen Visualisierungsmöglichkeiten dar.
+Die FileEntryVisual HTML-Seite ist der Hauptbestandteil des Dokumentenspeichers und bietet die verschiedenen Visualisierungsmöglichkeiten an.
 
 Die HTML-Seite lässt sich in zwei Bereiche gliedern.
 Ein Bereich zur Navigation in der Seite und einen Bereich für die Visualisierung.
@@ -215,14 +242,14 @@ Zu jedem dieser Knoten sind die jeweiligen Dateien der beiden Benutzer als Blatt
   	}
   	[Schlüsseleigenschaft: IP-Adresse
   		[192.0.2.1
-			[test0]
-			[test1]
-			[test2]  		
+			[data0]
+			[data1]
+			[data2]  		
   		]
   		[192.0.2.2
-			[test3]  	
-  			[test4]
-  			[test5]
+			[data3]  	
+  			[data4]
+  			[data5]
   		]
   	]
 	\end{forest}
@@ -232,7 +259,7 @@ Zu jedem dieser Knoten sind die jeweiligen Dateien der beiden Benutzer als Blatt
 
 Aus dieser Struktur wird nun die Baumkarte erzeugt. 
 Für jeden Knoten im Baum wird ein Box erzeugt, dabei wird jeder Kindknoten in die Box des Elternknoten eingebettet. 
-Jeder Knoten wird abhängig von einem Elternknoten eingefärbt, durch diese farblichen Unterschide sollen dann die verschiedenen Ebenen und Relationen deutlich werden.
+Jeder Knoten wird abhängig von einem Elternknoten eingefärbt, durch diese farblichen Unterschiede sollen dann die verschiedenen Ebenen und Relationen deutlich werden.
 Eine Schematische Darstellung des Beispiels ist in~\ref{fig:schem} zu sehen.
 
 \begin{figure}[H]
@@ -245,25 +272,33 @@ Eine Schematische Darstellung des Beispiels ist in~\ref{fig:schem} zu sehen.
 \node [below right] at (rectA.north west) {192.0.2.1};
 
 \node (rectA0) [rectangle, draw, minimum width=22mm, minimum height=60mm, anchor= north west] at (0.35,-2) {};
-\node [] at (rectA0.center) {test0};
+\node [] at (rectA0.center) {data0};
 \node (rectA1) [rectangle, draw, minimum width=22mm, minimum height=60mm, anchor= north west] at (2.9,-2) {};
-\node [] at (rectA1.center) {test1};
+\node [] at (rectA1.center) {data1};
 \node (rectA2) [rectangle, draw, minimum width=22mm, minimum height=60mm, anchor= north west] at (5.45,-2) {};
-\node [] at (rectA2.center) {test2};
+\node [] at (rectA2.center) {data2};
 
 \node (rectB) [rectangle, draw, minimum width=80mm, minimum height=80mm, anchor= north west] at (8,-1) {};
 \node [below right] at (rectB.north west) {192.0.2.2};
 
 \node (rectB0) [rectangle, draw, minimum width=23mm, minimum height=60mm, anchor= north west] at (8.35,-2) {};
-\node [] at (rectB0.center) {test3};
+\node [] at (rectB0.center) {data3};
 \node (rectB1) [rectangle, draw, minimum width=23mm, minimum height=60mm, anchor= north west] at (10.9,-2) {};
-\node [] at (rectB1.center) {test4};
+\node [] at (rectB1.center) {data4};
 \node (rectB2) [rectangle, draw, minimum width=23mm, minimum height=60mm, anchor= north west] at (13.45,-2) {};
-\node [] at (rectB2.center) {test5};
+\node [] at (rectB2.center) {data5};
 \end{tikzpicture}
-\caption{Schematische Darstellung der Visualitionmöglichkeit der Baumstruktur}
+\caption{Schematische Darstellung der Visualisierungsmöglichkeiten der Baumstruktur}
 \label{fig:schem}
 \end{figure}
+
+Die Verwendung der Darstellung der Dateien als Standorte auf einer Karte basiert auf der Geo-Position, welche anhand der IP-Adresse ermittelt wurde.
+Für die Bestimmung eines Standortes anhand der IP-Adresse wurde die \ac{API} von (ip-api.com) Verwendet. 
+Von der \ac{API} werden die Längen- und Breitengrade, sowie die Informationen zu Land, Region, Stadt und Internetanbieter abgefragt.
+Die Längen- und Breitengrade werden zur Darstellung der Standorte auf der Karte verwendet.
+
+Die Darstellung als Zeitstrahl zeigt wir viele Dateien zu einen Zeitpunkt hochgeladen wurden.
+Die X-Achse zeigt dabei die Zeit und die Y-Achse die Anzahl der Dateien.
  
 Die HTML-Seite ist in Abbildung~\ref{fig:VisualPageAll} zusehen. 
 Es wird eine Baumkarte anhand der IP-Adresse erzeugt. 
@@ -283,9 +318,7 @@ Eine genauere Beschreibung der Visualisierung im rechten Teil der Abbildung~\ref
 \label{fig:VisualPageAll}
 \end{figure}
 
-\todo{FileEntryPage beschreiben und Funktionen zeigen}
-
-\chapter{Hauptteil} \label{Kap:Szenarios}
+\chapter{Szenario} \label{Kap:Szenarios}
 
 Um die Visualisierungen darstellen zu können werden Daten benötigt, die verschiedenen Benutzern gehören.
 Diese Daten sollen wie bereits ausgeführt als geschützte Daten und ungeschützte Daten vorhanden sein. 
@@ -313,7 +346,7 @@ Für die Benutzer nehmen wir folgende Verkehrs- und Metadaten an:
   \item IP: 
   \begin{itemize}
   \item IP-Adresse: 192.0.2.1
-  \item Lat: 53.5770988464355 Lon: 10.0190000534058
+  \item \ac{Lat}: 53.5770988464355 \ac{Lon}: 10.0190000534058
   \item Land: Deutschland Region: Hamburg Stadt: Hamburg
   \end{itemize}
   \item Headerfigerprint:  
@@ -329,7 +362,7 @@ Für die Benutzer nehmen wir folgende Verkehrs- und Metadaten an:
   \item IP: 
   \begin{itemize}
   \item IP-Adresse: 192.0.2.2
-  \item Lat: 53.5830001831055 Lon: 9.98130035400391
+  \item \ac{Lat}: 53.5830001831055 \ac{Lon}: 9.98130035400391
   \item Land: Deutschland Region: Hamburg Stadt: Hamburg
   \end{itemize}
   \item Headerfigerprint:  
@@ -348,19 +381,19 @@ Die Abbildung~\ref{fig:ungIpTM} zeigt die Visualisierung der TreeMap nach dem sc
 In Abbildung~\ref{fig:ungIpTM} ist ein blauer Kasten zu erkennen welche den Titel: \glqq Key: ipAddress\grqq trägt und damit die Angezeigt Eigenschaft die IP-Adresse beschreibt.
 In diesen Kasten sind zwei orange Kästen eingebettet.
 Beide Kästen tragen einen Titel, der obere \glqq Key: 192.0.2.1\grqq, die Ip-Adresse von Alice, und der untere \glqq Key: 192.0.2.2\grqq, die IP-Adresse von Bob.
-In den oberen Kasten, welcher mit Alice's IP-Adresse betitelt ist, sind 3 weitere grüne Kästen eingebettet, welche für die Dateien test0, test1 und test2 stehen.
-Im unteren Kasten, welcher mit Bob's IP-Adresse betitelt ist, sind 3 rote Kästen eingebettet, welche die Dateien test3, test4 und test5 darstellen.
+In den oberen Kasten, welcher mit der IP-Adresse von Alice betitelt ist, sind 3 weitere grüne Kästen eingebettet, welche für die Dateien dataAlice1, dataAlice2 und dataAlice3 stehen.
+Im unteren Kasten, welcher mit Bob's IP-Adresse betitelt ist, sind 3 rote Kästen eingebettet, welche die Dateien dataBob1, dataBob2 und dataBob3 darstellen.
 Die Farbe der einzelnen Kästen ist ausschlaggebend für die Ebene des Eintrags in der Baumstruktur.
 Der blaue Kasten stellt den Wurzelknoten dar.
 Die orangen Kästen sind die Kästen die eine verwendete IP-Adresse darstellen.
 Die darunter angeordneten Kästen haben eine Farbe abhängig von der IP-Adresse welcher sie zugeordnet sind, sodass alle unter einer IP-Adresse angeordnete Dateien die selber Farbe haben, sodass ihre Zusammengehörigkeit sofort sichtbar ist.In Abbildung~\ref{fig:ungIpM} ist eine Karte von Hamburg Zentrum zu erkennen.
 Auf dieser Karte sind 2 Standpunkte markiert.
-Ein Punkt bei Lat: 53.5770988464355, Lon: 10.0190000534058, welcher mit dem Vorgegebenen Standpunkt von Alice übereinstimmt.
-Der zweite Punkt liegt bei Lat: 53.5830001831055 Lon: 9.98130035400391, welcher dem Vorgegebenen Standpunkt von Bob entspricht.
+Ein Punkt bei \ac{Lat}: 53.5770988464355, \ac{Lon}: 10.0190000534058, welcher mit dem Vorgegebenen Standpunkt von Alice übereinstimmt.
+Der zweite Punkt liegt bei \ac{Lat}: 53.5830001831055 \ac{Lon}: 9.98130035400391, welcher dem Vorgegebenen Standpunkt von Bob entspricht.
 Beim überfliegen eines Punktes mit der Maus wird für jeden Punkt die zugehörige IP-Adresse angezeigt und die Anzahl von Dateien, welche von dieser IP-Adresse hochgeladen wurden.
 
 \begin{figure}[H]
-\includegraphics[width=0.7\textwidth]{../pic/vec/IP-Proxy-SetA-tree3.PNG}
+\includegraphics[width=0.7\textwidth]{../pic/vec/IP-Proxy-SetA-tree3.png}
 \captionof{figure}{Darstellung der ungeschützten Beispieldaten von Alice und Bob}
 \label{fig:ungIpTM}
 \end{figure}
@@ -375,9 +408,9 @@ Die Darstellung der Daten spiegelt somit die definierten Beispieldaten korrekt w
 
 Beim Betrachten des ersten Falls, der Verwendung eines Proxys erhalten wir die Visualisierung wie in Abbildung~\ref{fig:PIpTM} und Abbildung~\ref{fig:PIpM}.
 In Abbildung~\ref{fig:PIpTM} ist nur ein orangener Kasten für die IP-Adresse des Proxys dargestellt.
-Alle sechs definierten Dateien, test0 bis test5, sind dieser IP-Adresse zugeordnet und als grüne Kästen unter der IP-Adresse des Proxys angeordnet.
+Alle sechs definierten Dateien, die Dateien von Alice dataAlice1, dataAlice2 und dataAlice3 und die Dateien von Bob dataBob1, dataBob2 und dataBob3, sind dieser IP-Adresse zugeordnet und als grüne Kästen unter der IP-Adresse des Proxys angeordnet.
 In Abbildung~\ref{fig:PIpM} ist ein Standpunkt in Berlin markiert.
-Der Standpunkt liegt bei Lat: 52.5167 Lon: 13.4. 
+Der Standpunkt liegt bei \ac{Lat}: 52.5167 \ac{Lon}: 13.4. 
 
 \begin{figure}[H]
 \includegraphics[width=0.7\textwidth]{../pic/IP-Proxy-SetB-tree3.PNG}
@@ -405,26 +438,26 @@ In der Abbilung~\ref{fig:TIpTM} sind sechs verschiedene orange Kästen für sech
 Jeder IP-Adresse sind eine Datei zugeordnet, welche als verschieden farblich Markierter Kästen der jeweiligen IP-Adresse untergeordnet wurde.
 \begin{description}[style=nextline]
 %\centering
-\item[81.7.10.29] Datei: test0, Farbe: Grün
-\item[129.13.131.140] Datei: test1, Farbe: Rot
-\item[2.202.33.28] Datei: test2, Farbe: Lila
-\item[81.169.133.228] Datei: test3, Farbe: Braun
-\item[85.197.58.203] Datei: test4, Farbe: Pink
-\item[178.63.80.54] Datei: test5, Farbe: Grau
+\item[81.7.10.29] Datei: dataAlice1, Farbe: Grün
+\item[129.13.131.140] Datei: dataAlice2, Farbe: Rot
+\item[2.202.33.28] Datei: dataAlice3, Farbe: Lila
+\item[81.169.133.228] Datei: dataBob1, Farbe: Braun
+\item[85.197.58.203] Datei: dataBob2, Farbe: Pink
+\item[178.63.80.54] Datei: dataBob2, Farbe: Grau
 \end{description}
 
 Für jede dieser IP-Adressen ist in der Karte in Abbildung~\ref{fig:TIpM} ein Standort abgebildet, welche über Deutschland verteilt sind. 
 \begin{description}
-\item[1] Nuremberg - Lat:50.8919 Lon:11.8682
-\item[2] Karlsruhe (Innenstadt-Ost) - Lat:49.0096 Lon:8.41217
-\item[3] Frankfurt am Main - Lat:50.1109 Lon:8.68213
-\item[4] Berlin (Charlottenburg-Wilmersdorf) - Lat:52.5239 Lon:13.3214
-\item[5] Cologne - Lat:50.9872 Lon:6.89416
-\item[6] Falkenstein - Lat:49.0976 Lon:12.4869
+\item[1] Nuremberg - \ac{Lat}:50.8919 \ac{Lon}:11.8682
+\item[2] Karlsruhe (Innenstadt-Ost) - \ac{Lat}:49.0096 \ac{Lon}:8.41217
+\item[3] Frankfurt am Main - \ac{Lat}:50.1109 \ac{Lon}:8.68213
+\item[4] Berlin (Charlottenburg-Wilmersdorf) - \ac{Lat}:52.5239 \ac{Lon}:13.3214
+\item[5] Cologne - \ac{Lat}:50.9872 \ac{Lon}:6.89416
+\item[6] Falkenstein - \ac{Lat}:49.0976 \ac{Lon}:12.4869
 \end{description}
 
 \begin{figure}[H]
-\includegraphics[width=0.7\textwidth]{../pic/IP-Tor-SetB-tree3.PNG}
+\includegraphics[width=0.7\textwidth]{../pic/IP-Tor-SetB-tree3.png}
 \captionof{figure}{Darstellung der Beispieldaten von Alice und Bob bei der Verwendung des Tor-Netzwerks}
 \label{fig:TIpTM}
 \end{figure}
@@ -445,12 +478,12 @@ Die Betrachtung der beiden Fälle zeigt verschiedene Möglichkeiten der Anonymis
 Beide Schutzmethoden haben im Hinblick auf die IP-Adresse einen derart ausreichenden Effekt gehabt, das die Visualisierungen der Beispieldaten mit und ohne die Verwendung der Schutzmethode klar erkennbare Unterschiede in der Visualisierung erzeugt haben.
 
     \subsection{Headerfingerprint bezogene Visualisierung}
-Der Headerfingerprint wird wie im Kapitel~\ref{ipVis} beschrieben mit einer sog. TreeMap und einer dieser TreeMap zugrundeliegender Baumstruktur.
+Der Headerfingerprint wird wie im Kapitel~\ref{ipVis} beschrieben mit einer sog. Baumkarte und einer dieser Baumkarte zugrundeliegender Baumstruktur.
 Nur die Schlüsseleigenschaft wird für diese Visualisierung von der IP-Adresse auf den Headerfingerprint geändert.
 Für die ungeschützten Beispieldaten von Alice und Bob erhalten wir die Visualisierung nach Abbildung~\ref{fig:ungHTM}.
 Zuerkennen sind zwei orange Kästen für die beiden verschiedenen Headerfingerprints.
-Dem oberen Orangen Kasten mit dem Headerfingerprint db9080... sind drei Dateien test0, test1 und test2 zugeordnet, welche alle farblich grün markiert sind.
-Dem unteren Orange n Kasten mit der Headerfingerprint 428eda... sind die drei Dateien test3, test4 unt test5 zugeordnet, welche farblich rot markiert sind.
+Dem oberen Orangen Kasten mit dem Headerfingerprint db9080... sind drei Dateien dataAlice1, dataAlice2 und dataAlice3 zugeordnet, welche alle farblich grün markiert sind.
+Dem unteren Orangen Kasten mit der Headerfingerprint 428eda... sind die drei Dateien dataBob1, dataBob2 und dataBob3 zugeordnet, welche farblich rot markiert sind.
 
 \begin{figure}[H]
 %\includegraphics[width=0.7\textwidth]{../pic/IP-Tor-SetB.png}
@@ -459,12 +492,12 @@ Dem unteren Orange n Kasten mit der Headerfingerprint 428eda... sind die drei Da
 \label{fig:ungHTM}
 \end{figure}
 
-Wie in Abbildung~\ref{fig:ungIpTM} stellt Abbildung~\ref{fig:ungHTM} die Zusammengehörigkeit von den Dateien test0, test1 und test2 sowie den Dateien test3, test4 und test5 richtig dar.
+Wie in Abbildung~\ref{fig:ungIpTM} stellt Abbildung~\ref{fig:ungHTM} die Zusammengehörigkeit von den Dateien dataAlice1, dataAlice2 und dataAlice3 sowie den Dateien dataBob1, dataBob2 und dataBob3 richtig dar.
 
 Bei Betrachtung der Visualisierung der Beispieldaten bei der Verwendung eines Proxys erhalten wir die Visualisierung nach Abbildung~\ref{fig:PHTM}.
 Diese Visualisierung ist mit der Visualisierung der ungeschützten Beispieldaten in Abbildung~\ref{fig:ungHTM} identisch. 
-Der Headerfingerprint von Alice ist dargestellt sowie die Dateien von Alice test0, test1 und test2 sind diesem Headerfingerprint zugeordnet.
-Der Headerfingerprint von Bob ist ebenfalls dargestellt und die Beispieldateien von Bob test3, test4 und test5 sind diesem zugeordnet.
+Der Headerfingerprint von Alice ist dargestellt sowie die Dateien von Alice dataAlice1, dataAlice2 und dataAlice3 sind diesem Headerfingerprint zugeordnet.
+Der Headerfingerprint von Bob ist ebenfalls dargestellt und die Beispieldateien von Bob dataBob1, dataBob2 und dataBob3 sind diesem zugeordnet.
 
 \begin{figure}[H]
 \includegraphics[width=0.7\textwidth]{../pic/Header-Proxy-SetA.png}
@@ -490,11 +523,8 @@ Hat die Verwendung des Tor-Netzwerks dazu geführt das die Headerfingerprints vo
 
 Die Verwendung des Tor-Netzwerks hat somit eine Anonymitätsmenge für die Eigenschaft des Headerfingerprints erzeugt, in welcher Menge die Dateien Anonym sind und den Benutzern Alice und Bob nicht zugeordnet werden können.
 
-
-    
     \subsection{Zeit bezogene Visualisierung}
-    
-    
+Für beide Verfahren 
     
     \subsection{Vergleich der Schutzmethoden}
 Bei Betrachtung der Verschiedenen Visualisierungen für die Darstellung des Proxys im Hinblick auf die IP-Adresse in Abbildung~\ref{fig:PIpTM} und dem Headerfingerprint in Abbildung~\ref{fig:PHTM} bietet eine Proxy, wie bereits ausgeführt, nur Schutz im Hinblick auf die IP-Adresse.
@@ -508,31 +538,34 @@ Aus dem definierten Szenario lässt sich schließen das während die Verwendung 
 % Schluss
 \chapter{Schluss}
 \section{Zusammenfassung der Ergebnisse}
-\begin{itemize}
-\item Funktionalität des Dokumentenspeichers
-\item Verwendungszweck des Dokumentenspeichers erfüllt?
-\item Auswertung der Szenarien
-\item Konklusion
-\end{itemize}
 
-\section{Limitierungen}
-\begin{itemize}
-\item Dokumentenspeicher sehr simple, nicht vollständig implementiert
-\item Dokumentenspeicher reicht für Darstellung von einfachen Szenarien, Verwendung von echt Daten möglich, jedoch Visualisierungen passend ? Aussagekräftig ?
-\item Einfache Verwendung von Headern und verschlüssleung, verbesserungsmöglichkeiten an vielen stellen.
-\item Viele Annahmen sind für die Verwendung des Dokumentenspeichers getroffen
-\end{itemize}
+Im Rahmen dieser Arbeit wurde ein einfacher Dokumentenspeicher sowohl konzipiert als auch implementiert.
+Entsprechend der Aufgabenstellung ist das Verhalten des Dokumentenspeichers so gewählt das die Verkehrs- und Metadaten der hochgeladenen Dateien gesammelt und anschließend Visualisiert werden.
+Dazu wurden verschiedene Verwendungsmöglichkeiten im Hinblick auf das Hochladen von Dateien geschaffen.
+Zur Darstellung der gesammelten Daten wurden verschiedene Visualisierungsmöglichkeiten implementiert.
+Diese Visualisierungsmöglichkeiten werden anhand eines Beispielszenarios vorgestellt.
+In diesem Szenario wird die Benutzung das Dokumentenspeichers mit und ohne die Verwendung von datenschutzfreundlichen Methoden zum Anonymisieren von Daten vorgestellt.
+Es werden verschiedene Methoden zum Anonymisieren von Daten betrachtet.
+Die Unterschiede zwischen Anonymisierten Daten und nicht anonymisierten Daten sowie den gewählten Methoden werden anhand von Abbildungen gezeigt und ausgewertet.
+Die Auswertung stellt vor allem geschützte und ungeschützte Datenmengen gegenüber.
+Anhand der Visualisierungen und der Auswertung kann eingeschätzt werden, was einen Effekt die Verwendung einer datenschutzfreundlichen Methode zum Anonymisieren von Daten auf die Möglichkeit darauf hat ob ein Servicebetreiber aus der Verkehrs- und Metadaten korrekte Informationen über einen Benutzer ableiten kann.
 
-\section{Ausblick}
-\begin{itemize}
-\item Verbesserung der Implementierung des Dokumentenspeichers: 
-    \begin{itemize}
-    \item Einfachere Benutzung
-    \item Ausbau der UI(HTML-Seiten) für bessere intuitive Verwendung
-    \item Verwendung eines Aussagekräftigeren Verfahrung zur bestimmung des Headerfingerprint
-    \item Bereitstellung von mehr Möglichkeiten zur Visualisierung, z. B. die Verwendung der TreeMap über alle Eigenschaften 
-    \end{itemize}
-\item Evulation der Visualisierungen im bezug auf die Angemssenheit und Aussagekräftigkeit der Visualisierung.
-\end{itemize}
 
+\section{Limitierungen \& Ausblick}
+Der Dokumentenspeicher erfüllt seine Funktion gemessen an seinen Verwendungszweck, jedoch gibt es einige Aspekte, anhand welcher der Dokumentenspeicher verbessert werden kann.
+Momentan ist Dokumentenspeicher sehr einfach aufgebaut und hat nur eine kleine Menge an Features.
+Es können Dateien hoch und runter geladen werden und die gesammelten Verkehrs- und Metadaten anhand weniger einfacher Visualisierungen dargestellt werden.
+Weitere Arbeitsmöglichkeiten wäre die Funktionalität des Dokumentenspeichers zu erweitern. 
+Es könnten Features wie das ersetzten von bereits hochgeladenen Dateien durch eine neue Version implementiert werden, genauso wie die Umstrukturierung der der HTML-Seiten hinsichtlich einer Verbesserung der Benutzerfreundlichkeit und dem Aussehen.
+Weiter wäre es sinnvoll die Verwendeten Verfahren zum Identifizieren von Benutzern, bisher hauptsächlich IP-Adresse und \ac{HTTP} Fingerabdruck durch weitere Methoden zur Identifikation eines Benutzers zu erweitern und die bisherigen Verfahren zu erweitern, sodass die recht einfach gehaltene Implementation durch eine fundiertere abgelöst wird.
+Die Visualisierung selbst basiert momentan auf den einzelnen Eigenschaften die im Dokumentenspeicher gesammelten werden. 
+Diese Eigenschaften können momentan nur durch die Baumkarte dargestellt werden, was die Gruppierungen der Eigenschaften darstellt anhand deren die Nutzerdaten einem bestimmten Benutzer zugeordnet werden. 
+Während dieser Ansatz hinreichend ist um in einem einfachen dafür konstruierten Fall diese Zuordnungen zu zeigen ist es fraglich ob diese Ansatz bei echt Daten zuverlässige Ergebnisse liefert.
+Zur Verbesserung diese Ansatz sollte in zukünftigen Arbeiten, dieser Ansatz ersetzt werden, sodass anstelle der Eigenschaften aus Verkehrs- und Metadaten Benutzerprofile angelegt werden, welche aus den gesammelten Verkehrs- und Metadaten der Dateien erzeugt werden. 
+Beim hochladen einer Datei wird also für einen Benutzer eine Signatur erzeugt die durch die Verfahren zur Identifikation aus der Verkehrs- und Metadaten besteht. 
+Beim hochladen weitere Dateien wird für diese Signatur getestet ob dieser Benutzer bereits existiert, in dem Fall wird die Datei diesem Benutzer direkt zu geordnet, oder nicht, dann wird ein neuer Benutzer angelegt.
+Durch einen solchen Ansatz ist eine Datei-Benutzer Relation viel eindeutiger.
+Zudem ist die Datei-Benutzer Relation in diesem Ansatz teil der gespeicherten Struktur, sodass die zusätzliche Verarbeitung und Auswertung der gesammelten Verkehr- und Metadaten zur Visualisierung nicht mehr nötig ist.
+Anhand dieser Struktur vorhandenen Datei-Benutzer Relation können weitere Visualisierungsmöglichkeiten entwickelt werden. 
+Dazu kommend macht diese Struktur es einfacher die gesammelten Informationen auch anderweitig zu verwenden. 
 \end{document}
